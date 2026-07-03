@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PH Typhoon Watch</title>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --card: #ffffff;
+    --text: #1a1d23;
+    --muted: #5b6270;
+    --border: #e2e5ea;
+    --clear: #1a7f4e;
+    --clear-bg: #e7f6ee;
+    --alert: #b3261e;
+    --alert-bg: #fbe9e7;
+    --link: #2457c1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101216;
+      --card: #1a1d23;
+      --text: #edeef0;
+      --muted: #9aa1ad;
+      --border: #2b2f37;
+      --clear: #4ade8b;
+      --clear-bg: #113322;
+      --alert: #ff6b60;
+      --alert-bg: #3a1614;
+      --link: #7aa2ff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  main { width: 100%; max-width: 560px; }
+  h1 { font-size: 1.4rem; margin: 0 0 4px; }
+  .subtitle { color: var(--muted); font-size: 0.9rem; margin: 0 0 24px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 14px;
+  }
+  .badge.clear { background: var(--clear-bg); color: var(--clear); }
+  .badge.alert { background: var(--alert-bg); color: var(--alert); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+  .message { font-size: 1.05rem; line-height: 1.5; margin: 0 0 16px; }
+  .meta { color: var(--muted); font-size: 0.82rem; }
+  .links { display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem; }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  footer { color: var(--muted); font-size: 0.78rem; margin-top: 24px; line-height: 1.6; }
+  .loading { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>PH Typhoon Watch</h1>
+  <p class="subtitle">Automated daily check of official Philippine tropical cyclone advisories.</p>
+
+  <div class="card" id="status-card">
+    <p class="loading">Loading latest status…</p>
+  </div>
+
+  <div class="card links">
+    <div><a href="https://www.pagasa.dost.gov.ph/tropical-cyclone-bulletin-iframe" target="_blank" rel="noopener">PAGASA official bulletin ↗</a></div>
+    <div><a href="https://www.metoc.navy.mil/jtwc/jtwc.html" target="_blank" rel="noopener">JTWC official warnings ↗</a></div>
+    <div><a href="https://deepmind.google.com/science/weatherlab/" target="_blank" rel="noopener">DeepMind Weather Lab (experimental AI forecasts) ↗</a></div>
+  </div>
+
+  <footer>
+    This is an unofficial aggregator built for personal monitoring. It is not an official warning
+    system — for official advisories, always refer to <strong>PAGASA</strong> (Philippine Atmospheric,
+    Geophysical and Astronomical Services Administration). Status refreshes automatically once a day.
+  </footer>
+</main>
+
+<script>
+  fetch('./data.json?_=' + Date.now())
+    .then(r => r.json())
+    .then(renderStatus)
+    .catch(() => {
+      document.getElementById('status-card').innerHTML =
+        '<p class="loading">Status unavailable right now. Check the official links below.</p>';
+    });
+
+  function renderStatus(data) {
+    const card = document.getElementById('status-card');
+    const isActive = !!data.pagasa_active;
+    const checked = new Date(data.last_checked_utc);
+    const checkedStr = checked.toLocaleString('en-PH', {
+      timeZone: 'Asia/Manila',
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    });
+
+    card.innerHTML = `
+      <span class="badge ${isActive ? 'alert' : 'clear'}">
+        <span class="dot"></span>
+        ${isActive ? 'Active Tropical Cyclone' : 'No Active Tropical Cyclone'}
+      </span>
+      <p class="message">${escapeHtml(data.pagasa_message || '')}</p>
+      <p class="meta">Last checked: ${checkedStr} (Asia/Manila) · Source: PAGASA</p>
+    `;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+</script>
+</body>
+</html>
