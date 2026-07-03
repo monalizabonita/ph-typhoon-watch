@@ -97,7 +97,7 @@
 </main>
 
 <script>
-  fetch('./data.json?_=' + Date.now())
+  fetch('https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/data.json?_=' + Date.now())
     .then(r => r.json())
     .then(renderStatus)
     .catch(() => {
