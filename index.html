@@ -214,29 +214,50 @@
 <div class="tooltip" id="tooltip"></div>
 
 <script>
-  fetch('https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/data.json?_=' + Date.now())
-    .then(r => r.json())
-    .then(renderStatus)
-    .catch(() => {
-      document.getElementById('status-card').innerHTML =
-        '<p class="loading">Status unavailable right now. Check the official links below.</p>';
-    });
+  const REFRESH_MS = 5 * 60 * 1000; // 5 minutes
+  const RAW_BASE = 'https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/';
 
-  fetch('https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/outlook.json?_=' + Date.now())
-    .then(r => r.json())
-    .then(renderOutlook)
-    .catch(() => {
-      document.getElementById('outlook-card').innerHTML =
-        '<p class="loading">Outlook unavailable right now.</p>';
-    });
+  function loadStatus() {
+    fetch(RAW_BASE + 'data.json?_=' + Date.now())
+      .then(r => r.json())
+      .then(renderStatus)
+      .catch(() => {
+        document.getElementById('status-card').innerHTML =
+          '<p class="loading">Status unavailable right now. Check the official links below.</p>';
+      });
+  }
 
-  fetch('https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/history.json?_=' + Date.now())
-    .then(r => r.json())
-    .then(renderTrend)
-    .catch(() => {
-      document.getElementById('trend-body').innerHTML =
-        '<p class="timeline-empty">History unavailable right now.</p>';
-    });
+  function loadOutlook() {
+    fetch(RAW_BASE + 'outlook.json?_=' + Date.now())
+      .then(r => r.json())
+      .then(renderOutlook)
+      .catch(() => {
+        document.getElementById('outlook-card').innerHTML =
+          '<p class="loading">Outlook unavailable right now.</p>';
+      });
+  }
+
+  function loadTrend() {
+    fetch(RAW_BASE + 'history.json?_=' + Date.now())
+      .then(r => r.json())
+      .then(renderTrend)
+      .catch(() => {
+        document.getElementById('trend-body').innerHTML =
+          '<p class="timeline-empty">History unavailable right now.</p>';
+      });
+  }
+
+  function loadAll() {
+    loadStatus();
+    loadOutlook();
+    loadTrend();
+  }
+
+  loadAll();
+  setInterval(loadAll, REFRESH_MS);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') loadAll();
+  });
 
   function renderTrend(history) {
     const body = document.getElementById('trend-body');
