@@ -6,10 +6,13 @@ import sys
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 PAGASA_URL = "https://www.pagasa.dost.gov.ph/tropical-cyclone-bulletin-iframe"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 OUT_PATH = Path(__file__).resolve().parent.parent / "data.json"
+HISTORY_PATH = Path(__file__).resolve().parent.parent / "history.json"
+HISTORY_MAX_DAYS = 90
 
 NO_ACTIVE_PHRASE = "no active tropical cyclone"
 
@@ -34,6 +37,23 @@ def extract_bulletin_text(html: str) -> str:
     return strip_tags(chunk)
 
 
+def update_history(manila_date: str, is_active: bool, message: str) -> None:
+    try:
+        history = json.loads(HISTORY_PATH.read_text())
+        if not isinstance(history, list):
+            history = []
+    except (FileNotFoundError, json.JSONDecodeError):
+        history = []
+
+    entry = {"date": manila_date, "active": is_active, "message": message}
+    history = [h for h in history if h.get("date") != manila_date]
+    history.append(entry)
+    history.sort(key=lambda h: h["date"])
+    history = history[-HISTORY_MAX_DAYS:]
+
+    HISTORY_PATH.write_text(json.dumps(history, indent=2) + "\n")
+
+
 def main() -> int:
     try:
         html = fetch_bulletin()
@@ -49,14 +69,18 @@ def main() -> int:
     else:
         message = text[:600] if text else "Active tropical cyclone bulletin in effect — see PAGASA for details."
 
+    now_utc = datetime.now(timezone.utc)
+    manila_date = now_utc.astimezone(ZoneInfo("Asia/Manila")).strftime("%Y-%m-%d")
+
     data = {
-        "last_checked_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "last_checked_utc": now_utc.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "pagasa_active": not is_clear,
         "pagasa_message": message,
         "source_url": PAGASA_URL,
     }
 
     OUT_PATH.write_text(json.dumps(data, indent=2) + "\n")
+    update_history(manila_date, not is_clear, message)
     print(json.dumps(data, indent=2))
     return 0
 

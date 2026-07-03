@@ -31,8 +31,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet -- data.json outlook.json; then
-            git add data.json outlook.json
+          if ! git diff --quiet -- data.json outlook.json history.json; then
+            git add data.json outlook.json history.json
             git commit -m "Update typhoon status and outlook"
             git push
           else

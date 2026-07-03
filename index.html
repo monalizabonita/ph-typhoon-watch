@@ -16,6 +16,9 @@
     --alert: #b3261e;
     --alert-bg: #fbe9e7;
     --link: #2457c1;
+    --status-good: #0ca30c;
+    --status-critical: #d03b3b;
+    --gridline: #e1e0d9;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -29,6 +32,9 @@
       --alert: #ff6b60;
       --alert-bg: #3a1614;
       --link: #7aa2ff;
+      --status-good: #0ca30c;
+      --status-critical: #d03b3b;
+      --gridline: #2c2c2a;
     }
   }
   * { box-sizing: border-box; }
@@ -78,6 +84,36 @@
   .outlook-block:last-of-type { margin-bottom: 0; }
   .outlook-text { font-size: 0.92rem; line-height: 1.6; margin: 0; white-space: pre-line; }
   .conclusion { font-weight: 600; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--border); }
+  .timeline-scroll { overflow-x: auto; padding-bottom: 4px; }
+  .timeline { display: flex; gap: 2px; min-width: min-content; }
+  .timeline-cell {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    flex: none;
+    cursor: default;
+  }
+  .timeline-cell.good { background: var(--status-good); }
+  .timeline-cell.critical { background: var(--status-critical); }
+  .timeline-empty { color: var(--muted); font-size: 0.88rem; }
+  .legend { display: flex; gap: 16px; margin-top: 12px; font-size: 0.82rem; color: var(--muted); }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+  .legend-dot.good { background: var(--status-good); }
+  .legend-dot.critical { background: var(--status-critical); }
+  .tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: var(--text);
+    color: var(--card);
+    font-size: 0.78rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+    max-width: 220px;
+    line-height: 1.4;
+    z-index: 10;
+    display: none;
+  }
 </style>
 </head>
 <body>
@@ -93,6 +129,16 @@
     <p class="loading">Loading 7-day outlook…</p>
   </div>
 
+  <div class="card" id="trend-card">
+    <h2>Activity Trend</h2>
+    <p class="range" id="trend-range"></p>
+    <div id="trend-body"><p class="loading">Loading history…</p></div>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot good"></span>No active TC</span>
+      <span class="legend-item"><span class="legend-dot critical"></span>Active TC</span>
+    </div>
+  </div>
+
   <div class="card links">
     <div><a href="https://www.pagasa.dost.gov.ph/tropical-cyclone-bulletin-iframe" target="_blank" rel="noopener">PAGASA official bulletin ↗</a></div>
     <div><a href="https://www.metoc.navy.mil/jtwc/jtwc.html" target="_blank" rel="noopener">JTWC official warnings ↗</a></div>
@@ -105,6 +151,8 @@
     Geophysical and Astronomical Services Administration). Status refreshes automatically once a day.
   </footer>
 </main>
+
+<div class="tooltip" id="tooltip"></div>
 
 <script>
   fetch('https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/data.json?_=' + Date.now())
@@ -122,6 +170,54 @@
       document.getElementById('outlook-card').innerHTML =
         '<p class="loading">Outlook unavailable right now.</p>';
     });
+
+  fetch('https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/history.json?_=' + Date.now())
+    .then(r => r.json())
+    .then(renderTrend)
+    .catch(() => {
+      document.getElementById('trend-body').innerHTML =
+        '<p class="timeline-empty">History unavailable right now.</p>';
+    });
+
+  function renderTrend(history) {
+    const body = document.getElementById('trend-body');
+    const range = document.getElementById('trend-range');
+    if (!Array.isArray(history) || history.length === 0) {
+      body.innerHTML = '<p class="timeline-empty">No history yet — this builds up day by day.</p>';
+      return;
+    }
+
+    range.textContent = `${history[0].date} → ${history[history.length - 1].date} (${history.length} day${history.length === 1 ? '' : 's'} tracked)`;
+
+    const scroll = document.createElement('div');
+    scroll.className = 'timeline-scroll';
+    const row = document.createElement('div');
+    row.className = 'timeline';
+
+    const tooltip = document.getElementById('tooltip');
+
+    history.forEach(day => {
+      const cell = document.createElement('div');
+      cell.className = 'timeline-cell ' + (day.active ? 'critical' : 'good');
+      cell.addEventListener('mouseenter', e => {
+        tooltip.textContent = `${day.date}: ${day.active ? 'Active TC' : 'Clear'} — ${day.message}`;
+        tooltip.style.display = 'block';
+        positionTooltip(e);
+      });
+      cell.addEventListener('mousemove', positionTooltip);
+      cell.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+      row.appendChild(cell);
+    });
+
+    function positionTooltip(e) {
+      tooltip.style.left = (e.clientX + 12) + 'px';
+      tooltip.style.top = (e.clientY + 12) + 'px';
+    }
+
+    scroll.appendChild(row);
+    body.innerHTML = '';
+    body.appendChild(scroll);
+  }
 
   function renderOutlook(data) {
     const card = document.getElementById('outlook-card');
