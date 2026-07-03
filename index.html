@@ -72,6 +72,12 @@
   a:hover { text-decoration: underline; }
   footer { color: var(--muted); font-size: 0.78rem; margin-top: 24px; line-height: 1.6; }
   .loading { color: var(--muted); }
+  h2 { font-size: 1rem; margin: 0 0 4px; }
+  .range { color: var(--muted); font-size: 0.82rem; margin: 0 0 12px; }
+  .outlook-block { margin-bottom: 16px; }
+  .outlook-block:last-of-type { margin-bottom: 0; }
+  .outlook-text { font-size: 0.92rem; line-height: 1.6; margin: 0; white-space: pre-line; }
+  .conclusion { font-weight: 600; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--border); }
 </style>
 </head>
 <body>
@@ -81,6 +87,10 @@
 
   <div class="card" id="status-card">
     <p class="loading">Loading latest status…</p>
+  </div>
+
+  <div class="card" id="outlook-card">
+    <p class="loading">Loading 7-day outlook…</p>
   </div>
 
   <div class="card links">
@@ -104,6 +114,32 @@
       document.getElementById('status-card').innerHTML =
         '<p class="loading">Status unavailable right now. Check the official links below.</p>';
     });
+
+  fetch('https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/outlook.json?_=' + Date.now())
+    .then(r => r.json())
+    .then(renderOutlook)
+    .catch(() => {
+      document.getElementById('outlook-card').innerHTML =
+        '<p class="loading">Outlook unavailable right now.</p>';
+    });
+
+  function renderOutlook(data) {
+    const card = document.getElementById('outlook-card');
+    card.innerHTML = `
+      <h2>7-Day Typhoon Outlook</h2>
+      <p class="range">PAGASA TC-Threat Potential · issued ${escapeHtml(data.date_issued || '')}</p>
+      <div class="outlook-block">
+        <p class="range"><strong>Week 1</strong> (${escapeHtml(data.week1_range || '')})</p>
+        <p class="outlook-text">${escapeHtml(data.week1_summary || '')}</p>
+      </div>
+      ${data.week2_range ? `
+      <div class="outlook-block">
+        <p class="range"><strong>Week 2</strong> (${escapeHtml(data.week2_range)})</p>
+        <p class="outlook-text">${escapeHtml(data.week2_summary || '')}</p>
+      </div>` : ''}
+      ${data.conclusion ? `<p class="conclusion">${escapeHtml(data.conclusion)}</p>` : ''}
+    `;
+  }
 
   function renderStatus(data) {
     const card = document.getElementById('status-card');

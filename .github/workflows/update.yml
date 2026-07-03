@@ -18,16 +18,22 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install dependencies
+        run: pip install --quiet -r requirements.txt
+
       - name: Fetch latest PAGASA status
         run: python3 scripts/update_status.py
+
+      - name: Fetch latest 7/14-day outlook
+        run: python3 scripts/update_outlook.py
 
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet -- data.json; then
-            git add data.json
-            git commit -m "Update typhoon status"
+          if ! git diff --quiet -- data.json outlook.json; then
+            git add data.json outlook.json
+            git commit -m "Update typhoon status and outlook"
             git push
           else
             echo "No change in status."
