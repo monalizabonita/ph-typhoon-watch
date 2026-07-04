@@ -6,85 +6,93 @@
 <title>PH Typhoon Watch</title>
 <style>
   :root {
-    --bg: #f4f7fb;
-    --page: #f4f7fb;
-    --card: #ffffff;
-    --text: #101826;
-    --muted: #5b6675;
-    --faint: #8996a6;
-    --border: #e2e8f0;
-    --gridline: #eaeff5;
-    --link: #2563eb;
-    --link-bg: #eaf1fe;
-    --accent-soft: #eef4fe;
-    --shadow: 0 1px 2px rgba(16,24,40,0.05), 0 2px 6px rgba(16,24,40,0.04), 0 10px 24px rgba(16,24,40,0.07);
-    --clear: #16a34a;
-    --clear-bg: #eafbf1;
-    --alert: #dc2626;
-    --alert-bg: #fdecec;
-    --status-good: #16a34a;
-    --status-warning: #d97706;
-    --status-warning-bg: #fef3e2;
-    --status-critical: #dc2626;
+    --bg: #0e1015;
+    --sidebar: #0a0b0f;
+    --card: #17191f;
+    --card-inset: #1e212a;
+    --text: #f2f3f5;
+    --muted: #9a9fab;
+    --faint: #676c78;
+    --border: #262932;
+    --link: #3b82f6;
+    --link-bg: #16233a;
+    --accent-soft: #1e212a;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    --clear: #34d399;
+    --clear-bg: #10251d;
+    --alert: #f87171;
+    --alert-bg: #2c1416;
+    --status-good: #34d399;
+    --status-warning: #fbbf24;
+    --status-warning-bg: #302510;
+    --status-critical: #f87171;
   }
-  @media (prefers-color-scheme: dark) {
+  @media (prefers-color-scheme: light) {
     :root {
-      --bg: #0b1220;
-      --page: #0b1220;
-      --card: #131c2e;
-      --text: #eef2f8;
-      --muted: #9aa8bc;
-      --faint: #71809a;
-      --border: #223047;
-      --gridline: #1b2739;
-      --link: #60a5fa;
-      --link-bg: #16233a;
-      --accent-soft: #14213a;
-      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 4px 10px rgba(0,0,0,0.25), 0 14px 30px rgba(0,0,0,0.3);
-      --clear: #4ade80;
-      --clear-bg: #113322;
-      --alert: #f87171;
-      --alert-bg: #3a1614;
-      --status-good: #4ade80;
-      --status-warning: #fbbf24;
-      --status-warning-bg: #3a2a0f;
-      --status-critical: #f87171;
+      --bg: #eef1f6;
+      --sidebar: #14161c;
+      --card: #ffffff;
+      --card-inset: #f4f6fa;
+      --text: #12141a;
+      --muted: #5b6675;
+      --faint: #8996a6;
+      --border: #e2e8f0;
+      --link: #2563eb;
+      --link-bg: #eaf1fe;
+      --accent-soft: #eef2fb;
+      --shadow: 0 1px 2px rgba(16,24,40,0.05), 0 2px 6px rgba(16,24,40,0.04), 0 10px 24px rgba(16,24,40,0.07);
+      --clear: #16a34a;
+      --clear-bg: #eafbf1;
+      --alert: #dc2626;
+      --alert-bg: #fdecec;
+      --status-good: #16a34a;
+      --status-warning: #d97706;
+      --status-warning-bg: #fef3e2;
+      --status-critical: #dc2626;
     }
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0;
-    min-height: 100vh;
-    background: var(--page);
-    color: var(--text);
+    margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
-  .page { max-width: 1040px; margin: 0 auto; padding: 44px 24px 64px; }
+  .app-shell { display: flex; min-height: 100vh; }
+  .sidebar {
+    width: 220px; flex: none; background: var(--sidebar); padding: 26px 18px;
+    display: flex; flex-direction: column; gap: 4px; position: sticky; top: 0; height: 100vh;
+  }
+  .brand { color: #fff; font-weight: 800; font-size: 1.02rem; letter-spacing: -0.01em; margin: 0 8px 24px; display: flex; align-items: center; gap: 8px; }
+  .nav-item {
+    display: block; color: #b6bac4; text-decoration: none; font-size: 0.9rem; font-weight: 600;
+    padding: 10px 12px; border-radius: 10px; margin-bottom: 2px; transition: background 0.12s ease, color 0.12s ease;
+  }
+  .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
+  .nav-item.active { background: var(--link); color: #fff; }
+  .sidebar-footer { margin-top: auto; color: #676c78; font-size: 0.72rem; padding: 0 12px; line-height: 1.5; }
+  .main-content { flex: 1; min-width: 0; padding: 40px 32px 64px; max-width: 1080px; }
   .page-header {
     display: flex; justify-content: space-between; align-items: flex-start;
-    gap: 16px; margin-bottom: 32px; flex-wrap: wrap;
+    gap: 16px; margin-bottom: 28px; flex-wrap: wrap;
   }
-  .page-header h1 { font-size: 1.8rem; margin: 0 0 6px; font-weight: 800; letter-spacing: -0.02em; }
-  .subtitle { color: var(--muted); font-size: 0.94rem; margin: 0; }
+  .page-header h1 { font-size: 1.6rem; margin: 0 0 6px; font-weight: 800; letter-spacing: -0.02em; }
+  .subtitle { color: var(--muted); font-size: 0.92rem; margin: 0; }
   .refresh-box { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .updated-chip {
     background: var(--card); border: 1px solid var(--border); border-radius: 999px;
     padding: 7px 16px; font-size: 0.78rem; color: var(--muted); white-space: nowrap;
-    box-shadow: 0 1px 2px rgba(16,24,40,0.04);
   }
   .refresh-btn {
     background: var(--link); color: white; border: none; border-radius: 999px;
     padding: 8px 16px; font-size: 0.82rem; font-weight: 600; cursor: pointer;
-    transition: background 0.12s ease, transform 0.1s ease, box-shadow 0.12s ease;
-    box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+    transition: transform 0.1s ease, filter 0.12s ease;
   }
-  .refresh-btn:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.4); }
-  .refresh-btn:disabled { opacity: 0.6; cursor: default; transform: none; box-shadow: none; }
+  .refresh-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .refresh-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
   .card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
-    padding: 26px; box-shadow: var(--shadow); border-left: 3px solid transparent;
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 24px; box-shadow: var(--shadow); border-left: 3px solid transparent;
+    margin-bottom: 22px; scroll-margin-top: 20px;
   }
-  .card.full { margin-bottom: 24px; }
   .card.status-clear { border-left-color: var(--clear); }
   .card.status-alert { border-left-color: var(--alert); }
   .card-header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 6px; }
@@ -97,11 +105,10 @@
   .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
   .message { font-size: 1.08rem; line-height: 1.55; margin: 0 0 16px; }
   .meta { color: var(--muted); font-size: 0.82rem; margin: 0; }
-  h2 { font-size: 1.05rem; margin: 0 0 6px; font-weight: 700; letter-spacing: -0.005em; }
+  h2 { font-size: 1.02rem; margin: 0 0 6px; font-weight: 700; letter-spacing: -0.005em; }
   .range { color: var(--muted); font-size: 0.82rem; margin: 0 0 12px; }
   .outlook-block { margin-bottom: 16px; }
   .outlook-block:last-of-type { margin-bottom: 0; }
-  .outlook-text { font-size: 0.92rem; line-height: 1.6; margin: 0; white-space: pre-line; }
   .conclusion { font-weight: 600; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--border); }
   .storm-callout {
     display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px;
@@ -121,9 +128,7 @@
   .upcoming-callout.level-high { background: var(--alert-bg); color: var(--alert); border-color: var(--alert); }
   .upcoming-callout.level-moderate { background: var(--status-warning-bg); color: var(--status-warning); border-color: var(--status-warning); }
   .threat-strip { display: flex; gap: 10px; margin-bottom: 18px; }
-  .threat-chip {
-    flex: 1; border-radius: 12px; padding: 10px 14px; background: var(--accent-soft);
-  }
+  .threat-chip { flex: 1; border-radius: 12px; padding: 10px 14px; background: var(--card-inset); }
   .threat-chip-label { font-size: 0.74rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; margin: 0 0 4px; }
   .threat-chip-level { font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 6px; }
   .threat-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
@@ -147,7 +152,7 @@
   .region-tag::before { content: '📍'; font-size: 0.75rem; }
   .range-toggle { display: flex; gap: 6px; }
   .range-btn {
-    background: var(--accent-soft); color: var(--muted); border: none; border-radius: 999px;
+    background: var(--card-inset); color: var(--muted); border: none; border-radius: 999px;
     padding: 5px 12px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.12s ease;
   }
   .range-btn.active { background: var(--link); color: white; }
@@ -158,7 +163,7 @@
     width: 18px; height: 18px; border-radius: 6px; flex: none; cursor: pointer;
     transition: transform 0.1s ease, box-shadow 0.1s ease; border: 2px solid transparent;
   }
-  .timeline-cell:hover { transform: scale(1.2); box-shadow: 0 2px 6px rgba(16,24,40,0.15); }
+  .timeline-cell:hover { transform: scale(1.2); }
   .timeline-cell.selected { border-color: var(--text); }
   .timeline-cell.good { background: var(--status-good); }
   .timeline-cell.critical { background: var(--status-critical); }
@@ -169,7 +174,7 @@
   .legend-dot.good { background: var(--status-good); }
   .legend-dot.critical { background: var(--status-critical); }
   .day-detail {
-    margin-top: 16px; padding: 14px 16px; border-radius: 12px; background: var(--accent-soft);
+    margin-top: 16px; padding: 14px 16px; border-radius: 12px; background: var(--card-inset);
     font-size: 0.9rem; line-height: 1.5; display: none;
   }
   .day-detail.visible { display: block; }
@@ -184,74 +189,123 @@
     border-radius: 999px; padding: 9px 18px; font-size: 0.86rem; text-decoration: none; font-weight: 600;
     transition: background 0.12s ease, transform 0.1s ease;
   }
-  .link-pill:hover { background: var(--accent-soft); transform: translateY(-1px); }
-  footer { color: var(--faint); font-size: 0.78rem; margin-top: 28px; line-height: 1.65; }
+  .link-pill:hover { background: var(--card-inset); transform: translateY(-1px); }
+  footer { color: var(--faint); font-size: 0.77rem; margin-top: 24px; line-height: 1.65; }
   .tooltip {
     position: fixed; pointer-events: none; background: var(--text); color: var(--card);
     font-size: 0.78rem; padding: 6px 10px; border-radius: 6px; max-width: 220px;
     line-height: 1.4; z-index: 10; display: none;
   }
+
+  /* Weather forecast card */
+  .wx-current { display: flex; align-items: center; gap: 20px; margin-bottom: 22px; flex-wrap: wrap; }
+  .wx-icon-big { font-size: 3.2rem; line-height: 1; }
+  .wx-temp-big { font-size: 2.6rem; font-weight: 800; line-height: 1; }
+  .wx-cond { color: var(--muted); font-size: 0.95rem; margin-top: 4px; }
+  .wx-stat-row { display: flex; gap: 14px; flex-wrap: wrap; margin-left: auto; }
+  .wx-stat { background: var(--card-inset); border-radius: 12px; padding: 10px 16px; text-align: center; min-width: 84px; }
+  .wx-stat-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; margin: 0 0 3px; }
+  .wx-stat-value { font-size: 1rem; font-weight: 700; margin: 0; }
+  .wx-hourly-scroll { overflow-x: auto; padding-bottom: 6px; margin-bottom: 22px; }
+  .wx-hourly { display: flex; gap: 4px; min-width: min-content; }
+  .wx-hour {
+    flex: none; width: 62px; text-align: center; background: var(--card-inset); border-radius: 12px;
+    padding: 12px 6px; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .wx-hour-label { font-size: 0.72rem; color: var(--muted); }
+  .wx-hour-icon { font-size: 1.3rem; }
+  .wx-hour-temp { font-size: 0.85rem; font-weight: 700; }
+  .wx-daily { display: flex; flex-direction: column; gap: 2px; }
+  .wx-day-row { display: flex; align-items: center; gap: 14px; padding: 10px 4px; border-bottom: 1px solid var(--border); }
+  .wx-day-row:last-child { border-bottom: none; }
+  .wx-day-label { width: 90px; flex: none; font-size: 0.86rem; font-weight: 600; }
+  .wx-day-icon { font-size: 1.2rem; width: 28px; flex: none; }
+  .wx-day-bar-track { flex: 1; height: 6px; background: var(--card-inset); border-radius: 999px; position: relative; }
+  .wx-day-bar-fill { position: absolute; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #60a5fa, #fbbf24); }
+  .wx-day-range { width: 92px; flex: none; text-align: right; font-size: 0.85rem; color: var(--muted); }
+  .wx-day-range strong { color: var(--text); }
 </style>
 </head>
 <body>
-<div class="page">
-  <div class="page-header">
-    <div>
-      <h1>PH Typhoon Watch</h1>
-      <p class="subtitle">Automated daily check of official Philippine tropical cyclone advisories.</p>
-    </div>
-    <div class="refresh-box">
-      <span class="updated-chip" id="updated-chip">Loading…</span>
-      <button class="refresh-btn" id="refresh-btn">Refresh now</button>
-    </div>
-  </div>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">🌀 Typhoon Watch</div>
+    <nav>
+      <a href="#status-card" class="nav-item active">Status</a>
+      <a href="#outlook-card" class="nav-item">7-Day Outlook</a>
+      <a href="#weather-card" class="nav-item">Weather Forecast</a>
+      <a href="#trend-card" class="nav-item">Activity Trend</a>
+      <a href="#links-card" class="nav-item">Official Links</a>
+    </nav>
+    <div class="sidebar-footer">Automated daily check of official Philippine tropical cyclone advisories.</div>
+  </aside>
 
-  <div class="card full" id="status-card">
-    <p class="loading">Loading latest status…</p>
-  </div>
-
-  <div class="card full" id="outlook-card">
-    <p class="loading">Loading 7-day outlook…</p>
-  </div>
-
-  <div class="card full" id="trend-card">
-    <div class="card-header-row">
-      <h2>Activity Trend</h2>
-      <div class="range-toggle" id="range-toggle">
-        <button class="range-btn" data-days="7">7d</button>
-        <button class="range-btn" data-days="30">30d</button>
-        <button class="range-btn" data-days="90">90d</button>
-        <button class="range-btn" data-days="all">All</button>
+  <main class="main-content">
+    <div class="page-header">
+      <div>
+        <h1>PH Typhoon Watch</h1>
+        <p class="subtitle">Automated daily check of official Philippine tropical cyclone advisories.</p>
+      </div>
+      <div class="refresh-box">
+        <span class="updated-chip" id="updated-chip">Loading…</span>
+        <button class="refresh-btn" id="refresh-btn">Refresh now</button>
       </div>
     </div>
-    <p class="range" id="trend-range"></p>
-    <div id="trend-body"><p class="loading">Loading history…</p></div>
-    <div class="legend">
-      <span class="legend-item"><span class="legend-dot good"></span>No active TC</span>
-      <span class="legend-item"><span class="legend-dot critical"></span>Active TC</span>
+
+    <div class="card" id="status-card">
+      <p class="loading">Loading latest status…</p>
     </div>
-    <div class="day-detail" id="day-detail">
-      <div class="day-detail-header">
-        <span class="day-detail-date" id="day-detail-date"></span>
-        <button class="day-detail-close" id="day-detail-close">Close ✕</button>
+
+    <div class="card" id="outlook-card">
+      <p class="loading">Loading 7-day outlook…</p>
+    </div>
+
+    <div class="card" id="weather-card">
+      <h2>Weather Forecast — Manila</h2>
+      <p class="range">General daily weather (temperature, wind, rain) — separate from the tropical cyclone tracking above.</p>
+      <div id="weather-body"><p class="loading">Loading forecast…</p></div>
+    </div>
+
+    <div class="card" id="trend-card">
+      <div class="card-header-row">
+        <h2>Activity Trend</h2>
+        <div class="range-toggle" id="range-toggle">
+          <button class="range-btn" data-days="7">7d</button>
+          <button class="range-btn" data-days="30">30d</button>
+          <button class="range-btn" data-days="90">90d</button>
+          <button class="range-btn" data-days="all">All</button>
+        </div>
       </div>
-      <div id="day-detail-message"></div>
+      <p class="range" id="trend-range"></p>
+      <div id="trend-body"><p class="loading">Loading history…</p></div>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-dot good"></span>No active TC</span>
+        <span class="legend-item"><span class="legend-dot critical"></span>Active TC</span>
+      </div>
+      <div class="day-detail" id="day-detail">
+        <div class="day-detail-header">
+          <span class="day-detail-date" id="day-detail-date"></span>
+          <button class="day-detail-close" id="day-detail-close">Close ✕</button>
+        </div>
+        <div id="day-detail-message"></div>
+      </div>
     </div>
-  </div>
 
-  <div class="card full">
-    <div class="links-row">
-      <a class="link-pill" href="https://www.pagasa.dost.gov.ph/tropical-cyclone-bulletin-iframe" target="_blank" rel="noopener">PAGASA official bulletin ↗</a>
-      <a class="link-pill" href="https://www.metoc.navy.mil/jtwc/jtwc.html" target="_blank" rel="noopener">JTWC official warnings ↗</a>
-      <a class="link-pill" href="https://deepmind.google.com/science/weatherlab/" target="_blank" rel="noopener">DeepMind Weather Lab ↗</a>
+    <div class="card" id="links-card">
+      <div class="links-row">
+        <a class="link-pill" href="https://www.pagasa.dost.gov.ph/tropical-cyclone-bulletin-iframe" target="_blank" rel="noopener">PAGASA official bulletin ↗</a>
+        <a class="link-pill" href="https://www.metoc.navy.mil/jtwc/jtwc.html" target="_blank" rel="noopener">JTWC official warnings ↗</a>
+        <a class="link-pill" href="https://deepmind.google.com/science/weatherlab/" target="_blank" rel="noopener">DeepMind Weather Lab ↗</a>
+      </div>
     </div>
-  </div>
 
-  <footer>
-    This is an unofficial aggregator built for personal monitoring. It is not an official warning
-    system — for official advisories, always refer to <strong>PAGASA</strong> (Philippine Atmospheric,
-    Geophysical and Astronomical Services Administration). Status refreshes automatically every 6 hours.
-  </footer>
+    <footer>
+      This is an unofficial aggregator built for personal monitoring. It is not an official warning
+      system — for official advisories, always refer to <strong>PAGASA</strong> (Philippine Atmospheric,
+      Geophysical and Astronomical Services Administration). Status refreshes automatically every 6 hours.
+      Weather forecast data from Open-Meteo.
+    </footer>
+  </main>
 </div>
 
 <div class="tooltip" id="tooltip"></div>
@@ -259,6 +313,7 @@
 <script>
   const REFRESH_MS = 5 * 60 * 1000; // 5 minutes
   const RAW_BASE = 'https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/';
+  const WEATHER_API = 'https://api.open-meteo.com/v1/forecast?latitude=14.5995&longitude=120.9842&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FManila&forecast_days=7';
 
   let fullHistory = [];
   let selectedRangeDays = 30;
@@ -297,9 +352,19 @@
       });
   }
 
+  function loadWeather() {
+    return fetch(WEATHER_API)
+      .then(r => r.json())
+      .then(renderWeather)
+      .catch(() => {
+        document.getElementById('weather-body').innerHTML =
+          '<p class="loading">Weather forecast unavailable right now.</p>';
+      });
+  }
+
   function loadAll() {
     nextRefreshAt = Date.now() + REFRESH_MS;
-    return Promise.all([loadStatus(), loadOutlook(), loadTrend()]);
+    return Promise.all([loadStatus(), loadOutlook(), loadTrend(), loadWeather()]);
   }
 
   document.getElementById('refresh-btn').addEventListener('click', async (e) => {
@@ -323,6 +388,13 @@
     document.querySelectorAll('.timeline-cell.selected').forEach(c => c.classList.remove('selected'));
   });
 
+  document.querySelectorAll('.sidebar .nav-item').forEach(a => {
+    a.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar .nav-item').forEach(x => x.classList.remove('active'));
+      a.classList.add('active');
+    });
+  });
+
   loadAll();
   setInterval(loadAll, REFRESH_MS);
   document.addEventListener('visibilitychange', () => {
@@ -338,6 +410,80 @@
     const ss = String(secsLeft % 60).padStart(2, '0');
     chip.textContent = `${chip.dataset.baseText} · next auto-refresh in ${mm}:${ss}`;
   }, 1000);
+
+  // WMO weather code -> [icon, label]
+  const WMO_CODES = {
+    0: ['☀️', 'Clear sky'], 1: ['🌤️', 'Mainly clear'], 2: ['⛅', 'Partly cloudy'], 3: ['☁️', 'Overcast'],
+    45: ['🌫️', 'Fog'], 48: ['🌫️', 'Depositing rime fog'],
+    51: ['🌦️', 'Light drizzle'], 53: ['🌦️', 'Drizzle'], 55: ['🌦️', 'Dense drizzle'],
+    56: ['🌧️', 'Freezing drizzle'], 57: ['🌧️', 'Freezing drizzle'],
+    61: ['🌧️', 'Light rain'], 63: ['🌧️', 'Rain'], 65: ['🌧️', 'Heavy rain'],
+    66: ['🌧️', 'Freezing rain'], 67: ['🌧️', 'Freezing rain'],
+    71: ['❄️', 'Light snow'], 73: ['❄️', 'Snow'], 75: ['❄️', 'Heavy snow'], 77: ['❄️', 'Snow grains'],
+    80: ['🌦️', 'Light showers'], 81: ['🌧️', 'Showers'], 82: ['⛈️', 'Violent showers'],
+    85: ['🌨️', 'Snow showers'], 86: ['🌨️', 'Snow showers'],
+    95: ['⛈️', 'Thunderstorm'], 96: ['⛈️', 'Thunderstorm with hail'], 99: ['⛈️', 'Severe thunderstorm with hail'],
+  };
+  function wmoIcon(code) { return (WMO_CODES[code] || ['🌡️', 'Unknown'])[0]; }
+  function wmoLabel(code) { return (WMO_CODES[code] || ['🌡️', 'Unknown'])[1]; }
+
+  function renderWeather(data) {
+    const body = document.getElementById('weather-body');
+    const cur = data.current;
+    const hourly = data.hourly;
+    const daily = data.daily;
+
+    const nowHourIdx = hourly.time.findIndex(t => new Date(t) >= new Date(cur.time));
+    const startIdx = Math.max(0, nowHourIdx);
+    const hourlyHtml = hourly.time.slice(startIdx, startIdx + 24).map((t, i) => {
+      const idx = startIdx + i;
+      const hourLabel = new Date(t).toLocaleTimeString('en-PH', { hour: 'numeric', hour12: true });
+      return `
+        <div class="wx-hour">
+          <div class="wx-hour-label">${i === 0 ? 'Now' : hourLabel}</div>
+          <div class="wx-hour-icon">${wmoIcon(hourly.weather_code[idx])}</div>
+          <div class="wx-hour-temp">${Math.round(hourly.temperature_2m[idx])}°</div>
+        </div>
+      `;
+    }).join('');
+
+    const allMax = Math.max(...daily.temperature_2m_max);
+    const allMin = Math.min(...daily.temperature_2m_min);
+    const span = Math.max(1, allMax - allMin);
+    const dailyHtml = daily.time.map((t, i) => {
+      const dayLabel = i === 0 ? 'Today' : new Date(t).toLocaleDateString('en-PH', { weekday: 'short' });
+      const max = daily.temperature_2m_max[i];
+      const min = daily.temperature_2m_min[i];
+      const leftPct = ((min - allMin) / span) * 100;
+      const widthPct = ((max - min) / span) * 100;
+      return `
+        <div class="wx-day-row">
+          <div class="wx-day-label">${dayLabel}</div>
+          <div class="wx-day-icon">${wmoIcon(daily.weather_code[i])}</div>
+          <div class="wx-day-bar-track">
+            <div class="wx-day-bar-fill" style="left:${leftPct}%; width:${widthPct}%"></div>
+          </div>
+          <div class="wx-day-range"><strong>${Math.round(max)}°</strong> / ${Math.round(min)}°</div>
+        </div>
+      `;
+    }).join('');
+
+    body.innerHTML = `
+      <div class="wx-current">
+        <div class="wx-icon-big">${wmoIcon(cur.weather_code)}</div>
+        <div>
+          <div class="wx-temp-big">${Math.round(cur.temperature_2m)}°C</div>
+          <div class="wx-cond">${wmoLabel(cur.weather_code)} · Feels like ${Math.round(cur.apparent_temperature)}°C</div>
+        </div>
+        <div class="wx-stat-row">
+          <div class="wx-stat"><p class="wx-stat-label">Humidity</p><p class="wx-stat-value">${cur.relative_humidity_2m}%</p></div>
+          <div class="wx-stat"><p class="wx-stat-label">Wind</p><p class="wx-stat-value">${Math.round(cur.wind_speed_10m)} km/h</p></div>
+        </div>
+      </div>
+      <div class="wx-hourly-scroll"><div class="wx-hourly">${hourlyHtml}</div></div>
+      <div class="wx-daily">${dailyHtml}</div>
+    `;
+  }
 
   function renderTrend() {
     const body = document.getElementById('trend-body');
