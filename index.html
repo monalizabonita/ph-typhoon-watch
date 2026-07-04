@@ -80,8 +80,6 @@
   }
   .refresh-btn:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.4); }
   .refresh-btn:disabled { opacity: 0.6; cursor: default; transform: none; box-shadow: none; }
-  .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-bottom: 24px; align-items: stretch; }
-  @media (max-width: 820px) { .grid-row { grid-template-columns: 1fr; } }
   .card {
     background: var(--card); border: 1px solid var(--border); border-radius: 18px;
     padding: 26px; box-shadow: var(--shadow); border-left: 3px solid transparent;
@@ -208,14 +206,12 @@
     </div>
   </div>
 
-  <div class="grid-row">
-    <div class="card" id="status-card">
-      <p class="loading">Loading latest status…</p>
-    </div>
+  <div class="card full" id="status-card">
+    <p class="loading">Loading latest status…</p>
+  </div>
 
-    <div class="card" id="outlook-card">
-      <p class="loading">Loading 7-day outlook…</p>
-    </div>
+  <div class="card full" id="outlook-card">
+    <p class="loading">Loading 7-day outlook…</p>
   </div>
 
   <div class="card full" id="trend-card">
