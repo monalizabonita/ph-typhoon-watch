@@ -198,14 +198,34 @@
   }
 
   /* Weather forecast card */
-  .wx-current { display: flex; align-items: center; gap: 20px; margin-bottom: 22px; flex-wrap: wrap; }
-  .wx-icon-big { font-size: 3.2rem; line-height: 1; }
-  .wx-temp-big { font-size: 2.6rem; font-weight: 800; line-height: 1; }
-  .wx-cond { color: var(--muted); font-size: 0.95rem; margin-top: 4px; }
-  .wx-stat-row { display: flex; gap: 14px; flex-wrap: wrap; margin-left: auto; }
-  .wx-stat { background: var(--card-inset); border-radius: 12px; padding: 10px 16px; text-align: center; min-width: 84px; }
-  .wx-stat-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; margin: 0 0 3px; }
-  .wx-stat-value { font-size: 1rem; font-weight: 700; margin: 0; }
+  .wx-top-row { display: grid; grid-template-columns: 1fr 1.6fr; gap: 16px; margin-bottom: 22px; align-items: stretch; }
+  @media (max-width: 720px) { .wx-top-row { grid-template-columns: 1fr; } }
+  .wx-current-panel {
+    background: var(--card-inset); border-radius: 14px; padding: 20px;
+    display: flex; flex-direction: column; gap: 14px; justify-content: space-between;
+  }
+  .wx-current-top { display: flex; align-items: center; gap: 16px; }
+  .wx-icon-big { font-size: 3rem; line-height: 1; }
+  .wx-temp-big { font-size: 2.4rem; font-weight: 800; line-height: 1; }
+  .wx-cond { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+  .wx-current-meta { color: var(--muted); font-size: 0.78rem; line-height: 1.5; }
+  .wx-highlights-label { font-size: 0.78rem; font-weight: 700; color: var(--muted); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .wx-highlight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .wx-highlight-grid.sub { margin-top: 10px; }
+  .wx-highlight-tile { background: var(--card-inset); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .wx-highlight-label { font-size: 0.68rem; color: var(--muted); }
+  .wx-highlight-value { font-size: 1.05rem; font-weight: 800; }
+  .wx-highlight-sub { font-size: 0.66rem; color: var(--faint); }
+  .wx-uv-gauge { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 2px 0; }
+  .wx-uv-gauge-inner {
+    width: 34px; height: 34px; border-radius: 50%; background: var(--card-inset);
+    display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800;
+  }
+  .wx-sparkline { display: flex; align-items: flex-end; gap: 2px; height: 28px; margin: 2px 0; }
+  .wx-spark-bar { flex: 1; background: var(--link); border-radius: 2px 2px 0 0; min-height: 2px; }
+  .wx-sun-row { display: flex; justify-content: space-between; align-items: center; margin: 2px 0; }
+  .wx-sun-item { text-align: center; font-size: 0.68rem; color: var(--muted); }
+  .wx-sun-item strong { display: block; font-size: 0.84rem; color: var(--text); font-weight: 700; }
   .wx-hourly-scroll { overflow-x: auto; padding-bottom: 6px; margin-bottom: 22px; }
   .wx-hourly { display: flex; gap: 4px; min-width: min-content; }
   .wx-hour {
@@ -231,9 +251,9 @@
   <aside class="sidebar">
     <div class="brand">🌀 Typhoon Watch</div>
     <nav>
-      <a href="#status-card" class="nav-item active">Status</a>
+      <a href="#weather-card" class="nav-item active">Weather Forecast</a>
+      <a href="#status-card" class="nav-item">Status</a>
       <a href="#outlook-card" class="nav-item">7-Day Outlook</a>
-      <a href="#weather-card" class="nav-item">Weather Forecast</a>
       <a href="#trend-card" class="nav-item">Activity Trend</a>
       <a href="#links-card" class="nav-item">Official Links</a>
     </nav>
@@ -252,18 +272,18 @@
       </div>
     </div>
 
+    <div class="card" id="weather-card">
+      <h2>Weather Forecast — Manila</h2>
+      <p class="range">General daily weather (temperature, wind, rain) — separate from the tropical cyclone tracking below.</p>
+      <div id="weather-body"><p class="loading">Loading forecast…</p></div>
+    </div>
+
     <div class="card" id="status-card">
       <p class="loading">Loading latest status…</p>
     </div>
 
     <div class="card" id="outlook-card">
       <p class="loading">Loading 7-day outlook…</p>
-    </div>
-
-    <div class="card" id="weather-card">
-      <h2>Weather Forecast — Manila</h2>
-      <p class="range">General daily weather (temperature, wind, rain) — separate from the tropical cyclone tracking above.</p>
-      <div id="weather-body"><p class="loading">Loading forecast…</p></div>
     </div>
 
     <div class="card" id="trend-card">
@@ -313,7 +333,7 @@
 <script>
   const REFRESH_MS = 5 * 60 * 1000; // 5 minutes
   const RAW_BASE = 'https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/';
-  const WEATHER_API = 'https://api.open-meteo.com/v1/forecast?latitude=14.5995&longitude=120.9842&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FManila&forecast_days=7';
+  const WEATHER_API = 'https://api.open-meteo.com/v1/forecast?latitude=14.5995&longitude=120.9842&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day&hourly=temperature_2m,weather_code,visibility,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&timezone=Asia%2FManila&forecast_days=7';
 
   let fullHistory = [];
   let selectedRangeDays = 30;
@@ -427,6 +447,18 @@
   function wmoIcon(code) { return (WMO_CODES[code] || ['🌡️', 'Unknown'])[0]; }
   function wmoLabel(code) { return (WMO_CODES[code] || ['🌡️', 'Unknown'])[1]; }
 
+  function uvInfo(uv) {
+    if (uv >= 11) return { label: 'Extreme', color: '#a855f7' };
+    if (uv >= 8) return { label: 'Very High', color: '#f87171' };
+    if (uv >= 6) return { label: 'High', color: '#fb923c' };
+    if (uv >= 3) return { label: 'Moderate', color: '#fbbf24' };
+    return { label: 'Low', color: '#34d399' };
+  }
+
+  function formatTime(iso) {
+    return new Date(iso).toLocaleTimeString('en-PH', { hour: 'numeric', minute: '2-digit', hour12: true });
+  }
+
   function renderWeather(data) {
     const body = document.getElementById('weather-body');
     const cur = data.current;
@@ -435,6 +467,7 @@
 
     const nowHourIdx = hourly.time.findIndex(t => new Date(t) >= new Date(cur.time));
     const startIdx = Math.max(0, nowHourIdx);
+
     const hourlyHtml = hourly.time.slice(startIdx, startIdx + 24).map((t, i) => {
       const idx = startIdx + i;
       const hourLabel = new Date(t).toLocaleTimeString('en-PH', { hour: 'numeric', hour12: true });
@@ -468,16 +501,67 @@
       `;
     }).join('');
 
+    // Wind sparkline: next 12 hours of wind speed
+    const windSeries = hourly.wind_speed_10m.slice(startIdx, startIdx + 12);
+    const windMax = Math.max(1, ...windSeries);
+    const sparkHtml = windSeries.map(w => `<div class="wx-spark-bar" style="height:${Math.max(8, (w / windMax) * 100)}%"></div>`).join('');
+
+    const uv = daily.uv_index_max[0];
+    const uvI = uvInfo(uv);
+    const uvPct = Math.min(100, (uv / 11) * 100);
+
+    const visibilityKm = (hourly.visibility[startIdx] / 1000).toFixed(1);
+
     body.innerHTML = `
-      <div class="wx-current">
-        <div class="wx-icon-big">${wmoIcon(cur.weather_code)}</div>
-        <div>
-          <div class="wx-temp-big">${Math.round(cur.temperature_2m)}°C</div>
-          <div class="wx-cond">${wmoLabel(cur.weather_code)} · Feels like ${Math.round(cur.apparent_temperature)}°C</div>
+      <div class="wx-top-row">
+        <div class="wx-current-panel">
+          <div class="wx-current-top">
+            <div class="wx-icon-big">${wmoIcon(cur.weather_code)}</div>
+            <div>
+              <div class="wx-temp-big">${Math.round(cur.temperature_2m)}°C</div>
+              <div class="wx-cond">${wmoLabel(cur.weather_code)}</div>
+            </div>
+          </div>
+          <div class="wx-current-meta">📍 Manila, PH<br>${new Date(cur.time).toLocaleString('en-PH', { dateStyle: 'medium', timeStyle: 'short' })}</div>
         </div>
-        <div class="wx-stat-row">
-          <div class="wx-stat"><p class="wx-stat-label">Humidity</p><p class="wx-stat-value">${cur.relative_humidity_2m}%</p></div>
-          <div class="wx-stat"><p class="wx-stat-label">Wind</p><p class="wx-stat-value">${Math.round(cur.wind_speed_10m)} km/h</p></div>
+
+        <div>
+          <p class="wx-highlights-label">Today's Highlight</p>
+          <div class="wx-highlight-grid">
+            <div class="wx-highlight-tile">
+              <div class="wx-highlight-label">Wind Status</div>
+              <div class="wx-sparkline">${sparkHtml}</div>
+              <div class="wx-highlight-value">${Math.round(cur.wind_speed_10m)} <span style="font-size:0.7rem; font-weight:600;">km/h</span></div>
+            </div>
+            <div class="wx-highlight-tile" style="align-items:center;">
+              <div class="wx-highlight-label">UV Index</div>
+              <div class="wx-uv-gauge" style="background: conic-gradient(${uvI.color} ${uvPct}%, var(--border) ${uvPct}%)">
+                <div class="wx-uv-gauge-inner">${uv.toFixed(1)}</div>
+              </div>
+              <div class="wx-highlight-sub">${uvI.label}</div>
+            </div>
+            <div class="wx-highlight-tile">
+              <div class="wx-highlight-label">Sunrise &amp; Sunset</div>
+              <div class="wx-sun-row">
+                <div class="wx-sun-item">☀️<br><strong>${formatTime(daily.sunrise[0])}</strong></div>
+                <div class="wx-sun-item">🌙<br><strong>${formatTime(daily.sunset[0])}</strong></div>
+              </div>
+            </div>
+          </div>
+          <div class="wx-highlight-grid sub">
+            <div class="wx-highlight-tile">
+              <div class="wx-highlight-label">Humidity</div>
+              <div class="wx-highlight-value">${cur.relative_humidity_2m}%</div>
+            </div>
+            <div class="wx-highlight-tile">
+              <div class="wx-highlight-label">Visibility</div>
+              <div class="wx-highlight-value">${visibilityKm} <span style="font-size:0.65rem; font-weight:600;">km</span></div>
+            </div>
+            <div class="wx-highlight-tile">
+              <div class="wx-highlight-label">Feels Like</div>
+              <div class="wx-highlight-value">${Math.round(cur.apparent_temperature)}°</div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="wx-hourly-scroll"><div class="wx-hourly">${hourlyHtml}</div></div>
