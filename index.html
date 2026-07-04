@@ -23,6 +23,8 @@
     --alert: #dc2626;
     --alert-bg: #fdecec;
     --status-good: #16a34a;
+    --status-warning: #d97706;
+    --status-warning-bg: #fef3e2;
     --status-critical: #dc2626;
   }
   @media (prefers-color-scheme: dark) {
@@ -44,6 +46,8 @@
       --alert: #f87171;
       --alert-bg: #3a1614;
       --status-good: #4ade80;
+      --status-warning: #fbbf24;
+      --status-warning-bg: #3a2a0f;
       --status-critical: #f87171;
     }
   }
@@ -94,6 +98,32 @@
   .outlook-block:last-of-type { margin-bottom: 0; }
   .outlook-text { font-size: 0.92rem; line-height: 1.6; margin: 0; white-space: pre-line; }
   .conclusion { font-weight: 600; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--border); }
+  .storm-callout {
+    display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px;
+    margin-bottom: 16px; font-size: 0.92rem; font-weight: 600;
+  }
+  .storm-callout .storm-icon { font-size: 1.4rem; line-height: 1; }
+  .storm-callout.level-high { background: var(--alert-bg); color: var(--alert); }
+  .storm-callout.level-moderate { background: var(--status-warning-bg); color: var(--status-warning); }
+  .storm-callout.level-low { background: var(--clear-bg); color: var(--clear); }
+  .threat-strip { display: flex; gap: 10px; margin-bottom: 18px; }
+  .threat-chip {
+    flex: 1; border-radius: 12px; padding: 10px 14px; background: var(--accent-soft);
+  }
+  .threat-chip-label { font-size: 0.74rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; margin: 0 0 4px; }
+  .threat-chip-level { font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+  .threat-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .threat-chip-level.level-high { color: var(--alert); }
+  .threat-chip-level.level-high .threat-dot { background: var(--alert); }
+  .threat-chip-level.level-moderate { color: var(--status-warning); }
+  .threat-chip-level.level-moderate .threat-dot { background: var(--status-warning); }
+  .threat-chip-level.level-low { color: var(--clear); }
+  .threat-chip-level.level-low .threat-dot { background: var(--clear); }
+  .threat-chip-level.level-unknown { color: var(--muted); }
+  .threat-chip-level.level-unknown .threat-dot { background: var(--faint); }
+  .outlook-list { margin: 0; padding-left: 20px; font-size: 0.92rem; line-height: 1.6; }
+  .outlook-list li { margin-bottom: 6px; }
+  .outlook-list li:last-child { margin-bottom: 0; }
   .range-toggle { display: flex; gap: 6px; }
   .range-btn {
     background: var(--accent-soft); color: var(--muted); border: none; border-radius: 999px;
@@ -349,19 +379,77 @@
     body.appendChild(scroll);
   }
 
+  function parseThreatLevel(text) {
+    const t = (text || '').toLowerCase();
+    if (!t) return 'unknown';
+    if (/high (likelihood|probability|chance)/.test(t)) return 'high';
+    if (/moderate (likelihood|probability|chance)/.test(t)) return 'moderate';
+    if (/low (likelihood|probability|chance)/.test(t)) return 'low';
+    return 'unknown';
+  }
+
+  function levelLabel(level) {
+    return { high: 'High', moderate: 'Moderate', low: 'Low', unknown: 'No data' }[level] || 'No data';
+  }
+
+  function extractNamedSystems(text) {
+    const re = /\b(?:Super Typhoon|Typhoon|Tropical Storm|Tropical Depression|TC)\s+([A-Z][A-Za-z]+)\b/g;
+    const names = new Set();
+    let m;
+    while ((m = re.exec(text || '')) !== null) names.add(m[1]);
+    return [...names];
+  }
+
+  function toBulletItems(text) {
+    return (text || '')
+      .split('•')
+      .map(s => s.trim())
+      .filter(Boolean);
+  }
+
   function renderOutlook(data) {
     const card = document.getElementById('outlook-card');
+    const week1Level = parseThreatLevel(data.week1_summary);
+    const week2Level = parseThreatLevel(data.week2_summary);
+    const combinedText = [data.week1_summary, data.week2_summary, data.conclusion].join(' ');
+    const namedSystems = extractNamedSystems(combinedText);
+    const overallLevel = [week1Level, week2Level].includes('high') ? 'high'
+      : [week1Level, week2Level].includes('moderate') ? 'moderate'
+      : [week1Level, week2Level].includes('low') ? 'low' : 'unknown';
+
+    const stormCalloutHtml = namedSystems.length ? `
+      <div class="storm-callout level-${overallLevel === 'unknown' ? 'low' : overallLevel}">
+        <span class="storm-icon">🌀</span>
+        <span>Tracking: ${namedSystems.map(escapeHtml).join(', ')}</span>
+      </div>
+    ` : '';
+
+    const week1Items = toBulletItems(data.week1_summary);
+    const week2Items = toBulletItems(data.week2_summary);
+
     card.innerHTML = `
       <h2>7-Day Typhoon Outlook</h2>
       <p class="range">PAGASA TC-Threat Potential · issued ${escapeHtml(data.date_issued || '')}</p>
+      ${stormCalloutHtml}
+      <div class="threat-strip">
+        <div class="threat-chip">
+          <p class="threat-chip-label">Week 1 (${escapeHtml(data.week1_range || '')})</p>
+          <p class="threat-chip-level level-${week1Level}"><span class="threat-dot"></span>${levelLabel(week1Level)}</p>
+        </div>
+        ${data.week2_range ? `
+        <div class="threat-chip">
+          <p class="threat-chip-label">Week 2 (${escapeHtml(data.week2_range)})</p>
+          <p class="threat-chip-level level-${week2Level}"><span class="threat-dot"></span>${levelLabel(week2Level)}</p>
+        </div>` : ''}
+      </div>
       <div class="outlook-block">
-        <p class="range"><strong>Week 1</strong> (${escapeHtml(data.week1_range || '')})</p>
-        <p class="outlook-text">${escapeHtml(data.week1_summary || '')}</p>
+        <p class="range"><strong>Week 1 details</strong></p>
+        <ul class="outlook-list">${week1Items.map(i => `<li>${escapeHtml(i)}</li>`).join('')}</ul>
       </div>
       ${data.week2_range ? `
       <div class="outlook-block">
-        <p class="range"><strong>Week 2</strong> (${escapeHtml(data.week2_range)})</p>
-        <p class="outlook-text">${escapeHtml(data.week2_summary || '')}</p>
+        <p class="range"><strong>Week 2 details</strong></p>
+        <ul class="outlook-list">${week2Items.map(i => `<li>${escapeHtml(i)}</li>`).join('')}</ul>
       </div>` : ''}
       ${data.conclusion ? `<p class="conclusion">${escapeHtml(data.conclusion)}</p>` : ''}
     `;
