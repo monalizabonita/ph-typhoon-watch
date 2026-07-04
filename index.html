@@ -80,7 +80,7 @@
   }
   .refresh-btn:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.4); }
   .refresh-btn:disabled { opacity: 0.6; cursor: default; transform: none; box-shadow: none; }
-  .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-bottom: 24px; align-items: start; }
+  .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-bottom: 24px; align-items: stretch; }
   @media (max-width: 820px) { .grid-row { grid-template-columns: 1fr; } }
   .card {
     background: var(--card); border: 1px solid var(--border); border-radius: 18px;
@@ -113,6 +113,15 @@
   .storm-callout.level-high { background: var(--alert-bg); color: var(--alert); }
   .storm-callout.level-moderate { background: var(--status-warning-bg); color: var(--status-warning); }
   .storm-callout.level-low { background: var(--clear-bg); color: var(--clear); }
+  .upcoming-callout {
+    display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: 12px;
+    margin-bottom: 16px; border: 1px solid transparent;
+  }
+  .upcoming-callout .storm-icon { font-size: 1.3rem; line-height: 1.3; }
+  .upcoming-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 2px; }
+  .upcoming-sub { font-size: 0.8rem; opacity: 0.85; }
+  .upcoming-callout.level-high { background: var(--alert-bg); color: var(--alert); border-color: var(--alert); }
+  .upcoming-callout.level-moderate { background: var(--status-warning-bg); color: var(--status-warning); border-color: var(--status-warning); }
   .threat-strip { display: flex; gap: 10px; margin-bottom: 18px; }
   .threat-chip {
     flex: 1; border-radius: 12px; padding: 10px 14px; background: var(--accent-soft);
@@ -471,12 +480,24 @@
       </div>
     ` : '';
 
+    const week2Regions = extractRegions(data.week2_summary);
+    const upcomingHtml = (data.week2_summary && (week2Level === 'high' || week2Level === 'moderate')) ? `
+      <div class="upcoming-callout level-${week2Level}">
+        <span class="storm-icon">⚠️</span>
+        <div>
+          <div class="upcoming-title">Upcoming next week${week2Regions.length ? ': possible development near ' + escapeHtml(week2Regions.join(', ')) : ': possible TC development'}</div>
+          <div class="upcoming-sub">${escapeHtml(data.week2_range || '')} · ${levelLabel(week2Level)} likelihood</div>
+        </div>
+      </div>
+    ` : '';
+
     const week1Items = toBulletItems(data.week1_summary);
     const week2Items = toBulletItems(data.week2_summary);
 
     card.innerHTML = `
       <h2>7-Day Typhoon Outlook</h2>
       <p class="range">PAGASA TC-Threat Potential · issued ${escapeHtml(data.date_issued || '')}</p>
+      ${upcomingHtml}
       ${stormCalloutHtml}
       <div class="threat-strip">
         <div class="threat-chip">
