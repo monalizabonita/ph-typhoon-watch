@@ -69,7 +69,25 @@
   .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
   .nav-item.active { background: var(--link); color: #fff; }
   .sidebar-footer { margin-top: auto; color: #676c78; font-size: 0.72rem; padding: 0 12px; line-height: 1.5; }
-  .main-content { flex: 1; min-width: 0; padding: 40px 32px 64px; max-width: 1080px; }
+  .main-content { flex: 1; min-width: 0; padding: 40px 32px 64px; }
+  .table-scroll { overflow-x: auto; }
+  @media (max-width: 760px) {
+    .app-shell { flex-direction: column; }
+    .sidebar {
+      width: 100%; height: auto; position: static; flex-direction: row; align-items: center;
+      padding: 12px 14px; gap: 8px; overflow-x: auto;
+    }
+    .brand { margin: 0; flex: none; }
+    .sidebar nav { display: flex; flex-direction: row; gap: 6px; overflow-x: auto; flex: 1; }
+    .nav-item { white-space: nowrap; margin-bottom: 0; }
+    .sidebar-footer { display: none; }
+    .main-content { padding: 20px 16px 40px; }
+    .page-header h1 { font-size: 1.4rem; }
+    .refresh-box { width: 100%; }
+    .wx-top-row { grid-template-columns: 1fr; }
+    .wx-current-top { flex-wrap: wrap; }
+    .threat-strip { flex-direction: column; }
+  }
   .page-header {
     display: flex; justify-content: space-between; align-items: flex-start;
     gap: 16px; margin-bottom: 28px; flex-wrap: wrap;
