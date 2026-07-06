@@ -367,7 +367,7 @@
         renderStatus(data);
       })
       .catch(() => {
-        fetch(RAW_BASE + 'data.json?_=' + Date.now())
+        return fetch(RAW_BASE + 'data.json?_=' + Date.now())
           .then(r => r.json())
           .then(renderStatus)
           .catch(() => {
@@ -378,6 +378,8 @@
   }
 
   function loadOutlook() {
+    // The outlook PDF is too slow to fetch live per-request (measured 150-180s) — this stays
+    // on the cron-updated copy on GitHub, which now runs every 15 minutes instead of every 6h.
     return fetch(RAW_BASE + 'outlook.json?_=' + Date.now())
       .then(r => r.json())
       .then(renderOutlook)
@@ -455,6 +457,13 @@
   });
 
   showSection('weather-card');
+
+  function updateLiveClock() {
+    const el = document.getElementById('live-clock');
+    if (el) el.textContent = new Date().toLocaleString('en-PH', { timeZone: 'Asia/Manila', dateStyle: 'medium', timeStyle: 'medium' });
+  }
+  updateLiveClock();
+  setInterval(updateLiveClock, 1000);
 
   loadAll();
   setInterval(loadAll, REFRESH_MS);
@@ -563,7 +572,7 @@
               <div class="wx-cond">${wmoLabel(cur.weather_code)}</div>
             </div>
           </div>
-          <div class="wx-current-meta">📍 Manila, PH<br>${new Date(cur.time).toLocaleString('en-PH', { dateStyle: 'medium', timeStyle: 'short' })}</div>
+          <div class="wx-current-meta">📍 Manila, PH<br><span id="live-clock"></span></div>
         </div>
 
         <div>

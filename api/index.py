@@ -1,4 +1,10 @@
-"""Live PAGASA tropical cyclone status — fetched fresh on every request (no cron lag)."""
+"""Live PAGASA tropical cyclone status — fetched fresh on every request (no cron lag).
+
+Note: the 7-day outlook (TC-Threat PDF) is intentionally NOT live-fetched here — that PDF
+download was measured to take 150-180s from this environment (the bulletin page fetch is
+comparatively fast, well under 10s), which is unsafe for a per-request serverless call. The
+outlook instead relies on scripts/update_outlook.py running frequently via cron.
+"""
 import json
 import re
 import urllib.error
