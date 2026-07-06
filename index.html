@@ -358,12 +358,22 @@
   let nextRefreshAt = Date.now() + REFRESH_MS;
 
   function loadStatus() {
-    return fetch(RAW_BASE + 'data.json?_=' + Date.now())
+    // Fetched live from PAGASA on every call (no cron lag) — falls back to the cron-cached
+    // copy on GitHub if the live serverless fetch fails for any reason.
+    return fetch('/api/index?_=' + Date.now())
       .then(r => r.json())
-      .then(renderStatus)
+      .then(data => {
+        if (data.error) throw new Error(data.error);
+        renderStatus(data);
+      })
       .catch(() => {
-        document.getElementById('status-card').innerHTML =
-          '<p class="loading">Status unavailable right now. Check the official links below.</p>';
+        fetch(RAW_BASE + 'data.json?_=' + Date.now())
+          .then(r => r.json())
+          .then(renderStatus)
+          .catch(() => {
+            document.getElementById('status-card').innerHTML =
+              '<p class="loading">Status unavailable right now. Check the official links below.</p>';
+          });
       });
   }
 
@@ -426,12 +436,25 @@
     document.querySelectorAll('.timeline-cell.selected').forEach(c => c.classList.remove('selected'));
   });
 
+  const SECTION_IDS = ['weather-card', 'status-card', 'outlook-card', 'trend-card', 'links-card'];
+
+  function showSection(targetId) {
+    SECTION_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = id === targetId ? '' : 'none';
+    });
+  }
+
   document.querySelectorAll('.sidebar .nav-item').forEach(a => {
-    a.addEventListener('click', () => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
       document.querySelectorAll('.sidebar .nav-item').forEach(x => x.classList.remove('active'));
       a.classList.add('active');
+      showSection(a.getAttribute('href').slice(1));
     });
   });
+
+  showSection('weather-card');
 
   loadAll();
   setInterval(loadAll, REFRESH_MS);
@@ -787,7 +810,9 @@
         ${isActive ? 'Active Tropical Cyclone' : 'No Active Tropical Cyclone'}
       </span>
       <p class="message">${escapeHtml(data.pagasa_message || '')}</p>
-      <p class="meta">Source: PAGASA</p>
+      <p class="meta">Source: PAGASA${data.live ? ' — live' : ' — cached'}
+        · <a href="${data.advisory_url || 'https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe'}" target="_blank" rel="noopener">View Live PAGASA Advisory Map ↗</a>
+      </p>
     `;
 
     const chip = document.getElementById('updated-chip');

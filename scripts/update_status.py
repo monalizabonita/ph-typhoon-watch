@@ -9,6 +9,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 PAGASA_URL = "https://www.pagasa.dost.gov.ph/tropical-cyclone-bulletin-iframe"
+ADVISORY_URL = "https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 OUT_PATH = Path(__file__).resolve().parent.parent / "data.json"
 HISTORY_PATH = Path(__file__).resolve().parent.parent / "history.json"
@@ -77,6 +78,7 @@ def main() -> int:
         "pagasa_active": not is_clear,
         "pagasa_message": message,
         "source_url": PAGASA_URL,
+        "advisory_url": ADVISORY_URL,
     }
 
     OUT_PATH.write_text(json.dumps(data, indent=2) + "\n")
