@@ -291,7 +291,7 @@
     </div>
 
     <div class="card" id="weather-card">
-      <h2>Weather Forecast — Manila</h2>
+      <h2>Weather Forecast</h2>
       <p class="range">General daily weather (temperature, wind, rain) — separate from the tropical cyclone tracking below.</p>
       <div id="weather-body"><p class="loading">Loading forecast…</p></div>
     </div>
@@ -351,11 +351,48 @@
 <script>
   const REFRESH_MS = 5 * 60 * 1000; // 5 minutes
   const RAW_BASE = 'https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/';
-  const WEATHER_API = 'https://api.open-meteo.com/v1/forecast?latitude=14.5995&longitude=120.9842&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day&hourly=temperature_2m,weather_code,visibility,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&timezone=Asia%2FManila&forecast_days=7';
+  const MANILA_LOCATION = { lat: 14.5995, lon: 120.9842, label: 'Manila, PH' };
+
+  function buildWeatherApiUrl(lat, lon) {
+    return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+      '&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day' +
+      '&hourly=temperature_2m,weather_code,visibility,wind_speed_10m' +
+      '&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max' +
+      '&timezone=auto&forecast_days=7';
+  }
 
   let fullHistory = [];
   let selectedRangeDays = 30;
   let nextRefreshAt = Date.now() + REFRESH_MS;
+  let resolvedLocation = null; // cached after first resolution so we don't re-prompt every refresh
+
+  function getUserLocation() {
+    if (resolvedLocation) return Promise.resolve(resolvedLocation);
+    if (!navigator.geolocation) return Promise.resolve(MANILA_LOCATION);
+
+    return new Promise(resolve => {
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`)
+            .then(r => r.json())
+            .then(place => {
+              const label = [place.city || place.locality, place.principalSubdivision || place.countryName]
+                .filter(Boolean).join(', ') || 'Your Location';
+              resolvedLocation = { lat, lon, label };
+              resolve(resolvedLocation);
+            })
+            .catch(() => {
+              resolvedLocation = { lat, lon, label: 'Your Location' };
+              resolve(resolvedLocation);
+            });
+        },
+        () => resolve(MANILA_LOCATION), // permission denied / unavailable — fall back to Manila
+        { timeout: 8000, maximumAge: 10 * 60 * 1000 }
+      );
+    });
+  }
 
   function loadStatus() {
     // Fetched live from PAGASA on every call (no cron lag) — falls back to the cron-cached
@@ -403,9 +440,8 @@
   }
 
   function loadWeather() {
-    return fetch(WEATHER_API)
-      .then(r => r.json())
-      .then(renderWeather)
+    return getUserLocation()
+      .then(loc => fetch(buildWeatherApiUrl(loc.lat, loc.lon)).then(r => r.json()).then(data => renderWeather(data, loc.label)))
       .catch(() => {
         document.getElementById('weather-body').innerHTML =
           '<p class="loading">Weather forecast unavailable right now.</p>';
@@ -509,7 +545,7 @@
     return new Date(iso).toLocaleTimeString('en-PH', { hour: 'numeric', minute: '2-digit', hour12: true });
   }
 
-  function renderWeather(data) {
+  function renderWeather(data, locationLabel) {
     const body = document.getElementById('weather-body');
     const cur = data.current;
     const hourly = data.hourly;
@@ -572,7 +608,7 @@
               <div class="wx-cond">${wmoLabel(cur.weather_code)}</div>
             </div>
           </div>
-          <div class="wx-current-meta">📍 Manila, PH<br><span id="live-clock"></span></div>
+          <div class="wx-current-meta">📍 ${escapeHtml(locationLabel || 'Manila, PH')}<br><span id="live-clock"></span></div>
         </div>
 
         <div>
