@@ -378,7 +378,12 @@
           fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`)
             .then(r => r.json())
             .then(place => {
-              const label = [place.city || place.locality, place.principalSubdivision || place.countryName]
+              // In Metro Manila, BigDataCloud's "city" field collapses every city to "Manila" —
+              // the actual city (e.g. "Mandaluyong City") is in "locality" instead. Elsewhere,
+              // "city" is the more reliable field, so only special-case this for NCR.
+              const isMetroManila = place.countryCode === 'PH' && /national capital region|metro manila|\bncr\b/i.test(place.principalSubdivision || '');
+              const cityName = isMetroManila ? (place.locality || place.city) : (place.city || place.locality);
+              const label = [cityName, place.principalSubdivision || place.countryName]
                 .filter(Boolean).join(', ') || 'Your Location';
               resolvedLocation = { lat, lon, label };
               resolve(resolvedLocation);
