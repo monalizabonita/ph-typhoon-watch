@@ -123,6 +123,19 @@
   .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
   .message { font-size: 1.08rem; line-height: 1.55; margin: 0 0 16px; }
   .meta { color: var(--muted); font-size: 0.82rem; margin: 0; }
+  .advisory-headline {
+    background: var(--alert-bg); color: var(--alert); font-weight: 700; font-size: 0.95rem;
+    line-height: 1.5; padding: 14px 16px; border-radius: 10px; margin-bottom: 16px;
+  }
+  .advisory-meta-row { color: var(--muted); font-size: 0.82rem; margin: -10px 0 16px; }
+  .advisory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 18px; }
+  .advisory-tile { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .advisory-tile-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); margin: 0 0 6px; font-weight: 700; }
+  .advisory-tile-value { font-size: 0.92rem; line-height: 1.45; margin: 0; }
+  .advisory-outlook-title { font-size: 0.85rem; font-weight: 700; margin: 0 0 10px; }
+  .advisory-bullets { margin: 0; padding-left: 20px; }
+  .advisory-bullets li { font-size: 0.88rem; line-height: 1.55; margin-bottom: 10px; }
+  .advisory-pdf-link { display: inline-block; margin-top: 6px; font-size: 0.82rem; color: var(--link); }
   h2 { font-size: 1.02rem; margin: 0 0 6px; font-weight: 700; letter-spacing: -0.005em; }
   .range { color: var(--muted); font-size: 0.82rem; margin: 0 0 12px; }
   .outlook-block { margin-bottom: 16px; }
@@ -271,6 +284,7 @@
     <nav>
       <a href="#weather-card" class="nav-item active">Weather Forecast</a>
       <a href="#status-card" class="nav-item">Status</a>
+      <a href="#advisory-card" class="nav-item">Active Advisory</a>
       <a href="#outlook-card" class="nav-item">7-Day Outlook</a>
       <a href="#trend-card" class="nav-item">Activity Trend</a>
       <a href="#links-card" class="nav-item">Official Links</a>
@@ -298,6 +312,10 @@
 
     <div class="card" id="status-card">
       <p class="loading">Loading latest status…</p>
+    </div>
+
+    <div class="card" id="advisory-card">
+      <p class="loading">Loading advisory…</p>
     </div>
 
     <div class="card" id="outlook-card">
@@ -401,14 +419,18 @@
 
   function loadStatus() {
     // Fetched live from PAGASA on every call (no cron lag) — falls back to the cron-cached
-    // copy on GitHub if the live serverless fetch fails for any reason.
+    // copy on GitHub if the live serverless fetch fails for any reason. The advisory (for
+    // systems outside the PAR, before they get an in-PAR bulletin) has no cached fallback —
+    // it's simply shown as "none" if the live fetch fails, since it's non-essential info.
     return fetch('/api/index?_=' + Date.now())
       .then(r => r.json())
       .then(data => {
-        if (data.error) throw new Error(data.error);
+        if (data.pagasa_active === undefined) throw new Error(data.status_error || 'status unavailable');
         renderStatus(data);
+        renderAdvisory(data.advisory || null);
       })
       .catch(() => {
+        renderAdvisory(null);
         return fetch(RAW_BASE + 'data.json?_=' + Date.now())
           .then(r => r.json())
           .then(renderStatus)
@@ -479,7 +501,7 @@
     document.querySelectorAll('.timeline-cell.selected').forEach(c => c.classList.remove('selected'));
   });
 
-  const SECTION_IDS = ['weather-card', 'status-card', 'outlook-card', 'trend-card', 'links-card'];
+  const SECTION_IDS = ['weather-card', 'status-card', 'advisory-card', 'outlook-card', 'trend-card', 'links-card'];
 
   function showSection(targetId) {
     SECTION_IDS.forEach(id => {
@@ -868,6 +890,45 @@
     const chip = document.getElementById('updated-chip');
     chip.dataset.baseText = `Last checked: ${checkedStr} (Asia/Manila)`;
     chip.textContent = chip.dataset.baseText;
+  }
+
+  function renderAdvisory(advisory) {
+    const card = document.getElementById('advisory-card');
+    if (!advisory) {
+      card.innerHTML = `
+        <h2>Active Advisory</h2>
+        <p class="empty-note">No active PAGASA tropical cyclone advisory right now (this covers systems being tracked outside the Philippine Area of Responsibility, before they get an in-PAR bulletin).</p>
+      `;
+      return;
+    }
+
+    const issuedStr = advisory.issued_at_utc
+      ? new Date(advisory.issued_at_utc).toLocaleString('en-PH', { timeZone: 'Asia/Manila', dateStyle: 'medium', timeStyle: 'short' })
+      : advisory.issued_at_raw;
+
+    const tiles = [
+      ['Location', advisory.location],
+      ['Intensity', advisory.intensity],
+      ['Movement', advisory.movement],
+    ].filter(([, v]) => v).map(([label, value]) => `
+      <div class="advisory-tile">
+        <p class="advisory-tile-label">${escapeHtml(label)}</p>
+        <p class="advisory-tile-value">${escapeHtml(value)}</p>
+      </div>
+    `).join('');
+
+    const bulletsHtml = (advisory.bullets || []).map(b => `<li>${escapeHtml(b)}</li>`).join('');
+
+    card.innerHTML = `
+      <h2>Active Advisory</h2>
+      ${advisory.headline ? `<div class="advisory-headline">${escapeHtml(advisory.headline)}</div>` : ''}
+      <p class="advisory-meta-row">
+        <strong>${escapeHtml(advisory.storm_name || '')}</strong> · Advisory NR. ${escapeHtml(advisory.advisory_number || '?')} · Issued ${escapeHtml(issuedStr || '')} (Asia/Manila)
+      </p>
+      <div class="advisory-grid">${tiles}</div>
+      ${bulletsHtml ? `<p class="advisory-outlook-title">General Outlook for the Forecast Period</p><ul class="advisory-bullets">${bulletsHtml}</ul>` : ''}
+      <a class="advisory-pdf-link" href="${advisory.pdf_url}" target="_blank" rel="noopener">View full PAGASA advisory PDF ↗</a>
+    `;
   }
 
   function escapeHtml(str) {
