@@ -897,11 +897,12 @@
     if (!advisory) {
       card.innerHTML = `
         <h2>Active Advisory</h2>
-        <p class="empty-note">No active PAGASA tropical cyclone advisory right now (this covers systems being tracked outside the Philippine Area of Responsibility, before they get an in-PAR bulletin).</p>
+        <p class="empty-note">No active PAGASA tropical cyclone advisory or bulletin right now.</p>
       `;
       return;
     }
 
+    const docType = advisory.doc_type || 'Advisory';
     const issuedStr = advisory.issued_at_utc
       ? new Date(advisory.issued_at_utc).toLocaleString('en-PH', { timeZone: 'Asia/Manila', dateStyle: 'medium', timeStyle: 'short' })
       : advisory.issued_at_raw;
@@ -920,14 +921,14 @@
     const bulletsHtml = (advisory.bullets || []).map(b => `<li>${escapeHtml(b)}</li>`).join('');
 
     card.innerHTML = `
-      <h2>Active Advisory</h2>
+      <h2>Active ${escapeHtml(docType)}</h2>
       ${advisory.headline ? `<div class="advisory-headline">${escapeHtml(advisory.headline)}</div>` : ''}
       <p class="advisory-meta-row">
-        <strong>${escapeHtml(advisory.storm_name || '')}</strong> · Advisory NR. ${escapeHtml(advisory.advisory_number || '?')} · Issued ${escapeHtml(issuedStr || '')} (Asia/Manila)
+        <strong>${escapeHtml(advisory.storm_name || '')}</strong> · ${escapeHtml(docType)} NR. ${escapeHtml(advisory.advisory_number || '?')} · Issued ${escapeHtml(issuedStr || '')} (Asia/Manila)
       </p>
       <div class="advisory-grid">${tiles}</div>
-      ${bulletsHtml ? `<p class="advisory-outlook-title">General Outlook for the Forecast Period</p><ul class="advisory-bullets">${bulletsHtml}</ul>` : ''}
-      <a class="advisory-pdf-link" href="${advisory.pdf_url}" target="_blank" rel="noopener">View full PAGASA advisory PDF ↗</a>
+      ${bulletsHtml ? `<p class="advisory-outlook-title">Latest Outlook</p><ul class="advisory-bullets">${bulletsHtml}</ul>` : ''}
+      <a class="advisory-pdf-link" href="${advisory.pdf_url}" target="_blank" rel="noopener">View full PAGASA ${escapeHtml(docType.toLowerCase())} PDF ↗</a>
     `;
   }
 

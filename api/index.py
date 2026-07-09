@@ -1,12 +1,15 @@
 """Live PAGASA tropical cyclone status — fetched fresh on every request (no cron lag).
 
 Note: the 7-day outlook (TC-Threat PDF) is intentionally NOT live-fetched here — that PDF
-download was measured to take 150-180s from this environment (the bulletin page fetch is
-comparatively fast, well under 10s), which is unsafe for a per-request serverless call. The
-outlook instead relies on scripts/update_outlook.py running frequently via cron.
+download was measured to take 150-180s from this environment, which is unsafe for a per-request
+serverless call. The outlook instead relies on scripts/update_outlook.py running frequently via
+cron.
 
-The Tropical Cyclone Advisory PDF (for systems tracked outside the PAR, before they're named
-and given a bulletin inside it) IS live-fetched here — it's small and fast (well under 1s).
+The tropical-cyclone-bulletin-iframe / tropical-cyclone-advisory-iframe pages are JS/map-rendered
+widgets that were found to NOT reliably reflect current status via simple text scraping (they
+kept showing "no active tropical cyclone" even with a live, numbered bulletin in effect). The
+reliable source is PAGASA's own PDF bulletins/advisories, discovered dynamically from the
+severe-weather-bulletin page and parsed directly — both are small and fast (well under 1s each).
 """
 import io
 import json
@@ -18,61 +21,52 @@ from http.server import BaseHTTPRequestHandler
 
 from pypdf import PdfReader
 
-PAGASA_URL = "https://www.pagasa.dost.gov.ph/tropical-cyclone-bulletin-iframe"
 ADVISORY_URL = "https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe"
 ADVISORY_PDF_URL = "https://pubfiles.pagasa.dost.gov.ph/tamss/weather/tcadvisory.pdf"
+BULLETIN_DISCOVERY_URL = "https://www.pagasa.dost.gov.ph/tropical-cyclone/severe-weather-bulletin"
+BULLETIN_LINK_RE = re.compile(
+    r"https://pubfiles\.pagasa\.dost\.gov\.ph/tamss/weather/bulletin_[a-z]+\.pdf", re.IGNORECASE
+)
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 
-NO_ACTIVE_PHRASE = "no active tropical cyclone"
-ADVISORY_STALE_AFTER = timedelta(hours=48)  # advisories are typically reissued every 12h while active
-
-
-def strip_tags(html: str) -> str:
-    text = re.sub(r"<[^>]+>", " ", html)
-    text = re.sub(r"&nbsp;", " ", text)
-    text = re.sub(r"\s+", " ", text)
-    return text.strip()
-
-
-def fetch_bulletin() -> str:
-    req = urllib.request.Request(PAGASA_URL, headers={"User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=20) as resp:
-        return resp.read().decode("utf-8", errors="replace")
-
-
-def extract_bulletin_text(html: str) -> str:
-    match = re.search(r'class="[^"]*article-content[^"]*"(.*)', html, re.DOTALL)
-    chunk = match.group(1) if match else html
-    chunk = chunk[:4000]
-    return strip_tags(chunk)
+DOC_STALE_AFTER = timedelta(hours=48)  # bulletins/advisories are typically reissued every 6-12h while active
 
 
 def clean_text(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def fetch_advisory_pdf() -> bytes:
-    req = urllib.request.Request(ADVISORY_PDF_URL, headers={"User-Agent": UA})
+def fetch_pdf_bytes(url: str) -> bytes:
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
     with urllib.request.urlopen(req, timeout=15) as resp:
         return resp.read()
 
 
-def parse_advisory(full_text: str) -> dict:
-    header_match = re.search(r"TROPICAL CYCLONE ADVISORY NR\.\s*(\S+)\s+(.*?)\s+Issued at\s+([^\n]+)", full_text)
+def parse_tc_document(full_text: str) -> dict:
+    """Parses either a TROPICAL CYCLONE ADVISORY or TROPICAL CYCLONE BULLETIN PDF — the two
+    share the same overall layout (header, headline, Location/Intensity/Movement, a closing
+    outlook section with bullet points), just with different section labels and, in some PDFs,
+    a different bullet glyph."""
+    header_match = re.search(
+        r"TROPICAL CYCLONE (ADVISORY|BULLETIN) NR\.\s*(\S+)\s+(.*?)\s+Issued at\s+([^\n]+)", full_text
+    )
     if not header_match:
-        raise ValueError("Could not find advisory header in PDF text")
+        raise ValueError("Could not find advisory/bulletin header in PDF text")
 
-    headline_match = re.search(r"Page 1 of 2\s*\n\s*(.*?\.)\s*\n", full_text, re.DOTALL)
+    doc_type, number, storm_name, issued_at_raw = header_match.groups()
+    headline_match = re.search(r"Page 1 of \d+\s*\n\s*(.*?\.)\s*\n", full_text, re.DOTALL)
     location_match = re.search(r"Location of Center[^\n]*\n(.*?)\nIntensity", full_text, re.DOTALL)
     intensity_match = re.search(r"Intensity\s*\n(.*?)\nPresent Movement", full_text, re.DOTALL)
     movement_match = re.search(r"Present Movement\s*\n(.*?)\nExtent of Tropical Cyclone Winds", full_text, re.DOTALL)
-    outlook_match = re.search(r"GENERAL OUTLOOK FOR THE FORECAST PERIOD\s*(.*?)(?:DOST-PAGASA\s*$|\Z)", full_text, re.DOTALL)
+    outlook_match = re.search(
+        r"(?:GENERAL OUTLOOK FOR THE FORECAST PERIOD|TRACK AND INTENSITY OUTLOOK)\s*(.*?)\Z", full_text, re.DOTALL
+    )
 
     bullets = []
     if outlook_match:
-        bullets = [clean_text(p) for p in re.split(r"•", outlook_match.group(1)) if clean_text(p)]
+        bullets = [clean_text(p) for p in re.split(r"[•]", outlook_match.group(1)) if clean_text(p)]
 
-    issued_at_raw = clean_text(header_match.group(3))
+    issued_at_raw = clean_text(issued_at_raw)
     issued_at = None
     try:
         issued_at = datetime.strptime(issued_at_raw, "%I:%M %p, %d %B %Y").replace(tzinfo=timezone(timedelta(hours=8)))
@@ -80,8 +74,9 @@ def parse_advisory(full_text: str) -> dict:
         pass
 
     return {
-        "advisory_number": header_match.group(1),
-        "storm_name": clean_text(header_match.group(2)),
+        "doc_type": doc_type.title(),
+        "advisory_number": number,
+        "storm_name": clean_text(storm_name),
         "issued_at_raw": issued_at_raw,
         "issued_at_utc": issued_at.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ") if issued_at else None,
         "headline": clean_text(headline_match.group(1)) if headline_match else None,
@@ -89,23 +84,54 @@ def parse_advisory(full_text: str) -> dict:
         "intensity": clean_text(intensity_match.group(1)) if intensity_match else None,
         "movement": clean_text(movement_match.group(1)) if movement_match else None,
         "bullets": bullets,
-        "pdf_url": ADVISORY_PDF_URL,
     }, issued_at
 
 
-def fetch_advisory():
-    """Returns a parsed advisory dict if one exists and is recent enough to still be current,
-    else None. The PDF URL is static (PAGASA overwrites it with each new advisory), so a stale
-    file left over from a past, now-finished system is expected once things go quiet again."""
-    pdf_bytes = fetch_advisory_pdf()
+def fetch_and_parse_pdf(pdf_url: str):
+    """Returns a parsed doc dict if the PDF exists and is recent enough to still be current, else
+    None. Bulletin/advisory PDF URLs are static (PAGASA overwrites them with each new issuance),
+    so a stale file left over from a past, now-finished system is expected once things go quiet."""
+    pdf_bytes = fetch_pdf_bytes(pdf_url)
     reader = PdfReader(io.BytesIO(pdf_bytes))
     full_text = "\n".join(p.extract_text() for p in reader.pages)
-    parsed, issued_at = parse_advisory(full_text)
+    parsed, issued_at = parse_tc_document(full_text)
+    parsed["pdf_url"] = pdf_url
     if issued_at is not None:
         age = datetime.now(timezone.utc) - issued_at.astimezone(timezone.utc)
-        if age > ADVISORY_STALE_AFTER:
+        if age > DOC_STALE_AFTER:
             return None
     return parsed
+
+
+def discover_bulletin_pdf_url():
+    """The severe-weather-bulletin page links to a static 'latest bulletin' PDF for whichever
+    storm is currently active (e.g. bulletin_inday.pdf) — its filename changes with the storm's
+    local name, so it has to be discovered fresh each time rather than hardcoded."""
+    req = urllib.request.Request(BULLETIN_DISCOVERY_URL, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=15) as resp:
+        html = resp.read().decode("utf-8", errors="replace")
+    match = BULLETIN_LINK_RE.search(html)
+    return match.group(0) if match else None
+
+
+def fetch_active_document():
+    """A Bulletin (system already inside PAR) takes priority over an Advisory (system still
+    outside PAR, being watched ahead of a possible PAR entry) since it's the more urgent/current
+    product. Returns (doc_or_None, error_or_None)."""
+    try:
+        bulletin_url = discover_bulletin_pdf_url()
+        if bulletin_url:
+            doc = fetch_and_parse_pdf(bulletin_url)
+            if doc:
+                return doc, None
+    except Exception:
+        pass  # fall through to the advisory
+
+    try:
+        doc = fetch_and_parse_pdf(ADVISORY_PDF_URL)
+        return doc, None
+    except Exception as exc:
+        return None, str(exc)
 
 
 class handler(BaseHTTPRequestHandler):
@@ -117,26 +143,21 @@ class handler(BaseHTTPRequestHandler):
             "live": True,
         }
 
-        try:
-            html = fetch_bulletin()
-            text = extract_bulletin_text(html)
-            is_clear = NO_ACTIVE_PHRASE in text.lower()
-            data["pagasa_active"] = not is_clear
-            data["pagasa_message"] = (
-                "No Active Tropical Cyclone within the Philippine Area of Responsibility" if is_clear
-                else (text[:600] if text else "Active tropical cyclone bulletin in effect — see PAGASA for details.")
-            )
-            data["source_url"] = PAGASA_URL
-        except Exception as exc:
-            data["status_error"] = f"Could not reach PAGASA status right now: {exc}"
+        doc, err = fetch_active_document()
+        if err:
+            data["advisory_error"] = f"Could not reach PAGASA right now: {err}"
+            data["pagasa_active"] = False
+            data["pagasa_message"] = "Could not determine current status — see PAGASA for details."
+        elif doc:
+            data["advisory"] = doc
+            data["pagasa_active"] = True
+            data["pagasa_message"] = doc.get("headline") or f"{doc['doc_type']} in effect for {doc['storm_name']}."
+        else:
+            data["advisory"] = None
+            data["pagasa_active"] = False
+            data["pagasa_message"] = "No Active Tropical Cyclone within the Philippine Area of Responsibility"
 
-        try:
-            data["advisory"] = fetch_advisory()
-        except Exception as exc:
-            data["advisory_error"] = f"Could not reach PAGASA advisory right now: {exc}"
-
-        status_code = 200 if ("pagasa_active" in data or "advisory" in data) else 502
-        self._json(status_code, data)
+        self._json(200, data)
 
     def _json(self, status, obj):
         self.send_response(status)
