@@ -1,10 +1,10 @@
 {
-  "date_issued": "06 July 2026",
-  "week1_range": "July 02 - 08, 2026",
-  "week1_summary": "\u2022 TC \u201cBAVI\u201d is present over the eastern portion of the TCAD region. \u2022 Forecast indicates that TC \u201dBAVI\u201d will enter the PAR (will be named \u201cINDAY\u201d) and move towards the Taiwan \u2013 Eastern China area; \u2022 Moreover, a TC-like vortex (TCLV) (1) is forecast to emerge over the eastern boundary of the PMD with a low likelihood of TC development during week-1.",
-  "week2_range": "July 09 \u2013 15, 2026",
-  "week2_summary": "\u2022 Forecasts suggest that TCLV (1) will enter the PAR with a low probability of TC development; \u2022 In addition, a TCLV (3) will likely develop over the western boundary of the PAR with a low likelihood of TC formation over week-2.",
+  "date_issued": "09 July 2026",
+  "week1_range": "July 09 - 15, 2026",
+  "week1_summary": "\u2022 TC \u201cINDAY\u201d remains present over the northeastern portion of the PAR. \u2022 Forecast indicates that TC \u201dINDAY\u201d will move towards the Taiwan \u2013 Eastern China area; \u2022 Moreover, a TC-like vortex (TCLV) (1) is forecast to emerge over the eastern boundary of the PMD with a low likelihood of TC development during week-1.",
+  "week2_range": "July 16 - 22, 2026",
+  "week2_summary": "\u2022 Forecasts suggest that TCLV (1) will enter the PAR with a low probability of TC development; \u2022 In addition, a TCLV (2) will likely develop over the western boundary of the PAR with a low likelihood of TC formation over week-2.",
   "conclusion": "Therefore, the TC-THREAT POTENTIAL IS ACTIVE over week-1 and LESS LIKELY in week-2.",
-  "last_checked_utc": "2026-07-09T02:56:55Z",
+  "last_checked_utc": "2026-07-09T06:49:14Z",
   "source_url": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/files/climate/tcthreat/TC_Threat_and_S2S_Forecast.pdf"
 }
