@@ -86,7 +86,6 @@
     .refresh-box { width: 100%; }
     .wx-top-row { grid-template-columns: 1fr; }
     .wx-current-top { flex-wrap: wrap; }
-    .threat-strip { flex-direction: column; }
   }
   .page-header {
     display: flex; justify-content: space-between; align-items: flex-start;
@@ -138,49 +137,6 @@
   .advisory-pdf-link { display: inline-block; margin-top: 6px; font-size: 0.82rem; color: var(--link); }
   h2 { font-size: 1.02rem; margin: 0 0 6px; font-weight: 700; letter-spacing: -0.005em; }
   .range { color: var(--muted); font-size: 0.82rem; margin: 0 0 12px; }
-  .outlook-block { margin-bottom: 16px; }
-  .outlook-block:last-of-type { margin-bottom: 0; }
-  .conclusion { font-weight: 600; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--border); }
-  .storm-callout {
-    display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px;
-    margin-bottom: 16px; font-size: 0.92rem; font-weight: 600;
-  }
-  .storm-callout .storm-icon { font-size: 1.4rem; line-height: 1; }
-  .storm-callout.level-high { background: var(--alert-bg); color: var(--alert); }
-  .storm-callout.level-moderate { background: var(--status-warning-bg); color: var(--status-warning); }
-  .storm-callout.level-low { background: var(--clear-bg); color: var(--clear); }
-  .upcoming-callout {
-    display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: 12px;
-    margin-bottom: 16px; border: 1px solid transparent;
-  }
-  .upcoming-callout .storm-icon { font-size: 1.3rem; line-height: 1.3; }
-  .upcoming-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 2px; }
-  .upcoming-sub { font-size: 0.8rem; opacity: 0.85; }
-  .upcoming-callout.level-high { background: var(--alert-bg); color: var(--alert); border-color: var(--alert); }
-  .upcoming-callout.level-moderate { background: var(--status-warning-bg); color: var(--status-warning); border-color: var(--status-warning); }
-  .threat-strip { display: flex; gap: 10px; margin-bottom: 18px; }
-  .threat-chip { flex: 1; border-radius: 12px; padding: 10px 14px; background: var(--card-inset); }
-  .threat-chip-label { font-size: 0.74rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; margin: 0 0 4px; }
-  .threat-chip-level { font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 6px; }
-  .threat-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
-  .threat-chip-level.level-high { color: var(--alert); }
-  .threat-chip-level.level-high .threat-dot { background: var(--alert); }
-  .threat-chip-level.level-moderate { color: var(--status-warning); }
-  .threat-chip-level.level-moderate .threat-dot { background: var(--status-warning); }
-  .threat-chip-level.level-low { color: var(--clear); }
-  .threat-chip-level.level-low .threat-dot { background: var(--clear); }
-  .threat-chip-level.level-unknown { color: var(--muted); }
-  .threat-chip-level.level-unknown .threat-dot { background: var(--faint); }
-  .outlook-list { margin: 0; padding-left: 20px; font-size: 0.92rem; line-height: 1.6; }
-  .outlook-list li { margin-bottom: 6px; }
-  .outlook-list li:last-child { margin-bottom: 0; }
-  .region-tags-wrap { margin-bottom: 18px; }
-  .region-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-  .region-tag {
-    display: inline-flex; align-items: center; gap: 5px; background: var(--link-bg); color: var(--link);
-    border-radius: 999px; padding: 5px 12px; font-size: 0.8rem; font-weight: 600;
-  }
-  .region-tag::before { content: '📍'; font-size: 0.75rem; }
   .range-toggle { display: flex; gap: 6px; }
   .range-btn {
     background: var(--card-inset); color: var(--muted); border: none; border-radius: 999px;
@@ -285,7 +241,6 @@
       <a href="#weather-card" class="nav-item active">Weather Forecast</a>
       <a href="#status-card" class="nav-item">Status</a>
       <a href="#advisory-card" class="nav-item">Active Advisory</a>
-      <a href="#outlook-card" class="nav-item">7-Day Outlook</a>
       <a href="#trend-card" class="nav-item">Activity Trend</a>
       <a href="#links-card" class="nav-item">Official Links</a>
     </nav>
@@ -316,10 +271,6 @@
 
     <div class="card" id="advisory-card">
       <p class="loading">Loading advisory…</p>
-    </div>
-
-    <div class="card" id="outlook-card">
-      <p class="loading">Loading 7-day outlook…</p>
     </div>
 
     <div class="card" id="trend-card">
@@ -441,18 +392,6 @@
       });
   }
 
-  function loadOutlook() {
-    // The outlook PDF is too slow to fetch live per-request (measured 150-180s) — this stays
-    // on the cron-updated copy on GitHub, which now runs every 15 minutes instead of every 6h.
-    return fetch(RAW_BASE + 'outlook.json?_=' + Date.now())
-      .then(r => r.json())
-      .then(renderOutlook)
-      .catch(() => {
-        document.getElementById('outlook-card').innerHTML =
-          '<p class="loading">Outlook unavailable right now.</p>';
-      });
-  }
-
   function loadTrend() {
     return fetch(RAW_BASE + 'history.json?_=' + Date.now())
       .then(r => r.json())
@@ -477,7 +416,7 @@
 
   function loadAll() {
     nextRefreshAt = Date.now() + REFRESH_MS;
-    return Promise.all([loadStatus(), loadOutlook(), loadTrend(), loadWeather()]);
+    return Promise.all([loadStatus(), loadTrend(), loadWeather()]);
   }
 
   document.getElementById('refresh-btn').addEventListener('click', async (e) => {
@@ -501,7 +440,7 @@
     document.querySelectorAll('.timeline-cell.selected').forEach(c => c.classList.remove('selected'));
   });
 
-  const SECTION_IDS = ['weather-card', 'status-card', 'advisory-card', 'outlook-card', 'trend-card', 'links-card'];
+  const SECTION_IDS = ['weather-card', 'status-card', 'advisory-card', 'trend-card', 'links-card'];
 
   function showSection(targetId) {
     SECTION_IDS.forEach(id => {
@@ -740,127 +679,6 @@
     scroll.appendChild(row);
     body.innerHTML = '';
     body.appendChild(scroll);
-  }
-
-  function parseThreatLevel(text) {
-    const t = (text || '').toLowerCase();
-    if (!t) return 'unknown';
-    if (/high (likelihood|probability|chance)/.test(t)) return 'high';
-    if (/moderate (likelihood|probability|chance)/.test(t)) return 'moderate';
-    if (/low (likelihood|probability|chance)/.test(t)) return 'low';
-    return 'unknown';
-  }
-
-  function levelLabel(level) {
-    return { high: 'High', moderate: 'Moderate', low: 'Low', unknown: 'No data' }[level] || 'No data';
-  }
-
-  function extractNamedSystems(text) {
-    const re = /\b(?:Super Typhoon|Typhoon|Tropical Storm|Tropical Depression|TC)\s+([A-Z][A-Za-z]+)\b/g;
-    const names = new Set();
-    let m;
-    while ((m = re.exec(text || '')) !== null) names.add(m[1]);
-    return [...names];
-  }
-
-  function toBulletItems(text) {
-    return (text || '')
-      .split('•')
-      .map(s => s.trim())
-      .filter(Boolean);
-  }
-
-  const REGION_TERMS = [
-    'Extreme Northern Luzon', 'Northern Luzon', 'Central Luzon', 'Southern Luzon',
-    'Eastern Visayas', 'Western Visayas', 'Central Visayas',
-    'Northern Mindanao', 'Southern Mindanao', 'Eastern Mindanao', 'Western Mindanao',
-    'Bicol', 'Cordillera', 'Ilocos', 'Cagayan Valley', 'Zamboanga Peninsula', 'Caraga',
-    'West Philippine Sea', 'South China Sea', 'Philippine Sea', 'Pacific Ocean',
-    'Luzon', 'Visayas', 'Mindanao',
-  ].sort((a, b) => b.length - a.length);
-
-  function extractRegions(text) {
-    let working = ' ' + (text || '') + ' ';
-    const found = [];
-    for (const term of REGION_TERMS) {
-      const re = new RegExp('\\b' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i');
-      if (re.test(working)) {
-        found.push(term);
-        working = working.replace(re, ' '); // consume so shorter overlapping terms aren't double-counted
-      }
-    }
-    return found;
-  }
-
-  function renderOutlook(data) {
-    const card = document.getElementById('outlook-card');
-    const week1Level = parseThreatLevel(data.week1_summary);
-    const week2Level = parseThreatLevel(data.week2_summary);
-    const combinedText = [data.week1_summary, data.week2_summary, data.conclusion].join(' ');
-    const namedSystems = extractNamedSystems(combinedText);
-    const regions = extractRegions(combinedText);
-    const overallLevel = [week1Level, week2Level].includes('high') ? 'high'
-      : [week1Level, week2Level].includes('moderate') ? 'moderate'
-      : [week1Level, week2Level].includes('low') ? 'low' : 'unknown';
-
-    const stormCalloutHtml = namedSystems.length ? `
-      <div class="storm-callout level-${overallLevel === 'unknown' ? 'low' : overallLevel}">
-        <span class="storm-icon">🌀</span>
-        <span>Tracking: ${namedSystems.map(escapeHtml).join(', ')}</span>
-      </div>
-    ` : '';
-
-    const regionTagsHtml = regions.length ? `
-      <div class="region-tags-wrap">
-        <p class="threat-chip-label">Areas mentioned in this outlook</p>
-        <div class="region-tags">
-          ${regions.map(r => `<span class="region-tag">${escapeHtml(r)}</span>`).join('')}
-        </div>
-      </div>
-    ` : '';
-
-    const week2Regions = extractRegions(data.week2_summary);
-    const upcomingHtml = (data.week2_summary && (week2Level === 'high' || week2Level === 'moderate')) ? `
-      <div class="upcoming-callout level-${week2Level}">
-        <span class="storm-icon">⚠️</span>
-        <div>
-          <div class="upcoming-title">Upcoming next week${week2Regions.length ? ': possible development near ' + escapeHtml(week2Regions.join(', ')) : ': possible TC development'}</div>
-          <div class="upcoming-sub">${escapeHtml(data.week2_range || '')} · ${levelLabel(week2Level)} likelihood</div>
-        </div>
-      </div>
-    ` : '';
-
-    const week1Items = toBulletItems(data.week1_summary);
-    const week2Items = toBulletItems(data.week2_summary);
-
-    card.innerHTML = `
-      <h2>7-Day Typhoon Outlook</h2>
-      <p class="range">PAGASA TC-Threat Potential · issued ${escapeHtml(data.date_issued || '')}</p>
-      ${upcomingHtml}
-      ${stormCalloutHtml}
-      <div class="threat-strip">
-        <div class="threat-chip">
-          <p class="threat-chip-label">Week 1 (${escapeHtml(data.week1_range || '')})</p>
-          <p class="threat-chip-level level-${week1Level}"><span class="threat-dot"></span>${levelLabel(week1Level)}</p>
-        </div>
-        ${data.week2_range ? `
-        <div class="threat-chip">
-          <p class="threat-chip-label">Week 2 (${escapeHtml(data.week2_range)})</p>
-          <p class="threat-chip-level level-${week2Level}"><span class="threat-dot"></span>${levelLabel(week2Level)}</p>
-        </div>` : ''}
-      </div>
-      ${regionTagsHtml}
-      <div class="outlook-block">
-        <p class="range"><strong>Week 1 details</strong></p>
-        <ul class="outlook-list">${week1Items.map(i => `<li>${escapeHtml(i)}</li>`).join('')}</ul>
-      </div>
-      ${data.week2_range ? `
-      <div class="outlook-block">
-        <p class="range"><strong>Week 2 details</strong></p>
-        <ul class="outlook-list">${week2Items.map(i => `<li>${escapeHtml(i)}</li>`).join('')}</ul>
-      </div>` : ''}
-      ${data.conclusion ? `<p class="conclusion">${escapeHtml(data.conclusion)}</p>` : ''}
-    `;
   }
 
   function renderStatus(data) {

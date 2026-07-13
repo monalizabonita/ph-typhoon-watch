@@ -24,9 +24,6 @@ jobs:
       - name: Fetch latest PAGASA status
         run: python3 scripts/update_status.py
 
-      - name: Fetch latest 7/14-day outlook
-        run: python3 scripts/update_outlook.py
-
       - name: Send alerts (typhoon + rain) to Google Chat
         env:
           GCHAT_WEBHOOK_URL: ${{ secrets.GCHAT_WEBHOOK_URL }}
@@ -36,9 +33,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet -- data.json outlook.json history.json alert_state.json; then
-            git add data.json outlook.json history.json alert_state.json
-            git commit -m "Update typhoon status and outlook"
+          if ! git diff --quiet -- data.json history.json alert_state.json; then
+            git add data.json history.json alert_state.json
+            git commit -m "Update typhoon status"
             git push
           else
             echo "No change in status."
