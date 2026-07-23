@@ -24,9 +24,10 @@ jobs:
       - name: Fetch latest PAGASA status
         run: python3 scripts/update_status.py
 
-      - name: Send alerts (typhoon + rain) to Google Chat
+      - name: Send alerts (typhoon + rain) to Google Chat + ntfy
         env:
           GCHAT_WEBHOOK_URL: ${{ secrets.GCHAT_WEBHOOK_URL }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: python3 scripts/send_alerts.py
 
       - name: Commit if changed
