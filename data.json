@@ -1,7 +1,7 @@
 {
-  "last_checked_utc": "2026-07-23T04:37:04Z",
-  "pagasa_active": false,
-  "pagasa_message": "No Active Tropical Cyclone within the Philippine Area of Responsibility",
-  "source_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone-bulletin-iframe",
+  "last_checked_utc": "2026-07-23T05:00:06Z",
+  "pagasa_active": true,
+  "pagasa_message": "KIYAPO SLIGHTLY ACCELERATES WHILE MOVING NORTHWESTWARD OVER THE PHILIPPINE SEA EAST OF NORTHERN LUZON.",
+  "source_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone/severe-weather-bulletin",
   "advisory_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe"
 }
