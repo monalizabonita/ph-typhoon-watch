@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Sends alerts, fanned out to every configured channel, for two conditions:
 1. PAGASA reports an active tropical cyclone (data.json's pagasa_active) — alerted once per
-   activation, not on every run, via alert_state.json.
+   day while it stays active, via alert_state.json.
 2. Today's rain forecast (Open-Meteo, no API key needed) for Metro Manila/Taguig crosses a
    threshold — alerted once per day.
 
@@ -43,11 +43,15 @@ def load_state() -> dict:
     try:
         return json.loads(STATE_PATH.read_text())
     except (FileNotFoundError, json.JSONDecodeError):
-        return {"typhoon_alerted": False, "rain_alerted_date": ""}
+        return {"typhoon_alerted_date": "", "rain_alerted_date": ""}
 
 
 def save_state(state: dict) -> None:
     STATE_PATH.write_text(json.dumps(state, indent=2) + "\n")
+
+
+def manila_today() -> str:
+    return datetime.now(timezone.utc).astimezone(ZoneInfo("Asia/Manila")).strftime("%Y-%m-%d")
 
 
 def send_gchat(text: str, title: str, priority: str, tags: str) -> None:
@@ -117,23 +121,25 @@ def check_typhoon(state: dict) -> dict:
         return state
 
     active = bool(data.get("pagasa_active"))
-    if active and not state.get("typhoon_alerted"):
-        notify(
-            "🌀 Typhoon alert: PAGASA reports an active tropical cyclone in the Philippine "
-            f"Area of Responsibility.\n{data.get('pagasa_message', '')}",
-            title="Typhoon Alert",
-            priority="urgent",
-            tags="cyclone,warning",
-        )
-        state["typhoon_alerted"] = True
-    elif not active:
-        state["typhoon_alerted"] = False
+    today = manila_today()
+    if active:
+        if state.get("typhoon_alerted_date") != today:
+            notify(
+                "🌀 Typhoon alert: PAGASA reports an active tropical cyclone in the Philippine "
+                f"Area of Responsibility.\n{data.get('pagasa_message', '')}",
+                title="Typhoon Alert",
+                priority="urgent",
+                tags="cyclone,warning",
+            )
+            state["typhoon_alerted_date"] = today
+    else:
+        state["typhoon_alerted_date"] = ""
     return state
 
 
 def check_rain(state: dict) -> dict:
-    manila_today = datetime.now(timezone.utc).astimezone(ZoneInfo("Asia/Manila")).strftime("%Y-%m-%d")
-    if state.get("rain_alerted_date") == manila_today:
+    today = manila_today()
+    if state.get("rain_alerted_date") == today:
         return state
 
     try:
@@ -150,7 +156,7 @@ def check_rain(state: dict) -> dict:
             priority="default",
             tags="cloud_with_rain,umbrella",
         )
-        state["rain_alerted_date"] = manila_today
+        state["rain_alerted_date"] = today
     return state
 
 
