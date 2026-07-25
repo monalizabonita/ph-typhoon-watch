@@ -1,7 +1,7 @@
 {
-  "last_checked_utc": "2026-07-25T15:46:19Z",
-  "pagasa_active": true,
-  "pagasa_message": "\u201cKIYAPO\u201d MAINTAINS ITS STRENGTH WHILE MOVING TOWARDS SOUTHERN CHINA.",
+  "last_checked_utc": "2026-07-25T16:56:31Z",
+  "pagasa_active": false,
+  "pagasa_message": "No Active Tropical Cyclone within the Philippine Area of Responsibility",
   "source_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone/severe-weather-bulletin",
   "advisory_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe"
 }

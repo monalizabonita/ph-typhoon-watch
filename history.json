@@ -113,5 +113,10 @@
     "date": "2026-07-25",
     "active": true,
     "message": "\u201cKIYAPO\u201d MAINTAINS ITS STRENGTH WHILE MOVING TOWARDS SOUTHERN CHINA."
+  },
+  {
+    "date": "2026-07-26",
+    "active": false,
+    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
   }
 ]
