@@ -232,11 +232,13 @@
   .wx-day-range { width: 92px; flex: none; text-align: right; font-size: 0.85rem; color: var(--muted); }
   .wx-day-range strong { color: var(--text); }
 </style>
+<link rel="stylesheet" href="ui.css">
+<script src="ui.js"></script>
 </head>
 <body>
 <div class="app-shell">
   <aside class="sidebar">
-    <div class="brand">🌀 Typhoon Watch</div>
+    <div class="brand"><span class="brand-mark">🌀</span><span>Typhoon Watch<small>Philippines</small></span></div>
     <nav>
       <a href="#weather-card" class="nav-item active">Weather Forecast</a>
       <a href="#status-card" class="nav-item">Status</a>
@@ -244,14 +246,18 @@
       <a href="#trend-card" class="nav-item">Activity Trend</a>
       <a href="#links-card" class="nav-item">Official Links</a>
     </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme">
+      <span id="theme-icon">◐</span><span id="theme-label">Theme</span>
+    </button>
     <div class="sidebar-footer">Automated daily check of official Philippine tropical cyclone advisories.</div>
   </aside>
 
   <main class="main-content">
     <div class="page-header">
       <div>
+        <span class="page-eyebrow">Live monitoring dashboard</span>
         <h1>PH Typhoon Watch</h1>
-        <p class="subtitle">Automated daily check of official Philippine tropical cyclone advisories.</p>
+        <p class="subtitle">Official cyclone intelligence and local weather, distilled into one calm view.</p>
       </div>
       <div class="refresh-box">
         <span class="updated-chip" id="updated-chip">Loading…</span>
@@ -260,7 +266,7 @@
     </div>
 
     <div class="card" id="weather-card">
-      <h2>Weather Forecast</h2>
+      <div class="section-heading"><span class="section-icon">☁</span><div><span class="section-kicker">Your location</span><h2>Weather Forecast</h2></div></div>
       <p class="range">General daily weather (temperature, wind, rain) — separate from the tropical cyclone tracking below.</p>
       <div id="weather-body"><p class="loading">Loading forecast…</p></div>
     </div>
@@ -275,7 +281,7 @@
 
     <div class="card" id="trend-card">
       <div class="card-header-row">
-        <h2>Activity Trend</h2>
+        <div class="section-heading"><span class="section-icon">↗</span><div><span class="section-kicker">Recorded history</span><h2>Activity Trend</h2></div></div>
         <div class="range-toggle" id="range-toggle">
           <button class="range-btn" data-days="7">7d</button>
           <button class="range-btn" data-days="30">30d</button>
@@ -299,6 +305,7 @@
     </div>
 
     <div class="card" id="links-card">
+      <div class="section-heading"><span class="section-icon">↗</span><div><span class="section-kicker">Verified sources</span><h2>Official Links</h2></div></div>
       <div class="links-row">
         <a class="link-pill" href="https://www.pagasa.dost.gov.ph/tropical-cyclone-bulletin-iframe" target="_blank" rel="noopener">PAGASA official bulletin ↗</a>
         <a class="link-pill" href="https://www.metoc.navy.mil/jtwc/jtwc.html" target="_blank" rel="noopener">JTWC official warnings ↗</a>
@@ -695,14 +702,20 @@
     card.classList.add(isActive ? 'status-alert' : 'status-clear');
 
     card.innerHTML = `
-      <span class="badge ${isActive ? 'alert' : 'clear'}">
-        <span class="dot"></span>
-        ${isActive ? 'Active Tropical Cyclone' : 'No Active Tropical Cyclone'}
-      </span>
-      <p class="message">${escapeHtml(data.pagasa_message || '')}</p>
-      <p class="meta">Source: PAGASA${data.live ? ' — live' : ' — cached'}
-        · <a href="${data.advisory_url || 'https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe'}" target="_blank" rel="noopener">View Live PAGASA Advisory Map ↗</a>
-      </p>
+      <div class="status-layout">
+        <div class="status-symbol ${isActive ? 'alert' : 'clear'}">${isActive ? '!' : '✓'}</div>
+        <div class="status-copy">
+          <span class="status-kicker">Philippine Area of Responsibility</span>
+          <span class="badge ${isActive ? 'alert' : 'clear'}">
+            <span class="dot"></span>
+            ${isActive ? 'Active Tropical Cyclone' : 'No Active Tropical Cyclone'}
+          </span>
+          <p class="message">${escapeHtml(data.pagasa_message || '')}</p>
+          <p class="meta"><span class="source-state">${data.live ? 'Live' : 'Cached'}</span> Source: PAGASA
+            · <a href="${data.advisory_url || 'https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe'}" target="_blank" rel="noopener">Open advisory map ↗</a>
+          </p>
+        </div>
+      </div>
     `;
 
     const chip = document.getElementById('updated-chip');
@@ -714,7 +727,7 @@
     const card = document.getElementById('advisory-card');
     if (!advisory) {
       card.innerHTML = `
-        <h2>Active Advisory</h2>
+        <div class="section-heading"><span class="section-icon">◎</span><div><span class="section-kicker">PAGASA bulletin</span><h2>Active Advisory</h2></div></div>
         <p class="empty-note">No active PAGASA tropical cyclone advisory or bulletin right now.</p>
       `;
       return;
@@ -739,7 +752,7 @@
     const bulletsHtml = (advisory.bullets || []).map(b => `<li>${escapeHtml(b)}</li>`).join('');
 
     card.innerHTML = `
-      <h2>Active ${escapeHtml(docType)}</h2>
+      <div class="section-heading"><span class="section-icon">!</span><div><span class="section-kicker">PAGASA bulletin</span><h2>Active ${escapeHtml(docType)}</h2></div></div>
       ${advisory.headline ? `<div class="advisory-headline">${escapeHtml(advisory.headline)}</div>` : ''}
       <p class="advisory-meta-row">
         <strong>${escapeHtml(advisory.storm_name || '')}</strong> · ${escapeHtml(docType)} NR. ${escapeHtml(advisory.advisory_number || '?')} · Issued ${escapeHtml(issuedStr || '')} (Asia/Manila)

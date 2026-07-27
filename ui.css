@@ -1,0 +1,140 @@
+:root {
+  --navy: #102a43;
+  --teal: #16a6a1;
+  --sky: #3b82f6;
+  --ui-radius: 18px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background:
+    radial-gradient(circle at 88% 3%, color-mix(in srgb, var(--link) 10%, transparent), transparent 28rem),
+    var(--bg);
+}
+.sidebar {
+  width: 248px;
+  padding: 28px 20px;
+  background:
+    radial-gradient(circle at 25% 0%, rgba(22,166,161,.20), transparent 20rem),
+    #0b1e2c;
+  border-right: 1px solid rgba(255,255,255,.06);
+}
+.brand { margin: 0 8px 30px; gap: 11px; line-height: 1.05; }
+.brand-mark {
+  display: grid; place-items: center; width: 38px; height: 38px;
+  border-radius: 12px; background: rgba(255,255,255,.09);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.brand small {
+  display: block; margin-top: 5px; color: #7995a5;
+  font-size: .58rem; font-weight: 750; letter-spacing: .13em; text-transform: uppercase;
+}
+.nav-item { position: relative; padding: 11px 13px; color: #a9bec9; }
+.nav-item.active {
+  background: linear-gradient(135deg, rgba(22,166,161,.26), rgba(59,130,246,.18));
+  color: #fff; box-shadow: inset 0 0 0 1px rgba(115,227,220,.15);
+}
+.nav-item.active::before {
+  content: ""; position: absolute; left: -4px; top: 11px; bottom: 11px;
+  width: 3px; border-radius: 3px; background: #4dd8cf;
+}
+.theme-toggle {
+  display: flex; align-items: center; gap: 9px; width: 100%; margin-top: auto;
+  padding: 10px 12px; border: 1px solid rgba(255,255,255,.1); border-radius: 11px;
+  background: rgba(255,255,255,.05); color: #b9cbd4; cursor: pointer;
+  font: inherit; font-size: .78rem; font-weight: 700;
+}
+.theme-toggle:hover { color: #fff; background: rgba(255,255,255,.09); }
+.sidebar-footer { margin-top: 16px; }
+.main-content { max-width: 1440px; padding: 42px 48px 70px; }
+.page-header { align-items: center; margin-bottom: 30px; }
+.page-eyebrow, .section-kicker, .status-kicker {
+  color: var(--teal); font-size: .65rem; font-weight: 800;
+  letter-spacing: .12em; text-transform: uppercase;
+}
+.page-header h1 { margin-top: 5px; font-size: clamp(1.65rem, 3vw, 2.25rem); }
+.subtitle { max-width: 620px; line-height: 1.55; }
+.updated-chip { box-shadow: 0 8px 22px rgba(15,23,42,.06); }
+.refresh-btn { background: linear-gradient(135deg, var(--teal), var(--sky)); box-shadow: 0 8px 18px rgba(37,99,235,.18); }
+.card {
+  border-radius: var(--ui-radius); padding: 26px;
+  border-left-width: 1px; box-shadow: 0 14px 35px rgba(15,23,42,.07);
+}
+.section-heading { display: flex; align-items: center; gap: 11px; margin-bottom: 13px; }
+.section-heading h2 { margin: 3px 0 0; }
+.section-icon {
+  display: grid; place-items: center; width: 36px; height: 36px; flex: none;
+  border-radius: 11px; color: var(--link); background: var(--link-bg); font-weight: 850;
+}
+.status-layout { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 22px; }
+.status-symbol {
+  display: grid; place-items: center; width: 78px; height: 78px; border-radius: 24px;
+  font-size: 1.75rem; font-weight: 900;
+}
+.status-symbol.clear { color: var(--clear); background: var(--clear-bg); }
+.status-symbol.alert { color: var(--alert); background: var(--alert-bg); }
+.status-copy .badge { margin: 8px 0 10px; }
+.status-copy .message { margin-bottom: 11px; font-size: 1.15rem; font-weight: 650; letter-spacing: -.01em; }
+.source-state {
+  display: inline-flex; align-items: center; margin-right: 5px; padding: 3px 7px;
+  border-radius: 999px; background: var(--clear-bg); color: var(--clear);
+  font-size: .64rem; font-weight: 800; text-transform: uppercase;
+}
+.wx-current-panel {
+  position: relative; overflow: hidden; color: #fff;
+  background: linear-gradient(145deg, #123e5a, #137d81);
+  box-shadow: 0 18px 35px rgba(10,87,101,.18);
+}
+.wx-current-panel::after {
+  content: ""; position: absolute; width: 220px; height: 220px; right: -90px; top: -105px;
+  border-radius: 50%; border: 35px solid rgba(255,255,255,.06);
+}
+.wx-current-panel .wx-cond, .wx-current-panel .wx-current-meta { color: rgba(255,255,255,.72); }
+.wx-highlight-tile, .wx-hour { border: 1px solid var(--border); }
+.wx-hour { transition: transform .16s ease, border-color .16s ease; }
+.wx-hour:hover { transform: translateY(-3px); border-color: var(--link); }
+.wx-day-row { padding: 12px 7px; }
+.wx-day-bar-fill { background: linear-gradient(90deg, #40b7d8, #f5ba55); }
+.timeline-cell { width: 20px; height: 20px; }
+.advisory-tile { background: var(--card-inset); }
+.link-pill { border: 1px solid color-mix(in srgb, var(--link) 16%, transparent); }
+
+html[data-theme="light"] { color-scheme: light; }
+html[data-theme="light"] body {
+  --bg: #eef5f6; --card: #fff; --card-inset: #f3f7f8; --text: #102a35;
+  --muted: #617780; --faint: #8da0a7; --border: #dce8ea;
+  --link: #2477d4; --link-bg: #e9f2fc; --clear: #138a60; --clear-bg: #e5f7ef;
+  --alert: #d54444; --alert-bg: #fceaea;
+}
+html[data-theme="dark"] { color-scheme: dark; }
+html[data-theme="dark"] body {
+  --bg: #07141c; --card: #0e202b; --card-inset: #142a36; --text: #edf7fa;
+  --muted: #a2b7bf; --faint: #6f8993; --border: #203b48;
+  --link: #65a7f5; --link-bg: #152f49; --clear: #45d7a1; --clear-bg: #0d3027;
+  --alert: #ff7b7b; --alert-bg: #3a1a20;
+}
+html[data-theme="dark"] .card { box-shadow: 0 16px 38px rgba(0,0,0,.22); }
+
+@media (max-width: 760px) {
+  .sidebar { width: 100%; padding: 11px 14px; }
+  .brand-mark { width: 34px; height: 34px; }
+  .brand small { display: none; }
+  .theme-toggle { width: auto; flex: none; margin: 0; }
+  #theme-label { display: none; }
+  .main-content { padding: 25px 16px 48px; }
+  .card { padding: 20px; }
+  .status-layout { grid-template-columns: 1fr; gap: 14px; }
+  .status-symbol { width: 54px; height: 54px; border-radius: 17px; }
+  .wx-highlight-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .wx-highlight-grid .wx-highlight-tile:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 430px) {
+  .refresh-box { align-items: stretch; }
+  .updated-chip { white-space: normal; }
+  .wx-highlight-grid { grid-template-columns: 1fr; }
+  .wx-highlight-grid .wx-highlight-tile:last-child { grid-column: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; }
+}
