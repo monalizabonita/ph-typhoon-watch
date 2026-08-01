@@ -146,7 +146,7 @@
   },
   {
     "date": "2026-08-01",
-    "active": false,
-    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
+    "active": true,
+    "message": "THE LOW PRESSURE AREA EAST OF INFANTA, QUEZON DEVELOPED INTO TROPICAL DEPRESSION LUIS."
   }
 ]
