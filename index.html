@@ -196,6 +196,14 @@
   .wx-temp-big { font-size: 2.4rem; font-weight: 800; line-height: 1; }
   .wx-cond { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
   .wx-current-meta { color: var(--muted); font-size: 0.78rem; line-height: 1.5; }
+  .wx-search { display: flex; gap: 9px; margin: 16px 0 10px; }
+  .wx-search input { flex: 1; min-width: 0; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; background: var(--card-inset); color: var(--text); }
+  .wx-search button { border: 0; border-radius: 10px; padding: 10px 15px; background: var(--link); color: #fff; font-weight: 700; cursor: pointer; }
+  .wx-search button.secondary { border: 1px solid var(--border); background: var(--card-inset); color: var(--muted); }
+  .wx-search-results { display: flex; flex-wrap: wrap; gap: 7px; min-height: 18px; margin-bottom: 14px; }
+  .wx-place-option { border: 1px solid var(--border); border-radius: 999px; padding: 7px 11px; background: var(--card); color: var(--text); cursor: pointer; font-size: .75rem; }
+  .wx-search-message { color: var(--muted); font-size: .76rem; }
+  @media (max-width: 620px) { .wx-search { flex-wrap: wrap; } .wx-search input { flex-basis: 100%; } .wx-search button { flex: 1; } }
   .wx-highlights-label { font-size: 0.78rem; font-weight: 700; color: var(--muted); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.03em; }
   .wx-highlight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .wx-highlight-grid.sub { margin-top: 10px; }
@@ -267,7 +275,13 @@
 
     <div class="card" id="weather-card">
       <div class="section-heading"><span class="section-icon">☁</span><div><span class="section-kicker">Your location</span><h2>Weather Forecast</h2></div></div>
-      <p class="range">General daily weather (temperature, wind, rain) — separate from the tropical cyclone tracking below.</p>
+      <p class="range">Check your location or manually search any city or place worldwide. This general forecast is separate from the Philippine cyclone tracking below.</p>
+      <form class="wx-search" id="weather-search-form">
+        <input id="weather-search-input" type="search" minlength="2" autocomplete="off" placeholder="Search city or place — e.g. Tokyo, London, New York" aria-label="Search worldwide weather location">
+        <button type="submit" id="weather-search-btn">Search weather</button>
+        <button type="button" class="secondary" id="weather-near-me-btn">Use my location</button>
+      </form>
+      <div class="wx-search-results" id="weather-search-results" aria-live="polite"></div>
       <div id="weather-body"><p class="loading">Loading forecast…</p></div>
     </div>
 
@@ -414,12 +428,68 @@
 
   function loadWeather() {
     return getUserLocation()
-      .then(loc => fetch(buildWeatherApiUrl(loc.lat, loc.lon)).then(r => r.json()).then(data => renderWeather(data, loc.label)))
+      .then(loadWeatherAt)
       .catch(() => {
         document.getElementById('weather-body').innerHTML =
           '<p class="loading">Weather forecast unavailable right now.</p>';
       });
   }
+
+  function loadWeatherAt(loc) {
+    document.getElementById('weather-body').innerHTML = `<p class="loading">Loading forecast for ${escapeHtml(loc.label)}…</p>`;
+    return fetch(buildWeatherApiUrl(loc.lat, loc.lon))
+      .then(r => { if (!r.ok) throw new Error('Forecast request failed'); return r.json(); })
+      .then(data => renderWeather(data, loc.label));
+  }
+
+  function locationLabel(place) {
+    return [place.name, place.admin1, place.country].filter((value, index, items) => value && items.indexOf(value) === index).join(', ');
+  }
+
+  async function searchWorldwideWeather(query) {
+    const resultsEl = document.getElementById('weather-search-results');
+    resultsEl.innerHTML = '<span class="wx-search-message">Searching worldwide locations…</span>';
+    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=5&language=en&format=json`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Location search failed');
+    const data = await response.json();
+    const places = Array.isArray(data.results) ? data.results : [];
+    if (!places.length) {
+      resultsEl.innerHTML = '<span class="wx-search-message">No matching place found. Try adding the country or region.</span>';
+      return;
+    }
+    resultsEl.innerHTML = '<span class="wx-search-message">Choose a location:</span>' + places.map((place, index) =>
+      `<button type="button" class="wx-place-option" data-place-index="${index}">${escapeHtml(locationLabel(place))}</button>`
+    ).join('');
+    resultsEl.querySelectorAll('[data-place-index]').forEach(button => button.addEventListener('click', () => {
+      const place = places[Number(button.dataset.placeIndex)];
+      resolvedLocation = { lat: place.latitude, lon: place.longitude, label: locationLabel(place) };
+      resultsEl.innerHTML = `<span class="wx-search-message">Showing ${escapeHtml(resolvedLocation.label)}</span>`;
+      loadWeatherAt(resolvedLocation).catch(() => {
+        document.getElementById('weather-body').innerHTML = '<p class="loading">Weather forecast unavailable for this location.</p>';
+      });
+    }));
+  }
+
+  document.getElementById('weather-search-form').addEventListener('submit', async event => {
+    event.preventDefault();
+    const input = document.getElementById('weather-search-input');
+    const query = input.value.trim();
+    if (query.length < 2) return;
+    const button = document.getElementById('weather-search-btn');
+    button.disabled = true;
+    button.textContent = 'Searching…';
+    try { await searchWorldwideWeather(query); }
+    catch { document.getElementById('weather-search-results').innerHTML = '<span class="wx-search-message">Location search is unavailable right now.</span>'; }
+    finally { button.disabled = false; button.textContent = 'Search weather'; }
+  });
+
+  document.getElementById('weather-near-me-btn').addEventListener('click', () => {
+    resolvedLocation = null;
+    document.getElementById('weather-search-input').value = '';
+    document.getElementById('weather-search-results').innerHTML = '<span class="wx-search-message">Using your device location…</span>';
+    loadWeather().then(() => { document.getElementById('weather-search-results').innerHTML = ''; });
+  });
 
   function loadAll() {
     nextRefreshAt = Date.now() + REFRESH_MS;
