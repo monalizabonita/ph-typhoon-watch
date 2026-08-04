@@ -1,7 +1,7 @@
 {
-  "last_checked_utc": "2026-08-04T15:00:23Z",
-  "pagasa_active": false,
-  "pagasa_message": "No Active Tropical Cyclone within the Philippine Area of Responsibility",
+  "last_checked_utc": "2026-08-04T17:03:11Z",
+  "pagasa_active": true,
+  "pagasa_message": "THE LOW PRESSURE AREA WEST OF LA UNION HAS DEVELOPED INTO TROPICAL DEPRESSION \u201cMAYMAY\u201d.",
   "source_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone/severe-weather-bulletin",
   "advisory_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe"
 }

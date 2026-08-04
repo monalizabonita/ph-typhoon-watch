@@ -163,5 +163,10 @@
     "date": "2026-08-04",
     "active": false,
     "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
+  },
+  {
+    "date": "2026-08-05",
+    "active": true,
+    "message": "THE LOW PRESSURE AREA WEST OF LA UNION HAS DEVELOPED INTO TROPICAL DEPRESSION \u201cMAYMAY\u201d."
   }
 ]
