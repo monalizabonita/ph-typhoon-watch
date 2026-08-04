@@ -161,7 +161,7 @@
   },
   {
     "date": "2026-08-04",
-    "active": true,
-    "message": "LUIS WEAKENED INTO A LOW PRESSURE AREA WHILE IN THE VICINITY OF PE\u00d1ABLANCA, CAGAYAN."
+    "active": false,
+    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
   }
 ]

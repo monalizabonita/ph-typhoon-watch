@@ -1,7 +1,7 @@
 {
-  "last_checked_utc": "2026-08-04T01:06:20Z",
-  "pagasa_active": true,
-  "pagasa_message": "LUIS WEAKENED INTO A LOW PRESSURE AREA WHILE IN THE VICINITY OF PE\u00d1ABLANCA, CAGAYAN.",
+  "last_checked_utc": "2026-08-04T04:30:40Z",
+  "pagasa_active": false,
+  "pagasa_message": "No Active Tropical Cyclone within the Philippine Area of Responsibility",
   "source_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone/severe-weather-bulletin",
   "advisory_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe"
 }
