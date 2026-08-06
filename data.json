@@ -1,7 +1,7 @@
 {
-  "last_checked_utc": "2026-08-06T11:32:43Z",
-  "pagasa_active": true,
-  "pagasa_message": "\u201cMAYMAY\u201d IS NOW OVER THE PHILIPPINE SEA.",
+  "last_checked_utc": "2026-08-06T13:19:49Z",
+  "pagasa_active": false,
+  "pagasa_message": "No Active Tropical Cyclone within the Philippine Area of Responsibility",
   "source_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone/severe-weather-bulletin",
   "advisory_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe"
 }
