@@ -1,0 +1,282 @@
+{
+  "checked_at_utc": "2026-08-10T04:21:55Z",
+  "method": "Heavy-rain screening; not confirmed flooding",
+  "noah_url": "https://noah.up.edu.ph/know-your-hazards-realtimefloodmap",
+  "areas": [
+    {
+      "name": "Laoag",
+      "province": "Ilocos Norte",
+      "region": "Luzon",
+      "latitude": 18.196,
+      "longitude": 120.5927,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 28.1,
+      "risk": "WATCH"
+    },
+    {
+      "name": "Baguio",
+      "province": "Benguet",
+      "region": "Luzon",
+      "latitude": 16.4023,
+      "longitude": 120.596,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 83.5,
+      "risk": "HIGH"
+    },
+    {
+      "name": "Tuguegarao",
+      "province": "Cagayan",
+      "region": "Luzon",
+      "latitude": 17.6132,
+      "longitude": 121.727,
+      "date": "2026-08-10",
+      "rain_probability": 98.0,
+      "rain_mm": 3.1,
+      "risk": "LOW"
+    },
+    {
+      "name": "Baler",
+      "province": "Aurora",
+      "region": "Luzon",
+      "latitude": 15.7589,
+      "longitude": 121.5607,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 13.3,
+      "risk": "LOW"
+    },
+    {
+      "name": "Angeles",
+      "province": "Pampanga",
+      "region": "Luzon",
+      "latitude": 15.145,
+      "longitude": 120.5887,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 14.3,
+      "risk": "LOW"
+    },
+    {
+      "name": "Metro Manila",
+      "province": "NCR",
+      "region": "Luzon",
+      "latitude": 14.5995,
+      "longitude": 120.9842,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 24.8,
+      "risk": "WATCH"
+    },
+    {
+      "name": "Taguig",
+      "province": "NCR",
+      "region": "Luzon",
+      "latitude": 14.5176,
+      "longitude": 121.0509,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 31.8,
+      "risk": "WATCH"
+    },
+    {
+      "name": "Batangas City",
+      "province": "Batangas",
+      "region": "Luzon",
+      "latitude": 13.7565,
+      "longitude": 121.0583,
+      "date": "2026-08-10",
+      "rain_probability": 99.0,
+      "rain_mm": 16.8,
+      "risk": "LOW"
+    },
+    {
+      "name": "Naga",
+      "province": "Camarines Sur",
+      "region": "Luzon",
+      "latitude": 13.6218,
+      "longitude": 123.1948,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 10.1,
+      "risk": "LOW"
+    },
+    {
+      "name": "Legazpi",
+      "province": "Albay",
+      "region": "Luzon",
+      "latitude": 13.1391,
+      "longitude": 123.7438,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 7.1,
+      "risk": "LOW"
+    },
+    {
+      "name": "Puerto Princesa",
+      "province": "Palawan",
+      "region": "Luzon",
+      "latitude": 9.7392,
+      "longitude": 118.7353,
+      "date": "2026-08-10",
+      "rain_probability": 83.0,
+      "rain_mm": 16.2,
+      "risk": "LOW"
+    },
+    {
+      "name": "Cebu City",
+      "province": "Cebu",
+      "region": "Cebu",
+      "latitude": 10.3157,
+      "longitude": 123.8854,
+      "date": "2026-08-10",
+      "rain_probability": 96.0,
+      "rain_mm": 2.8,
+      "risk": "LOW"
+    },
+    {
+      "name": "Mandaue",
+      "province": "Cebu",
+      "region": "Cebu",
+      "latitude": 10.3236,
+      "longitude": 123.9222,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 2.0,
+      "risk": "LOW"
+    },
+    {
+      "name": "Lapu-Lapu",
+      "province": "Cebu",
+      "region": "Cebu",
+      "latitude": 10.3103,
+      "longitude": 123.9494,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 2.0,
+      "risk": "LOW"
+    },
+    {
+      "name": "Danao",
+      "province": "Cebu",
+      "region": "Cebu",
+      "latitude": 10.5208,
+      "longitude": 124.027,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 2.7,
+      "risk": "LOW"
+    },
+    {
+      "name": "Toledo",
+      "province": "Cebu",
+      "region": "Cebu",
+      "latitude": 10.377,
+      "longitude": 123.6386,
+      "date": "2026-08-10",
+      "rain_probability": 41.0,
+      "rain_mm": 1.5,
+      "risk": "LOW"
+    },
+    {
+      "name": "Iloilo City",
+      "province": "Iloilo",
+      "region": "Visayas",
+      "latitude": 10.7202,
+      "longitude": 122.5621,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 19.0,
+      "risk": "LOW"
+    },
+    {
+      "name": "Bacolod",
+      "province": "Negros Occidental",
+      "region": "Visayas",
+      "latitude": 10.6765,
+      "longitude": 122.9509,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 13.7,
+      "risk": "LOW"
+    },
+    {
+      "name": "Tacloban",
+      "province": "Leyte",
+      "region": "Visayas",
+      "latitude": 11.2447,
+      "longitude": 125.0036,
+      "date": "2026-08-10",
+      "rain_probability": 25.0,
+      "rain_mm": 0.2,
+      "risk": "LOW"
+    },
+    {
+      "name": "Tagbilaran",
+      "province": "Bohol",
+      "region": "Visayas",
+      "latitude": 9.6496,
+      "longitude": 123.853,
+      "date": "2026-08-10",
+      "rain_probability": 27.0,
+      "rain_mm": 0.0,
+      "risk": "LOW"
+    },
+    {
+      "name": "Davao City",
+      "province": "Davao del Sur",
+      "region": "Mindanao",
+      "latitude": 7.1907,
+      "longitude": 125.4553,
+      "date": "2026-08-10",
+      "rain_probability": 11.0,
+      "rain_mm": 0.6,
+      "risk": "LOW"
+    },
+    {
+      "name": "Cagayan de Oro",
+      "province": "Misamis Oriental",
+      "region": "Mindanao",
+      "latitude": 8.4542,
+      "longitude": 124.6319,
+      "date": "2026-08-10",
+      "rain_probability": 80.0,
+      "rain_mm": 0.6,
+      "risk": "LOW"
+    },
+    {
+      "name": "Zamboanga City",
+      "province": "Zamboanga del Sur",
+      "region": "Mindanao",
+      "latitude": 6.9214,
+      "longitude": 122.079,
+      "date": "2026-08-10",
+      "rain_probability": 75.0,
+      "rain_mm": 2.9,
+      "risk": "LOW"
+    },
+    {
+      "name": "Butuan",
+      "province": "Agusan del Norte",
+      "region": "Mindanao",
+      "latitude": 8.9475,
+      "longitude": 125.5406,
+      "date": "2026-08-10",
+      "rain_probability": 25.0,
+      "rain_mm": 0.0,
+      "risk": "LOW"
+    },
+    {
+      "name": "General Santos",
+      "province": "South Cotabato",
+      "region": "Mindanao",
+      "latitude": 6.1164,
+      "longitude": 125.1716,
+      "date": "2026-08-10",
+      "rain_probability": 90.0,
+      "rain_mm": 0.5,
+      "risk": "LOW"
+    }
+  ]
+}

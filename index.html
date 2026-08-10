@@ -249,6 +249,7 @@
     <div class="brand"><span class="brand-mark">🌀</span><span>Typhoon Watch<small>Philippines</small></span></div>
     <nav>
       <a href="#weather-card" class="nav-item active">Weather Forecast</a>
+      <a href="#flood-card" class="nav-item">Flood Areas</a>
       <a href="#status-card" class="nav-item">Status</a>
       <a href="#advisory-card" class="nav-item">Active Advisory</a>
       <a href="#trend-card" class="nav-item">Activity Trend</a>
@@ -283,6 +284,26 @@
       </form>
       <div class="wx-search-results" id="weather-search-results" aria-live="polite"></div>
       <div id="weather-body"><p class="loading">Loading forecast…</p></div>
+    </div>
+
+    <div class="card" id="flood-card">
+      <div class="section-heading"><span class="section-icon">≈</span><div><span class="section-kicker">Nationwide screening</span><h2>Philippine Flood Areas</h2></div></div>
+      <p class="range">Search any Philippine locality or review regional centers nationwide. Results indicate potential flood risk from forecast heavy rain—not confirmed street flooding.</p>
+      <form class="wx-search" id="flood-search-form">
+        <input id="flood-search-input" type="search" minlength="2" autocomplete="off" placeholder="Search a Philippine city, municipality, or barangay" aria-label="Search Philippine flood risk">
+        <button type="submit" id="flood-search-btn">Check area</button>
+        <a class="flood-noah-btn" href="https://noah.up.edu.ph/know-your-hazards-realtimefloodmap" target="_blank" rel="noopener">Open Project NOAH ↗</a>
+      </form>
+      <div id="flood-search-result" aria-live="polite"></div>
+      <div class="flood-toolbar">
+        <p class="range" id="flood-updated">Loading nationwide risk snapshot…</p>
+        <select id="flood-region-filter" aria-label="Filter flood areas by island group">
+          <option value="all">All Philippines</option><option value="Luzon">Luzon</option><option value="Cebu">Cebu</option><option value="Visayas">Other Visayas</option><option value="Mindanao">Mindanao</option>
+        </select>
+      </div>
+      <div class="flood-summary" id="flood-summary"></div>
+      <div class="flood-area-list" id="flood-area-list"><p class="loading">Loading flood-risk areas…</p></div>
+      <p class="flood-disclaimer"><strong>Important:</strong> Project NOAH provides hazard and impact maps. Always confirm current road conditions with your LGU, barangay, MDRRMO/CDRRMO, and official emergency announcements.</p>
     </div>
 
     <div class="card" id="status-card">
@@ -491,9 +512,90 @@
     loadWeather().then(() => { document.getElementById('weather-search-results').innerHTML = ''; });
   });
 
+  function floodRiskLevel(probability, rainMm) {
+    if (probability >= 80 && rainMm >= 50) return 'HIGH';
+    if (probability >= 60 && rainMm >= 20) return 'WATCH';
+    return 'LOW';
+  }
+
+  function floodRiskLabel(level) {
+    return level === 'HIGH' ? 'High potential risk' : level === 'WATCH' ? 'Flood watch' : 'Low forecast risk';
+  }
+
+  function renderFloodRisk(data) {
+    const selectedRegion = document.getElementById('flood-region-filter').value;
+    const areas = (data.areas || []).filter(area => selectedRegion === 'all' || area.region === selectedRegion);
+    const order = { HIGH: 0, WATCH: 1, LOW: 2 };
+    areas.sort((a, b) => order[a.risk] - order[b.risk] || b.rain_mm - a.rain_mm);
+    const flagged = areas.filter(area => area.risk !== 'LOW').length;
+    document.getElementById('flood-updated').textContent = data.checked_at_utc
+      ? `Forecast checked ${new Date(data.checked_at_utc).toLocaleString('en-PH', { timeZone: 'Asia/Manila', dateStyle: 'medium', timeStyle: 'short' })}`
+      : 'Forecast check time unavailable';
+    document.getElementById('flood-summary').innerHTML = `
+      <div><span>Areas shown</span><strong>${areas.length}</strong></div>
+      <div><span>Watch / high</span><strong>${flagged}</strong></div>
+      <div><span>Alert coverage</span><strong>Luzon + Cebu</strong></div>`;
+    document.getElementById('flood-area-list').innerHTML = areas.map(area => `
+      <article class="flood-area-row">
+        <div><span>${escapeHtml(area.region)}</span><strong>${escapeHtml(area.name)}</strong><small>${escapeHtml(area.province)}</small></div>
+        <div><span>Forecast risk</span><strong class="flood-risk ${area.risk.toLowerCase()}">${floodRiskLabel(area.risk)}</strong></div>
+        <div><span>Rain forecast</span><strong>${Math.round(area.rain_probability)}% · ${Number(area.rain_mm).toFixed(1)} mm</strong><small>${escapeHtml(area.date)}</small></div>
+        <a href="https://noah.up.edu.ph/know-your-hazards-realtimefloodmap" target="_blank" rel="noopener">Inspect in NOAH ↗</a>
+      </article>`).join('') || '<p class="loading">No monitored regional centers in this filter.</p>';
+  }
+
+  document.getElementById('flood-region-filter').addEventListener('change', () => {
+    if (window.floodRiskSnapshot) renderFloodRisk(window.floodRiskSnapshot);
+  });
+
+  document.getElementById('flood-search-form').addEventListener('submit', async event => {
+    event.preventDefault();
+    const input = document.getElementById('flood-search-input');
+    const result = document.getElementById('flood-search-result');
+    const button = document.getElementById('flood-search-btn');
+    const query = input.value.trim();
+    if (query.length < 2) return;
+    button.disabled = true;
+    button.textContent = 'Checking…';
+    result.innerHTML = '<p class="loading">Finding the Philippine location…</p>';
+    try {
+      const placesResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=10&language=en&format=json`);
+      if (!placesResponse.ok) throw new Error('Location search failed');
+      const placesData = await placesResponse.json();
+      const place = (placesData.results || []).find(item => item.country_code === 'PH');
+      if (!place) throw new Error('No Philippine locality found. Add the province or city name.');
+      const forecastResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${place.latitude}&longitude=${place.longitude}&daily=precipitation_probability_max,precipitation_sum&timezone=Asia%2FManila&forecast_days=1`);
+      if (!forecastResponse.ok) throw new Error('Forecast unavailable');
+      const forecast = await forecastResponse.json();
+      const probability = Number(forecast.daily?.precipitation_probability_max?.[0] || 0);
+      const rainMm = Number(forecast.daily?.precipitation_sum?.[0] || 0);
+      const risk = floodRiskLevel(probability, rainMm);
+      const placeName = locationLabel(place);
+      result.innerHTML = `<article class="flood-search-card">
+        <div><span>Area checked</span><h3>${escapeHtml(placeName)}</h3><p>${Math.round(probability)}% rain probability · approximately ${rainMm.toFixed(1)} mm today</p></div>
+        <strong class="flood-risk ${risk.toLowerCase()}">${floodRiskLabel(risk)}</strong>
+        <a class="link-pill" href="https://noah.up.edu.ph/know-your-hazards-realtimefloodmap" target="_blank" rel="noopener">Check this area in Project NOAH ↗</a>
+      </article>`;
+    } catch (error) {
+      result.innerHTML = `<p class="loading">${escapeHtml(error.message || 'Area check unavailable right now.')}</p>`;
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Check area';
+    }
+  });
+
+  function loadFloodRisk() {
+    return fetch(RAW_BASE + 'flood_risk.json?_=' + Date.now())
+      .then(r => { if (!r.ok) throw new Error('Flood-risk snapshot unavailable'); return r.json(); })
+      .then(data => { window.floodRiskSnapshot = data; renderFloodRisk(data); })
+      .catch(() => {
+        document.getElementById('flood-area-list').innerHTML = '<p class="loading">Flood-risk snapshot unavailable. Open Project NOAH for the latest map.</p>';
+      });
+  }
+
   function loadAll() {
     nextRefreshAt = Date.now() + REFRESH_MS;
-    return Promise.all([loadStatus(), loadTrend(), loadWeather()]);
+    return Promise.all([loadStatus(), loadTrend(), loadWeather(), loadFloodRisk()]);
   }
 
   document.getElementById('refresh-btn').addEventListener('click', async (e) => {
@@ -517,7 +619,7 @@
     document.querySelectorAll('.timeline-cell.selected').forEach(c => c.classList.remove('selected'));
   });
 
-  const SECTION_IDS = ['weather-card', 'status-card', 'advisory-card', 'trend-card', 'links-card'];
+  const SECTION_IDS = ['weather-card', 'flood-card', 'status-card', 'advisory-card', 'trend-card', 'links-card'];
 
   function showSection(targetId) {
     SECTION_IDS.forEach(id => {

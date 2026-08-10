@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Sends alerts, fanned out to every configured channel, for two conditions:
+"""Sends alerts, fanned out to every configured channel, for three conditions:
 1. PAGASA reports an active tropical cyclone (data.json's pagasa_active) — alerted once per
    day while it stays active, via alert_state.json.
 2. Today's rain forecast (Open-Meteo, no API key needed) for Metro Manila/Taguig crosses a
    threshold — alerted once per day.
+3. Heavy-rain flood-risk screening flags Luzon or Cebu locations. This is explicitly described
+   as potential risk and links to Project NOAH for area-level hazard inspection.
 
 Channels (each optional — skipped with a stderr note if its env var isn't set):
 - Google Chat: GCHAT_WEBHOOK_URL (an incoming webhook URL)
@@ -32,6 +34,8 @@ NTFY_URL = f"https://ntfy.sh/{NTFY_TOPIC}" if NTFY_TOPIC else ""
 
 DATA_PATH = Path(__file__).resolve().parent.parent / "data.json"
 STATE_PATH = Path(__file__).resolve().parent.parent / "alert_state.json"
+FLOOD_RISK_PATH = Path(__file__).resolve().parent.parent / "flood_risk.json"
+NOAH_FLOOD_URL = "https://noah.up.edu.ph/know-your-hazards-realtimefloodmap"
 
 # Taguig, Metro Manila
 LATITUDE = 14.5176
@@ -43,7 +47,7 @@ def load_state() -> dict:
     try:
         return json.loads(STATE_PATH.read_text())
     except (FileNotFoundError, json.JSONDecodeError):
-        return {"typhoon_alerted_date": "", "rain_alerted_date": ""}
+        return {"typhoon_alerted_date": "", "rain_alerted_date": "", "flood_risk_signature": ""}
 
 
 def save_state(state: dict) -> None:
@@ -160,10 +164,48 @@ def check_rain(state: dict) -> dict:
     return state
 
 
+def check_flood_risk(state: dict) -> dict:
+    try:
+        snapshot = json.loads(FLOOD_RISK_PATH.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        return state
+
+    flagged = [
+        area for area in snapshot.get("areas", [])
+        if area.get("region") in {"Luzon", "Cebu"} and area.get("risk") in {"WATCH", "HIGH"}
+    ]
+    signature = "|".join(
+        f"{area['name']}:{area['risk']}" for area in sorted(flagged, key=lambda item: item["name"])
+    )
+    if not signature:
+        state["flood_risk_signature"] = ""
+        return state
+    if state.get("flood_risk_signature") == signature:
+        return state
+
+    lines = [
+        f"• {area['name']}, {area['province']}: {area['risk']} "
+        f"({area['rain_probability']:.0f}% rain, ~{area['rain_mm']:.1f} mm)"
+        for area in sorted(flagged, key=lambda item: (item["risk"] != "HIGH", -item["rain_mm"]))
+    ]
+    notify(
+        "🌊 Potential flood-risk areas from heavy-rain screening (Luzon + Cebu):\n"
+        + "\n".join(lines)
+        + f"\n\nCheck the street/barangay hazard map in Project NOAH: {NOAH_FLOOD_URL}"
+        + "\nThis is a forecast risk, not confirmation that an area is currently flooded.",
+        title="PH Flood Risk Alert",
+        priority="high" if any(area["risk"] == "HIGH" for area in flagged) else "default",
+        tags="ocean,warning",
+    )
+    state["flood_risk_signature"] = signature
+    return state
+
+
 def main() -> int:
     state = load_state()
     state = check_typhoon(state)
     state = check_rain(state)
+    state = check_flood_risk(state)
     save_state(state)
     return 0
 
