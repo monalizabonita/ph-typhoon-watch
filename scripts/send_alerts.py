@@ -28,6 +28,7 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import List, Optional
 from zoneinfo import ZoneInfo
 
 GCHAT_WEBHOOK_URL = os.environ.get("GCHAT_WEBHOOK_URL", "")
@@ -42,6 +43,14 @@ NOAH_FLOOD_URL = "https://noah.up.edu.ph/know-your-hazards-realtimefloodmap"
 FLOOD_REPORT_URL = (
     "https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/"
     "flood-alert-report.png"
+)
+FLOOD_SUMMARY_URL = (
+    "https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/"
+    "flood-alert-summary.png"
+)
+FLOOD_ADVISORY_URL = (
+    "https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/"
+    "flood-alert-advisory-{}.png"
 )
 
 # Taguig, Metro Manila
@@ -70,22 +79,29 @@ def manila_today() -> str:
     return datetime.now(timezone.utc).astimezone(ZoneInfo("Asia/Manila")).strftime("%Y-%m-%d")
 
 
-def send_gchat(text: str, title: str, priority: str, tags: str, image_url: str = "") -> None:
+def send_gchat(
+    text: str, title: str, priority: str, tags: str, image_url: str = "",
+    image_urls: Optional[List[str]] = None,
+) -> None:
     if not GCHAT_WEBHOOK_URL:
         print("GCHAT_WEBHOOK_URL not set — skipping Google Chat send.", file=sys.stderr)
         return
     payload_data = {"text": text}
-    if image_url:
+    display_images = image_urls or ([image_url] if image_url else [])
+    if display_images:
         payload_data["cardsV2"] = [{
-            "cardId": "pagasa-flood-report",
+            "cardId": f"pagasa-flood-report-{index}",
             "card": {
-                "header": {"title": title, "subtitle": "Complete report displayed inline"},
+                "header": {
+                    "title": title if index == 1 else f"Flood advisory {index - 1}",
+                    "subtitle": "Large inline report • No tap required",
+                },
                 "sections": [{"widgets": [{"image": {
-                    "imageUrl": image_url,
+                    "imageUrl": url,
                     "altText": "Complete PAGASA flood alert report",
                 }}]}],
             },
-        }]
+        } for index, url in enumerate(display_images, 1)]
     payload = json.dumps(payload_data).encode()
     req = urllib.request.Request(
         GCHAT_WEBHOOK_URL, data=payload, headers={"Content-Type": "application/json"}, method="POST"
@@ -124,10 +140,11 @@ def send_ntfy(text: str, title: str, priority: str, tags: str, image_url: str = 
 
 
 def notify(
-    text: str, *, title: str, priority: str = "default", tags: str = "", image_url: str = ""
+    text: str, *, title: str, priority: str = "default", tags: str = "", image_url: str = "",
+    image_urls: Optional[List[str]] = None,
 ) -> None:
     """Fans a single alert out to every configured channel."""
-    send_gchat(text, title, priority, tags, image_url)
+    send_gchat(text, title, priority, tags, image_url, image_urls)
     send_ntfy(text, title, priority, tags, image_url)
 
 
@@ -261,6 +278,10 @@ def check_flood_advisories(state: dict) -> dict:
 
     source_url = snapshot.get("source_url", "https://panahon.gov.ph/")
     report_url = FLOOD_REPORT_URL + "?v=" + urllib.parse.quote(snapshot.get("checked_at_utc", ""))
+    version = "?v=" + urllib.parse.quote(snapshot.get("checked_at_utc", ""))
+    inline_images = [FLOOD_SUMMARY_URL + version] + [
+        FLOOD_ADVISORY_URL.format(index) + version for index in range(1, len(advisories) + 1)
+    ]
     notify(
         f"🌊 PAGASA Flood Alert Report — {len(advisories)} active advisories for Luzon + Cebu.\n"
         + "The attached image contains the complete affected areas, watercourses, validity times, "
@@ -269,6 +290,7 @@ def check_flood_advisories(state: dict) -> dict:
         priority="urgent" if any(item.get("severity") == "EXTREME" for item in advisories) else "high",
         tags="ocean,warning",
         image_url=report_url,
+        image_urls=inline_images,
     )
     state["flood_advisory_signature"] = signature
     return state

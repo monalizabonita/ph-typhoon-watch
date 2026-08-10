@@ -234,6 +234,44 @@ def render_chat_advisory(item: dict, index: int, total: int):
     image.save(ROOT / f"{PAGE_PREFIX}{index}.png", "PNG", optimize=True)
 
 
+def render_large_inline_card(item: dict, index: int, total: int):
+    """Create a short, large-type panel that stays readable at Google Chat card width."""
+    width, height, pad = 900, 660, 48
+    image = Image.new("RGB", (width, height), COLORS["bg"])
+    draw = ImageDraw.Draw(image)
+    severity = item.get("severity", "ADVISORY")
+    accent = COLORS.get(severity, COLORS["ADVISORY"])
+    draw.rectangle((0, 0, width, 18), fill=accent)
+    draw.text((pad, 48), severity, font=font(48, True), fill=accent)
+    draw.text((width - pad, 65), f"PAGASA • {index} OF {total}", font=font(23, True),
+              fill=COLORS["muted"], anchor="ra")
+
+    draw.text((pad, 126), "AFFECTED AREAS", font=font(23, True), fill=accent)
+    area_lines = wrap(draw, ", ".join(item.get("areas", [])), font(34, True), width - pad * 2)
+    cursor = 166
+    for line in area_lines[:3]:
+        draw.text((pad, cursor), line, font=font(34, True), fill=COLORS["text"])
+        cursor += 43
+
+    outlook, _ = advisory_parts(item.get("message", ""))
+    cursor += 16
+    draw.text((pad, cursor), "12-HOUR OUTLOOK", font=font(23, True), fill=accent)
+    cursor += 39
+    for line in wrap(draw, outlook, font(28), width - pad * 2)[:3]:
+        draw.text((pad, cursor), line, font=font(28), fill=COLORS["text"])
+        cursor += 37
+
+    hazard_y = 455
+    draw.rounded_rectangle((pad, hazard_y, width - pad, hazard_y + 92), 18,
+                           fill="#19384E", outline=accent, width=2)
+    draw.text((pad + 24, hazard_y + 18), "FLOODING RISK", font=font(22, True), fill=accent)
+    draw.text((pad + 24, hazard_y + 51), "Rivers, streams and low-lying areas",
+              font=font(29, True), fill=COLORS["text"])
+    draw.text((pad, 580), f"VALID UNTIL  {item.get('valid_until') or 'Not provided'}",
+              font=font(23, True), fill=COLORS["muted"])
+    image.save(ROOT / f"{PAGE_PREFIX}{index}.png", "PNG", optimize=True)
+
+
 def render_reference_infographic(snapshot: dict, advisories: list[dict]):
     """Render a compact official-advisory poster sized for inline Google Chat display."""
     width, height = 1200, 1510
@@ -415,6 +453,9 @@ def main() -> int:
               font=SMALL, fill=COLORS["WATCH"])
     image.save(OUT_PATH, "PNG", optimize=True)
     render_reference_infographic(snapshot, advisories)
+    render_chat_summary(snapshot, advisories, counts, unique_areas)
+    for index, item in enumerate(advisories, 1):
+        render_large_inline_card(item, index, len(advisories))
     print(f"Created compact weather-advisory infographic with {len(advisories)} official advisories")
     return 0
 
