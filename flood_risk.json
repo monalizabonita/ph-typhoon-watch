@@ -1,10 +1,13 @@
 {
-  "checked_at_utc": "2026-08-10T04:21:55Z",
+  "checked_at_utc": "2026-08-10T04:30:25Z",
   "method": "Heavy-rain screening; not confirmed flooding",
   "noah_url": "https://noah.up.edu.ph/know-your-hazards-realtimefloodmap",
   "areas": [
     {
       "name": "Laoag",
+      "city": "Laoag",
+      "barangay": null,
+      "geocoded": true,
       "province": "Ilocos Norte",
       "region": "Luzon",
       "latitude": 18.196,
@@ -16,6 +19,9 @@
     },
     {
       "name": "Baguio",
+      "city": "Baguio",
+      "barangay": "Military Cut-Off",
+      "geocoded": true,
       "province": "Benguet",
       "region": "Luzon",
       "latitude": 16.4023,
@@ -27,6 +33,9 @@
     },
     {
       "name": "Tuguegarao",
+      "city": "Tuguegarao",
+      "barangay": null,
+      "geocoded": false,
       "province": "Cagayan",
       "region": "Luzon",
       "latitude": 17.6132,
@@ -38,6 +47,9 @@
     },
     {
       "name": "Baler",
+      "city": "Baler",
+      "barangay": null,
+      "geocoded": false,
       "province": "Aurora",
       "region": "Luzon",
       "latitude": 15.7589,
@@ -49,6 +61,9 @@
     },
     {
       "name": "Angeles",
+      "city": "Angeles",
+      "barangay": null,
+      "geocoded": false,
       "province": "Pampanga",
       "region": "Luzon",
       "latitude": 15.145,
@@ -60,6 +75,9 @@
     },
     {
       "name": "Metro Manila",
+      "city": "Manila",
+      "barangay": "Barangay 307",
+      "geocoded": true,
       "province": "NCR",
       "region": "Luzon",
       "latitude": 14.5995,
@@ -71,6 +89,9 @@
     },
     {
       "name": "Taguig",
+      "city": "Taguig",
+      "barangay": "Pinagsama",
+      "geocoded": true,
       "province": "NCR",
       "region": "Luzon",
       "latitude": 14.5176,
@@ -82,6 +103,9 @@
     },
     {
       "name": "Batangas City",
+      "city": "Batangas City",
+      "barangay": null,
+      "geocoded": false,
       "province": "Batangas",
       "region": "Luzon",
       "latitude": 13.7565,
@@ -93,6 +117,9 @@
     },
     {
       "name": "Naga",
+      "city": "Naga",
+      "barangay": null,
+      "geocoded": false,
       "province": "Camarines Sur",
       "region": "Luzon",
       "latitude": 13.6218,
@@ -104,6 +131,9 @@
     },
     {
       "name": "Legazpi",
+      "city": "Legazpi",
+      "barangay": null,
+      "geocoded": false,
       "province": "Albay",
       "region": "Luzon",
       "latitude": 13.1391,
@@ -115,6 +145,9 @@
     },
     {
       "name": "Puerto Princesa",
+      "city": "Puerto Princesa",
+      "barangay": null,
+      "geocoded": false,
       "province": "Palawan",
       "region": "Luzon",
       "latitude": 9.7392,
@@ -126,6 +159,9 @@
     },
     {
       "name": "Cebu City",
+      "city": "Cebu City",
+      "barangay": null,
+      "geocoded": false,
       "province": "Cebu",
       "region": "Cebu",
       "latitude": 10.3157,
@@ -137,6 +173,9 @@
     },
     {
       "name": "Mandaue",
+      "city": "Mandaue",
+      "barangay": null,
+      "geocoded": false,
       "province": "Cebu",
       "region": "Cebu",
       "latitude": 10.3236,
@@ -148,6 +187,9 @@
     },
     {
       "name": "Lapu-Lapu",
+      "city": "Lapu-Lapu",
+      "barangay": null,
+      "geocoded": false,
       "province": "Cebu",
       "region": "Cebu",
       "latitude": 10.3103,
@@ -159,6 +201,9 @@
     },
     {
       "name": "Danao",
+      "city": "Danao",
+      "barangay": null,
+      "geocoded": false,
       "province": "Cebu",
       "region": "Cebu",
       "latitude": 10.5208,
@@ -170,6 +215,9 @@
     },
     {
       "name": "Toledo",
+      "city": "Toledo",
+      "barangay": null,
+      "geocoded": false,
       "province": "Cebu",
       "region": "Cebu",
       "latitude": 10.377,
@@ -181,6 +229,9 @@
     },
     {
       "name": "Iloilo City",
+      "city": "Iloilo City",
+      "barangay": null,
+      "geocoded": false,
       "province": "Iloilo",
       "region": "Visayas",
       "latitude": 10.7202,
@@ -192,6 +243,9 @@
     },
     {
       "name": "Bacolod",
+      "city": "Bacolod",
+      "barangay": null,
+      "geocoded": false,
       "province": "Negros Occidental",
       "region": "Visayas",
       "latitude": 10.6765,
@@ -203,6 +257,9 @@
     },
     {
       "name": "Tacloban",
+      "city": "Tacloban",
+      "barangay": null,
+      "geocoded": false,
       "province": "Leyte",
       "region": "Visayas",
       "latitude": 11.2447,
@@ -214,6 +271,9 @@
     },
     {
       "name": "Tagbilaran",
+      "city": "Tagbilaran",
+      "barangay": null,
+      "geocoded": false,
       "province": "Bohol",
       "region": "Visayas",
       "latitude": 9.6496,
@@ -225,6 +285,9 @@
     },
     {
       "name": "Davao City",
+      "city": "Davao City",
+      "barangay": null,
+      "geocoded": false,
       "province": "Davao del Sur",
       "region": "Mindanao",
       "latitude": 7.1907,
@@ -236,6 +299,9 @@
     },
     {
       "name": "Cagayan de Oro",
+      "city": "Cagayan de Oro",
+      "barangay": null,
+      "geocoded": false,
       "province": "Misamis Oriental",
       "region": "Mindanao",
       "latitude": 8.4542,
@@ -247,6 +313,9 @@
     },
     {
       "name": "Zamboanga City",
+      "city": "Zamboanga City",
+      "barangay": null,
+      "geocoded": false,
       "province": "Zamboanga del Sur",
       "region": "Mindanao",
       "latitude": 6.9214,
@@ -258,6 +327,9 @@
     },
     {
       "name": "Butuan",
+      "city": "Butuan",
+      "barangay": null,
+      "geocoded": false,
       "province": "Agusan del Norte",
       "region": "Mindanao",
       "latitude": 8.9475,
@@ -269,6 +341,9 @@
     },
     {
       "name": "General Santos",
+      "city": "General Santos",
+      "barangay": null,
+      "geocoded": false,
       "province": "South Cotabato",
       "region": "Mindanao",
       "latitude": 6.1164,

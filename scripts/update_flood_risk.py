@@ -5,6 +5,7 @@ This is a screening signal, not a report of confirmed flooding. Project NOAH rem
 street/barangay-level hazard reference linked by the UI and alerts.
 """
 import json
+import time
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -52,7 +53,41 @@ def risk_level(probability: float, rain_mm: float) -> str:
     return "LOW"
 
 
+def load_existing_places() -> dict:
+    try:
+        previous = json.loads(OUT_PATH.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+    return {
+        area.get("name"): {
+            "city": area.get("city"), "barangay": area.get("barangay"),
+            "geocoded": area.get("geocoded", False),
+        }
+        for area in previous.get("areas", [])
+    }
+
+
+def reverse_geocode(latitude: float, longitude: float) -> dict:
+    params = urllib.parse.urlencode({
+        "lat": latitude, "lon": longitude, "format": "jsonv2", "zoom": 18, "addressdetails": 1,
+    })
+    request = urllib.request.Request(
+        f"https://nominatim.openstreetmap.org/reverse?{params}",
+        headers={"User-Agent": "PH-Typhoon-Watch/1.0 (personal weather alert portal)"},
+    )
+    with urllib.request.urlopen(request, timeout=20) as response:
+        address = json.loads(response.read()).get("address", {})
+    return {
+        "city": address.get("city") or address.get("town") or address.get("municipality"),
+        "barangay": (
+            address.get("village") or address.get("quarter") or address.get("suburb")
+            or address.get("neighbourhood")
+        ),
+    }
+
+
 def main() -> int:
+    existing_places = load_existing_places()
     params = urllib.parse.urlencode({
         "latitude": ",".join(str(item[3]) for item in LOCATIONS),
         "longitude": ",".join(str(item[4]) for item in LOCATIONS),
@@ -75,8 +110,20 @@ def main() -> int:
         daily = forecast.get("daily", {})
         probability = float((daily.get("precipitation_probability_max") or [0])[0] or 0)
         rain_mm = float((daily.get("precipitation_sum") or [0])[0] or 0)
+        risk = risk_level(probability, rain_mm)
+        place = existing_places.get(city, {})
+        if risk in {"WATCH", "HIGH"} and not place.get("geocoded"):
+            try:
+                place = reverse_geocode(latitude, longitude)
+                place["geocoded"] = True
+                time.sleep(1.1)  # Respect the public geocoder's low-volume usage requirement.
+            except Exception:
+                place = place or {}
         areas.append({
             "name": city,
+            "city": place.get("city") or city,
+            "barangay": place.get("barangay"),
+            "geocoded": bool(place.get("geocoded")),
             "province": province,
             "region": region,
             "latitude": latitude,
@@ -84,7 +131,7 @@ def main() -> int:
             "date": (daily.get("time") or [""])[0],
             "rain_probability": probability,
             "rain_mm": rain_mm,
-            "risk": risk_level(probability, rain_mm),
+            "risk": risk,
         })
 
     payload = {

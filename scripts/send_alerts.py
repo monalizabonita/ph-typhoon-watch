@@ -183,8 +183,17 @@ def check_flood_risk(state: dict) -> dict:
     if state.get("flood_risk_signature") == signature:
         return state
 
+    def barangay_label(area: dict) -> str:
+        name = area.get("barangay")
+        if not name:
+            return ""
+        prefix = "" if name.casefold().startswith(("barangay ", "brgy. ", "brgy ")) else "Brgy. "
+        return f" — {prefix}{name}"
+
     lines = [
-        f"• {area['name']}, {area['province']}: {area['risk']} "
+        f"• {area.get('city') or area['name']}"
+        + barangay_label(area)
+        + f", {area['province']}: {area['risk']} "
         f"({area['rain_probability']:.0f}% rain, ~{area['rain_mm']:.1f} mm)"
         for area in sorted(flagged, key=lambda item: (item["risk"] != "HIGH", -item["rain_mm"]))
     ]

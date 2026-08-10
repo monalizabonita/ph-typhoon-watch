@@ -292,6 +292,7 @@
       <form class="wx-search" id="flood-search-form">
         <input id="flood-search-input" type="search" minlength="2" autocomplete="off" placeholder="Search a Philippine city, municipality, or barangay" aria-label="Search Philippine flood risk">
         <button type="submit" id="flood-search-btn">Check area</button>
+        <button type="button" class="secondary" id="flood-near-me-btn">Use my location</button>
         <a class="flood-noah-btn" href="https://noah.up.edu.ph/know-your-hazards-realtimefloodmap" target="_blank" rel="noopener">Open Project NOAH ↗</a>
       </form>
       <div id="flood-search-result" aria-live="polite"></div>
@@ -537,7 +538,7 @@
       <div><span>Alert coverage</span><strong>Luzon + Cebu</strong></div>`;
     document.getElementById('flood-area-list').innerHTML = areas.map(area => `
       <article class="flood-area-row">
-        <div><span>${escapeHtml(area.region)}</span><strong>${escapeHtml(area.name)}</strong><small>${escapeHtml(area.province)}</small></div>
+        <div><span>${escapeHtml(area.region)}</span><strong>${escapeHtml(area.city || area.name)}</strong><small>${area.barangay ? `${/^brgy\.? |^barangay /i.test(area.barangay) ? '' : 'Brgy. '}${escapeHtml(area.barangay)} · ` : ''}${escapeHtml(area.province)}</small></div>
         <div><span>Forecast risk</span><strong class="flood-risk ${area.risk.toLowerCase()}">${floodRiskLabel(area.risk)}</strong></div>
         <div><span>Rain forecast</span><strong>${Math.round(area.rain_probability)}% · ${Number(area.rain_mm).toFixed(1)} mm</strong><small>${escapeHtml(area.date)}</small></div>
         <a href="https://noah.up.edu.ph/know-your-hazards-realtimefloodmap" target="_blank" rel="noopener">Inspect in NOAH ↗</a>
@@ -582,6 +583,51 @@
       button.disabled = false;
       button.textContent = 'Check area';
     }
+  });
+
+  document.getElementById('flood-near-me-btn').addEventListener('click', () => {
+    const result = document.getElementById('flood-search-result');
+    const button = document.getElementById('flood-near-me-btn');
+    if (!navigator.geolocation) {
+      result.innerHTML = '<p class="loading">Location access is not supported by this browser.</p>';
+      return;
+    }
+    button.disabled = true;
+    button.textContent = 'Locating…';
+    result.innerHTML = '<p class="loading">Getting your current location…</p>';
+    navigator.geolocation.getCurrentPosition(async position => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      try {
+        const [placeResponse, forecastResponse] = await Promise.all([
+          fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`),
+          fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=precipitation_probability_max,precipitation_sum&timezone=Asia%2FManila&forecast_days=1`),
+        ]);
+        if (!forecastResponse.ok) throw new Error('Forecast unavailable');
+        const place = placeResponse.ok ? await placeResponse.json() : {};
+        const forecast = await forecastResponse.json();
+        const probability = Number(forecast.daily?.precipitation_probability_max?.[0] || 0);
+        const rainMm = Number(forecast.daily?.precipitation_sum?.[0] || 0);
+        const risk = floodRiskLevel(probability, rainMm);
+        const isMetroManila = place.countryCode === 'PH' && /national capital region|metro manila|\bncr\b/i.test(place.principalSubdivision || '');
+        const city = isMetroManila ? (place.locality || place.city) : (place.city || place.locality);
+        const label = [city, place.principalSubdivision || place.countryName].filter(Boolean).join(', ') || 'Your current location';
+        result.innerHTML = `<article class="flood-search-card">
+          <div><span>Your current area</span><h3>📍 ${escapeHtml(label)}</h3><p>${Math.round(probability)}% rain probability · approximately ${rainMm.toFixed(1)} mm today</p></div>
+          <strong class="flood-risk ${risk.toLowerCase()}">${floodRiskLabel(risk)}</strong>
+          <a class="link-pill" href="https://noah.up.edu.ph/know-your-hazards-realtimefloodmap" target="_blank" rel="noopener">Inspect nearby streets in Project NOAH ↗</a>
+        </article>`;
+      } catch (error) {
+        result.innerHTML = `<p class="loading">${escapeHtml(error.message || 'Current-location flood check is unavailable.')}</p>`;
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Use my location';
+      }
+    }, error => {
+      result.innerHTML = `<p class="loading">Location permission was not available: ${escapeHtml(error.message || 'permission denied')}.</p>`;
+      button.disabled = false;
+      button.textContent = 'Use my location';
+    }, { enableHighAccuracy: true, timeout: 25000, maximumAge: 5 * 60 * 1000 });
   });
 
   function loadFloodRisk() {
