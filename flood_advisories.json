@@ -1,8 +1,23 @@
 {
-  "checked_at_utc": "2026-08-10T21:59:44Z",
+  "checked_at_utc": "2026-08-10T22:49:06Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
+    {
+      "identifier": "98571fdc-4d67-4ba3-9947-36e4f9aa9be5",
+      "severity": "EXTREME",
+      "areas": [
+        "Metro Manila"
+      ],
+      "all_areas": [
+        "Metro Manila"
+      ],
+      "message": "Under present weather conditions, Southwest Monsoon affecting Luzon.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Metro Manila** - All rivers and streams in Metro Manila.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take appropriate actions.",
+      "issued_at": "2026-08-11 05:40:59",
+      "valid_until": "2026-08-11 17:40:59",
+      "published_by": "PAGASA-DOST"
+    },
     {
       "identifier": "1c020a57-a4d3-441d-a468-8bca5f5477e9",
       "severity": "EXTREME",
