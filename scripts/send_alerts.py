@@ -79,11 +79,10 @@ def send_gchat(text: str, title: str, priority: str, tags: str, image_url: str =
         payload_data["cardsV2"] = [{
             "cardId": "pagasa-flood-report",
             "card": {
-                "header": {"title": title, "subtitle": "Readable inline • Tap image to zoom"},
+                "header": {"title": title, "subtitle": "Complete report displayed inline"},
                 "sections": [{"widgets": [{"image": {
                     "imageUrl": image_url,
                     "altText": "Complete PAGASA flood alert report",
-                    "onClick": {"openLink": {"url": image_url}},
                 }}]}],
             },
         }]
