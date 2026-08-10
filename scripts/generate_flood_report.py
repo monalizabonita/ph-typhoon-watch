@@ -10,6 +10,8 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = ROOT / "flood_advisories.json"
 OUT_PATH = ROOT / "flood-alert-report.png"
+SUMMARY_PATH = ROOT / "flood-alert-summary.png"
+PAGE_PREFIX = "flood-alert-advisory-"
 WIDTH = 1400
 MARGIN = 64
 GAP = 28
@@ -153,6 +155,190 @@ def draw_card(draw, xy, item: dict, height: int):
               font=SMALL, fill=COLORS["muted"])
 
 
+def render_chat_summary(snapshot: dict, advisories: list[dict], counts: dict, unique_areas: list[str]):
+    width, height = 900, 520
+    image = Image.new("RGB", (width, height), COLORS["bg"])
+    draw = ImageDraw.Draw(image)
+    draw.text((42, 38), "PAGASA FLOOD ALERT", font=font(43, True), fill=COLORS["text"])
+    draw.text((42, 94), "OFFICIAL INFOGRAPHIC • LUZON + CEBU", font=font(20, True), fill=COLORS["muted"])
+    stat_width = 254
+    for index, (value, label, accent) in enumerate([
+        (len(advisories), "ACTIVE", COLORS["WATCH"]),
+        (counts.get("EXTREME", 0), "EXTREME", COLORS["EXTREME"]),
+        (len(unique_areas), "AREAS", COLORS["MODERATE"]),
+    ]):
+        x = 42 + index * 272
+        draw.rounded_rectangle((x, 145, x + stat_width, 260), 20, fill=COLORS["panel"])
+        draw.text((x + 24, 161), str(value), font=font(50, True), fill=accent)
+        draw.text((x + 102, 184), label, font=font(22, True), fill=COLORS["text"])
+    draw.rounded_rectangle((42, 292, 858, 398), 20, fill="#17364A", outline=COLORS["WATCH"], width=3)
+    draw.text((70, 314), "METRO MANILA • MARIKINA", font=font(23, True), fill=COLORS["WATCH"])
+    draw.text((70, 351), "All NCR rivers and streams are covered by the advisory.",
+              font=font(25), fill=COLORS["text"])
+    draw.text((42, 438), "Swipe/scroll down: each advisory is shown in full below.",
+              font=font(22), fill=COLORS["muted"])
+    image.save(SUMMARY_PATH, "PNG", optimize=True)
+
+
+def render_chat_advisory(item: dict, index: int, total: int):
+    width, pad, inner = 900, 46, 808
+    title_font, label_font, body_font, small_font = (
+        font(40, True), font(22, True), font(29), font(21)
+    )
+    scratch = Image.new("RGB", (width, 100), COLORS["bg"])
+    measure = ImageDraw.Draw(scratch)
+    outlook, waterways = advisory_parts(item.get("message", ""))
+    sections = [
+        ("12-HOUR WEATHER OUTLOOK", wrap(measure, outlook, body_font, inner)),
+        ("RIVERS & STREAMS AT RISK", wrap(measure, waterways, body_font, inner)),
+        ("WHAT TO DO", wrap(measure, item.get("instruction", ""), body_font, inner)),
+    ]
+    area_rows = chip_rows(measure, item.get("areas", []), inner)
+    height = 245 + len(area_rows) * 48
+    height += sum(42 + len(lines) * 39 + 18 for _, lines in sections if lines)
+    height += 120
+    image = Image.new("RGB", (width, height), COLORS["bg"])
+    draw = ImageDraw.Draw(image)
+    severity = item.get("severity", "ADVISORY")
+    accent = COLORS.get(severity, COLORS["ADVISORY"])
+    draw.rectangle((0, 0, 16, height), fill=accent)
+    draw.text((pad, 35), severity, font=title_font, fill=accent)
+    draw.text((width - pad, 48), f"ADVISORY {index}/{total}", font=small_font,
+              fill=COLORS["muted"], anchor="ra")
+    draw.text((pad, 102), "AFFECTED AREAS", font=label_font, fill=accent)
+    cursor = 143
+    for row in area_rows:
+        chip_x = pad
+        for area, _ in row:
+            chip_width = draw.textbbox((0, 0), area, font=small_font)[2] + 36
+            draw.rounded_rectangle((chip_x, cursor, chip_x + chip_width, cursor + 38), 17,
+                                   fill="#1B3A50", outline=accent, width=2)
+            draw.text((chip_x + 18, cursor + 8), area, font=small_font, fill=COLORS["text"])
+            chip_x += chip_width + 12
+        cursor += 48
+    cursor += 18
+    for label, lines in sections:
+        if not lines:
+            continue
+        draw.text((pad, cursor), label, font=label_font, fill=accent)
+        cursor += 40
+        for line in lines:
+            draw.text((pad, cursor), line, font=body_font, fill=COLORS["text"])
+            cursor += 39
+        cursor += 18
+    draw.line((pad, height - 100, width - pad, height - 100), fill=COLORS["line"], width=2)
+    draw.text((pad, height - 78), f"ISSUED  {item.get('issued_at') or 'Not provided'}",
+              font=small_font, fill=COLORS["muted"])
+    draw.text((pad, height - 47), f"VALID UNTIL  {item.get('valid_until') or 'Not provided'}  •  PAGASA-DOST",
+              font=small_font, fill=COLORS["muted"])
+    image.save(ROOT / f"{PAGE_PREFIX}{index}.png", "PNG", optimize=True)
+
+
+def render_reference_infographic(snapshot: dict, advisories: list[dict]):
+    """Render a compact official-advisory poster sized for inline Google Chat display."""
+    width, height = 1200, 1510
+    image = Image.new("RGB", (width, height), "#E8E5DC")
+    draw = ImageDraw.Draw(image)
+    navy, blue, ink, cream = "#09243A", "#1679B8", "#14202A", "#F5F1E7"
+    red, orange, yellow = "#E23D3D", "#F28C28", "#F2CF3A"
+
+    # Branded advisory header and warning legend.
+    draw.rectangle((0, 0, width, 180), fill=navy)
+    draw.rectangle((0, 0, width, 24), fill=blue)
+    draw.text((48, 42), "WEATHER ADVISORY", font=font(67, True), fill="white")
+    draw.text((52, 126), "PAGASA GENERAL FLOOD ADVISORY • LUZON + CEBU", font=font(23, True), fill="#B9D7E9")
+    legend_y = 180
+    legend = [(yellow, "MODERATE"), (orange, "HIGH"), (red, "EXTREME")]
+    segment = width // 3
+    for index, (color, label) in enumerate(legend):
+        x = index * segment
+        draw.rectangle((x, legend_y, x + segment, legend_y + 48), fill=color)
+        draw.text((x + segment // 2, legend_y + 24), f"●  {label} FLOOD ADVISORY",
+                  font=font(20, True), fill=navy, anchor="mm")
+
+    draw.text((width // 2, 267), "ENHANCED SOUTHWEST MONSOON (HABAGAT)",
+              font=font(34, True), fill=navy, anchor="mm")
+    draw.text((width // 2, 311), f"{len(advisories)} active advisories • Official PAGASA information",
+              font=font(24), fill=ink, anchor="mm")
+    checked = snapshot.get("checked_at_utc", "").replace("T", " ").replace("Z", " UTC")
+    draw.text((width - 49, 329), f"Updated: {checked}", font=font(16), fill="#52616B", anchor="ra")
+
+    # One concise row per official advisory, preserving every affected area and validity window.
+    table_x, table_y, table_w = 48, 355, 1104
+    level_w, hazard_w = 190, 180
+    area_w = table_w - level_w - hazard_w
+    header_h = 54
+    draw.rectangle((table_x, table_y, table_x + table_w, table_y + header_h), fill=blue)
+    for x, label in [(table_x + level_w // 2, "WARNING LEVEL"),
+                     (table_x + level_w + area_w // 2, "AFFECTED AREAS / VALIDITY"),
+                     (table_x + level_w + area_w + hazard_w // 2, "HAZARD")]:
+        draw.text((x, table_y + 27), label, font=font(19, True), fill="white", anchor="mm")
+
+    row_font, meta_font = font(23), font(18)
+    row_specs = []
+    for item in advisories:
+        area_text = ", ".join(item.get("areas", []))
+        area_lines = wrap(draw, area_text, row_font, area_w - 34)
+        row_h = max(92, 24 + len(area_lines) * 31 + 28)
+        row_specs.append((item, area_lines, row_h))
+    available = 755
+    total_rows = sum(row[2] for row in row_specs)
+    if total_rows > available:
+        scale = available / total_rows
+        row_specs = [(item, lines, max(82, int(row_h * scale))) for item, lines, row_h in row_specs]
+
+    cursor = table_y + header_h
+    for row_index, (item, area_lines, row_h) in enumerate(row_specs):
+        severity = item.get("severity", "ADVISORY")
+        color = {"EXTREME": red, "HIGH": orange, "MODERATE": yellow}.get(severity, "#65B7D8")
+        fill = cream if row_index % 2 == 0 else "#DEDCD4"
+        draw.rectangle((table_x, cursor, table_x + table_w, cursor + row_h), fill=fill, outline="#9BA4AA", width=2)
+        draw.rectangle((table_x, cursor, table_x + level_w, cursor + row_h), fill=color)
+        draw.text((table_x + level_w // 2, cursor + row_h // 2 - 12), severity,
+                  font=font(24, True), fill=navy, anchor="mm")
+        draw.text((table_x + level_w // 2, cursor + row_h // 2 + 19), "FLOOD ADVISORY",
+                  font=font(15, True), fill=navy, anchor="mm")
+        text_y = cursor + 13
+        for line in area_lines:
+            draw.text((table_x + level_w + 17, text_y), line, font=row_font, fill=ink)
+            text_y += 31
+        valid = item.get("valid_until") or "Not provided"
+        draw.text((table_x + level_w + 17, cursor + row_h - 25), f"Valid until: {valid}",
+                  font=meta_font, fill="#52616B")
+        hazard_x = table_x + level_w + area_w + hazard_w // 2
+        hazard = "FLOODING IN\nRIVERS, STREAMS\n& LOW-LYING AREAS"
+        draw.multiline_text((hazard_x, cursor + row_h // 2), hazard, font=font(17, True),
+                            fill=navy, anchor="mm", align="center", spacing=5)
+        cursor += row_h
+
+    # Metro Manila callout and concise safety strip, following the reference poster.
+    safety_y = cursor + 24
+    draw.rounded_rectangle((48, safety_y, 1152, safety_y + 72), 15, fill="#D9EDF7", outline=blue, width=3)
+    draw.text((72, safety_y + 18), "METRO MANILA:", font=font(22, True), fill=blue)
+    draw.text((276, safety_y + 18), "All NCR rivers and streams are covered, including Marikina City.",
+              font=font(22), fill=ink)
+
+    reminder_y = safety_y + 96
+    draw.text((48, reminder_y), "SAFETY REMINDERS", font=font(27, True), fill=navy)
+    reminders = [
+        "Avoid low-lying and flood-prone areas, especially riverbanks and creeks.",
+        "Do not cross flooded roads; even shallow floodwater can be dangerous.",
+        "Prepare emergency supplies and follow evacuation instructions from your local DRRMO.",
+        "Monitor PAGASA, NDRRMC, and local government channels for real-time updates.",
+    ]
+    for index, reminder in enumerate(reminders):
+        y = reminder_y + 45 + index * 37
+        draw.ellipse((54, y + 7, 66, y + 19), fill=red if index < 2 else blue)
+        draw.text((82, y), reminder, font=font(22), fill=ink)
+
+    draw.rectangle((0, height - 72, width, height), fill=navy)
+    draw.text((42, height - 51), "SOURCE: PAGASA PANaHON • Generated automatically from active official advisories",
+              font=font(18, True), fill="white")
+    draw.text((42, height - 27), snapshot.get("source_url", "https://panahon.gov.ph/"),
+              font=font(16), fill="#79C7F2")
+    image.save(OUT_PATH, "PNG", optimize=True)
+
+
 def main() -> int:
     snapshot = json.loads(DATA_PATH.read_text())
     advisories = sorted(
@@ -228,7 +414,8 @@ def main() -> int:
     draw.text((MARGIN, footer_y + 52), snapshot.get("source_url", "https://panahon.gov.ph/"),
               font=SMALL, fill=COLORS["WATCH"])
     image.save(OUT_PATH, "PNG", optimize=True)
-    print(f"Created {OUT_PATH.name} ({WIDTH}x{height}) with {len(advisories)} advisories")
+    render_reference_infographic(snapshot, advisories)
+    print(f"Created compact weather-advisory infographic with {len(advisories)} official advisories")
     return 0
 
 
