@@ -99,6 +99,7 @@ def send_gchat(
                 "sections": [{"widgets": [{"image": {
                     "imageUrl": url,
                     "altText": "Complete PAGASA flood alert report",
+                    "onClick": {"openLink": {"url": url}},
                 }}]}],
             },
         } for index, url in enumerate(display_images, 1)]
