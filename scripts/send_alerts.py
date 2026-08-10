@@ -24,6 +24,7 @@ import json
 import os
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -38,6 +39,10 @@ STATE_PATH = Path(__file__).resolve().parent.parent / "alert_state.json"
 FLOOD_RISK_PATH = Path(__file__).resolve().parent.parent / "flood_risk.json"
 FLOOD_ADVISORIES_PATH = Path(__file__).resolve().parent.parent / "flood_advisories.json"
 NOAH_FLOOD_URL = "https://noah.up.edu.ph/know-your-hazards-realtimefloodmap"
+FLOOD_REPORT_URL = (
+    "https://raw.githubusercontent.com/monalizabonita/ph-typhoon-watch/main/"
+    "flood-alert-report.png"
+)
 
 # Taguig, Metro Manila
 LATITUDE = 14.5176
@@ -65,11 +70,23 @@ def manila_today() -> str:
     return datetime.now(timezone.utc).astimezone(ZoneInfo("Asia/Manila")).strftime("%Y-%m-%d")
 
 
-def send_gchat(text: str, title: str, priority: str, tags: str) -> None:
+def send_gchat(text: str, title: str, priority: str, tags: str, image_url: str = "") -> None:
     if not GCHAT_WEBHOOK_URL:
         print("GCHAT_WEBHOOK_URL not set — skipping Google Chat send.", file=sys.stderr)
         return
-    payload = json.dumps({"text": text}).encode()
+    payload_data = {"text": text}
+    if image_url:
+        payload_data["cardsV2"] = [{
+            "cardId": "pagasa-flood-report",
+            "card": {
+                "header": {"title": title, "subtitle": "Complete report — no tap required"},
+                "sections": [{"widgets": [{"image": {
+                    "imageUrl": image_url,
+                    "altText": "Complete PAGASA flood alert report",
+                }}]}],
+            },
+        }]
+    payload = json.dumps(payload_data).encode()
     req = urllib.request.Request(
         GCHAT_WEBHOOK_URL, data=payload, headers={"Content-Type": "application/json"}, method="POST"
     )
@@ -80,19 +97,23 @@ def send_gchat(text: str, title: str, priority: str, tags: str) -> None:
         print(f"Failed to send Google Chat alert: {exc}", file=sys.stderr)
 
 
-def send_ntfy(text: str, title: str, priority: str, tags: str) -> None:
+def send_ntfy(text: str, title: str, priority: str, tags: str, image_url: str = "") -> None:
     if not NTFY_TOPIC:
         print("NTFY_TOPIC not set — skipping ntfy send.", file=sys.stderr)
         return
+    headers = {
+        "Title": title,
+        "Priority": priority,
+        "Tags": tags,
+        "Content-Type": "text/plain; charset=utf-8",
+    }
+    if image_url:
+        headers["Attach"] = image_url
+        headers["Filename"] = "pagasa-flood-alert-report.png"
     req = urllib.request.Request(
         NTFY_URL,
         data=text.encode("utf-8"),
-        headers={
-            "Title": title,
-            "Priority": priority,
-            "Tags": tags,
-            "Content-Type": "text/plain; charset=utf-8",
-        },
+        headers=headers,
         method="POST",
     )
     try:
@@ -102,10 +123,12 @@ def send_ntfy(text: str, title: str, priority: str, tags: str) -> None:
         print(f"Failed to send ntfy alert: {exc}", file=sys.stderr)
 
 
-def notify(text: str, *, title: str, priority: str = "default", tags: str = "") -> None:
+def notify(
+    text: str, *, title: str, priority: str = "default", tags: str = "", image_url: str = ""
+) -> None:
     """Fans a single alert out to every configured channel."""
-    send_gchat(text, title, priority, tags)
-    send_ntfy(text, title, priority, tags)
+    send_gchat(text, title, priority, tags, image_url)
+    send_ntfy(text, title, priority, tags, image_url)
 
 
 def fetch_rain_forecast() -> dict:
@@ -236,26 +259,16 @@ def check_flood_advisories(state: dict) -> dict:
     if state.get("flood_advisory_signature") == signature:
         return state
 
-    lines = []
-    for item in sorted(advisories, key=lambda entry: (entry.get("severity") != "EXTREME", entry.get("areas", []))):
-        areas = []
-        for area in item.get("areas", []):
-            if area in {"Metro Manila", "National Capital Region", "NCR"}:
-                areas.append(f"{area} (all NCR cities, including Marikina)")
-            else:
-                areas.append(area)
-        valid = f"; valid until {item['valid_until']}" if item.get("valid_until") else ""
-        lines.append(f"• {item.get('severity', 'ADVISORY')} — {', '.join(areas)}{valid}")
-
     source_url = snapshot.get("source_url", "https://panahon.gov.ph/")
+    report_url = FLOOD_REPORT_URL + "?v=" + urllib.parse.quote(snapshot.get("checked_at_utc", ""))
     notify(
-        "🌊 Official PAGASA General Flood Advisories (complete active coverage for Luzon + Cebu):\n"
-        + "\n".join(lines)
-        + f"\n\nOfficial source: {source_url}"
-        + "\nPAGASA may identify a province or metro area rather than a specific city/barangay.",
+        f"🌊 PAGASA Flood Alert Report — {len(advisories)} active advisories for Luzon + Cebu.\n"
+        + "The attached image contains the complete affected areas, watercourses, validity times, "
+        + f"instructions, and official source.\n{source_url}",
         title="Official PAGASA Flood Advisory",
         priority="urgent" if any(item.get("severity") == "EXTREME" for item in advisories) else "high",
         tags="ocean,warning",
+        image_url=report_url,
     )
     state["flood_advisory_signature"] = signature
     return state

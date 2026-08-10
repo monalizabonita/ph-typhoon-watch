@@ -23,10 +23,11 @@ There are two independent status paths, both ultimately sourced from PAGASA's bu
   2. `scripts/update_flood_risk.py` builds a nationwide heavy-rain flood-risk snapshot.
   3. `scripts/update_flood_advisories.py` retrieves every active official PAGASA General Flood
      Advisory that covers Luzon or Cebu.
-  4. `scripts/send_alerts.py` sends alerts (see **Alerts** below) if the cyclone status is active,
+  4. `scripts/generate_flood_report.py` renders all advisory details into one high-resolution PNG.
+  5. `scripts/send_alerts.py` sends alerts (see **Alerts** below) if the cyclone status is active,
      today's Metro Manila rain forecast crosses a threshold, official flood advisories change,
      or Luzon/Cebu flood-risk locations change.
-  4. If anything changed, the Action commits and pushes it back to `main`.
+  6. If anything changed, the Action commits and pushes it back to `main`.
 
 The static site (`index.html`) fetches `data.json` and `history.json` directly from `raw.githubusercontent.com` for the Activity Trend — so the deployed Vercel build doesn't need to be redeployed for that data to update, only when the page/logic itself changes.
 
@@ -41,8 +42,10 @@ Flood-risk notifications initially cover monitored locations in **Luzon and Cebu
 shows a nationwide overview and can search any Philippine locality. Alerts include the complete
 set of active official PAGASA General Flood Advisories for Luzon and Cebu, plus the fixed-location
 heavy-rain screening signals. PAGASA may name only a province or metro area; city/barangay forecast
-details are supplemental and are not confirmation that a road is currently flooded. Use the linked
-Project NOAH map and local government emergency notices to confirm current conditions.
+details are supplemental and are not confirmation that a road is currently flooded. The official
+advisory notification includes `flood-alert-report.png`, a self-contained infographic with
+all affected areas, named watercourses, PAGASA instructions, issued/valid times, and the source.
+Use the linked Project NOAH map and local government emergency notices to confirm current conditions.
 
 To add another channel (Discord, Slack, email, ...): add a `send_<channel>(text, title, priority, tags)` function in `send_alerts.py` following the same shape, then call it from `notify()`. The two alert conditions (`check_typhoon`, `check_rain`) don't need to change.
 
