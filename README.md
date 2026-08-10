@@ -21,8 +21,11 @@ There are two independent status paths, both ultimately sourced from PAGASA's bu
 - **Activity Trend + alerts** are driven by a GitHub Action (`.github/workflows/update.yml`), scheduled every 15 minutes (GitHub throttles very frequent schedules in practice, so real-world runs land more like every 1–3 hours):
   1. `scripts/update_status.py` re-fetches the same PDF-based status and writes `data.json` + appends/updates today's entry in `history.json`.
   2. `scripts/update_flood_risk.py` builds a nationwide heavy-rain flood-risk snapshot.
-  3. `scripts/send_alerts.py` sends alerts (see **Alerts** below) if the cyclone status is active,
-     today's Metro Manila rain forecast crosses a threshold, or Luzon/Cebu flood-risk locations change.
+  3. `scripts/update_flood_advisories.py` retrieves every active official PAGASA General Flood
+     Advisory that covers Luzon or Cebu.
+  4. `scripts/send_alerts.py` sends alerts (see **Alerts** below) if the cyclone status is active,
+     today's Metro Manila rain forecast crosses a threshold, official flood advisories change,
+     or Luzon/Cebu flood-risk locations change.
   4. If anything changed, the Action commits and pushes it back to `main`.
 
 The static site (`index.html`) fetches `data.json` and `history.json` directly from `raw.githubusercontent.com` for the Activity Trend — so the deployed Vercel build doesn't need to be redeployed for that data to update, only when the page/logic itself changes.
@@ -35,8 +38,10 @@ The static site (`index.html`) fetches `data.json` and `history.json` directly f
 - **ntfy.sh** — set the `NTFY_TOPIC` repo secret to a topic name. Anyone who knows that exact topic name can subscribe to it (via the [ntfy app](https://ntfy.sh/app), `ntfy subscribe <topic>` on the CLI, or just visiting `https://ntfy.sh/<topic>` in a browser for web push) — that's the intended way for someone else to plug this into their own notification setup without needing repo access. Since topic names are only as private as "not publicly written down," don't commit the actual value anywhere, including here.
 
 Flood-risk notifications initially cover monitored locations in **Luzon and Cebu**. The portal tab
-shows a nationwide overview and can search any Philippine locality. These alerts are heavy-rain
-screening signals, not confirmation that a road or barangay is currently flooded. Use the linked
+shows a nationwide overview and can search any Philippine locality. Alerts include the complete
+set of active official PAGASA General Flood Advisories for Luzon and Cebu, plus the fixed-location
+heavy-rain screening signals. PAGASA may name only a province or metro area; city/barangay forecast
+details are supplemental and are not confirmation that a road is currently flooded. Use the linked
 Project NOAH map and local government emergency notices to confirm current conditions.
 
 To add another channel (Discord, Slack, email, ...): add a `send_<channel>(text, title, priority, tags)` function in `send_alerts.py` following the same shape, then call it from `notify()`. The two alert conditions (`check_typhoon`, `check_rain`) don't need to change.

@@ -4,7 +4,8 @@
    day while it stays active, via alert_state.json.
 2. Today's rain forecast (Open-Meteo, no API key needed) for Metro Manila/Taguig crosses a
    threshold — alerted once per day.
-3. Heavy-rain flood-risk screening flags Luzon or Cebu locations. This is explicitly described
+3. Official PAGASA General Flood Advisories cover any part of Luzon or Cebu.
+4. Heavy-rain flood-risk screening flags Luzon or Cebu locations. This is explicitly described
    as potential risk and links to Project NOAH for area-level hazard inspection.
 
 Channels (each optional — skipped with a stderr note if its env var isn't set):
@@ -35,6 +36,7 @@ NTFY_URL = f"https://ntfy.sh/{NTFY_TOPIC}" if NTFY_TOPIC else ""
 DATA_PATH = Path(__file__).resolve().parent.parent / "data.json"
 STATE_PATH = Path(__file__).resolve().parent.parent / "alert_state.json"
 FLOOD_RISK_PATH = Path(__file__).resolve().parent.parent / "flood_risk.json"
+FLOOD_ADVISORIES_PATH = Path(__file__).resolve().parent.parent / "flood_advisories.json"
 NOAH_FLOOD_URL = "https://noah.up.edu.ph/know-your-hazards-realtimefloodmap"
 
 # Taguig, Metro Manila
@@ -47,7 +49,12 @@ def load_state() -> dict:
     try:
         return json.loads(STATE_PATH.read_text())
     except (FileNotFoundError, json.JSONDecodeError):
-        return {"typhoon_alerted_date": "", "rain_alerted_date": "", "flood_risk_signature": ""}
+        return {
+            "typhoon_alerted_date": "",
+            "rain_alerted_date": "",
+            "flood_advisory_signature": "",
+            "flood_risk_signature": "",
+        }
 
 
 def save_state(state: dict) -> None:
@@ -210,10 +217,55 @@ def check_flood_risk(state: dict) -> dict:
     return state
 
 
+def check_flood_advisories(state: dict) -> dict:
+    """Alert on every active official PAGASA flood advisory covering Luzon or Cebu."""
+    try:
+        snapshot = json.loads(FLOOD_ADVISORIES_PATH.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        return state
+
+    advisories = snapshot.get("advisories", [])
+    signature = "|".join(sorted(
+        f"{item.get('identifier', '')}:{item.get('severity', '')}:"
+        f"{','.join(item.get('areas', []))}"
+        for item in advisories
+    ))
+    if not signature:
+        state["flood_advisory_signature"] = ""
+        return state
+    if state.get("flood_advisory_signature") == signature:
+        return state
+
+    lines = []
+    for item in sorted(advisories, key=lambda entry: (entry.get("severity") != "EXTREME", entry.get("areas", []))):
+        areas = []
+        for area in item.get("areas", []):
+            if area in {"Metro Manila", "National Capital Region", "NCR"}:
+                areas.append(f"{area} (all NCR cities, including Marikina)")
+            else:
+                areas.append(area)
+        valid = f"; valid until {item['valid_until']}" if item.get("valid_until") else ""
+        lines.append(f"• {item.get('severity', 'ADVISORY')} — {', '.join(areas)}{valid}")
+
+    source_url = snapshot.get("source_url", "https://panahon.gov.ph/")
+    notify(
+        "🌊 Official PAGASA General Flood Advisories (complete active coverage for Luzon + Cebu):\n"
+        + "\n".join(lines)
+        + f"\n\nOfficial source: {source_url}"
+        + "\nPAGASA may identify a province or metro area rather than a specific city/barangay.",
+        title="Official PAGASA Flood Advisory",
+        priority="urgent" if any(item.get("severity") == "EXTREME" for item in advisories) else "high",
+        tags="ocean,warning",
+    )
+    state["flood_advisory_signature"] = signature
+    return state
+
+
 def main() -> int:
     state = load_state()
     state = check_typhoon(state)
     state = check_rain(state)
+    state = check_flood_advisories(state)
     state = check_flood_risk(state)
     save_state(state)
     return 0

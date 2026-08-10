@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-08-10T04:32:23Z",
+  "checked_at_utc": "2026-08-10T04:44:28Z",
   "method": "Heavy-rain screening; not confirmed flooding",
   "noah_url": "https://noah.up.edu.ph/know-your-hazards-realtimefloodmap",
   "areas": [
@@ -85,6 +85,20 @@
       "date": "2026-08-10",
       "rain_probability": 100.0,
       "rain_mm": 24.8,
+      "risk": "WATCH"
+    },
+    {
+      "name": "Marikina City",
+      "city": "Marikina",
+      "barangay": "Marikina Heights",
+      "geocoded": true,
+      "province": "NCR",
+      "region": "Luzon",
+      "latitude": 14.6481,
+      "longitude": 121.1133,
+      "date": "2026-08-10",
+      "rain_probability": 100.0,
+      "rain_mm": 33.1,
       "risk": "WATCH"
     },
     {

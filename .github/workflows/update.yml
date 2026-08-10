@@ -27,6 +27,9 @@ jobs:
       - name: Build nationwide flood-risk snapshot
         run: python3 scripts/update_flood_risk.py
 
+      - name: Fetch official PAGASA flood advisories
+        run: python3 scripts/update_flood_advisories.py
+
       - name: Send alerts (typhoon + rain) to Google Chat + ntfy
         env:
           GCHAT_WEBHOOK_URL: ${{ secrets.GCHAT_WEBHOOK_URL }}
@@ -37,8 +40,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet -- data.json history.json alert_state.json flood_risk.json; then
-            git add data.json history.json alert_state.json flood_risk.json
+          if ! git diff --quiet -- data.json history.json alert_state.json flood_risk.json flood_advisories.json; then
+            git add data.json history.json alert_state.json flood_risk.json flood_advisories.json
             git commit -m "Update typhoon status"
             git push
           else

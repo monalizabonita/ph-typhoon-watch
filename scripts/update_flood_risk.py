@@ -23,6 +23,7 @@ LOCATIONS = [
     ("Baler", "Aurora", "Luzon", 15.7589, 121.5607),
     ("Angeles", "Pampanga", "Luzon", 15.1450, 120.5887),
     ("Metro Manila", "NCR", "Luzon", 14.5995, 120.9842),
+    ("Marikina City", "NCR", "Luzon", 14.6481, 121.1133),
     ("Taguig", "NCR", "Luzon", 14.5176, 121.0509),
     ("Batangas City", "Batangas", "Luzon", 13.7565, 121.0583),
     ("Naga", "Camarines Sur", "Luzon", 13.6218, 123.1948),
