@@ -37,8 +37,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet -- data.json history.json flood_risk.json flood_advisories.json flood-alert-*.png; then
-            git add data.json history.json flood_risk.json flood_advisories.json flood-alert-*.png
+          if ! git diff --quiet -- data.json history.json flood_risk.json flood_advisories.json flood-alert-report.png; then
+            git add data.json history.json flood_risk.json flood_advisories.json flood-alert-report.png
             git commit -m "Update weather and flood report"
             git push
           fi

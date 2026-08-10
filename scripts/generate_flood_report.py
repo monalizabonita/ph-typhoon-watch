@@ -274,7 +274,7 @@ def render_large_inline_card(item: dict, index: int, total: int):
 
 def render_reference_infographic(snapshot: dict, advisories: list[dict]):
     """Render a compact official-advisory poster sized for inline Google Chat display."""
-    width, height = 1200, 1510
+    width, height = 1200, 1590
     image = Image.new("RGB", (width, height), "#E8E5DC")
     draw = ImageDraw.Draw(image)
     navy, blue, ink, cream = "#09243A", "#1679B8", "#14202A", "#F5F1E7"
@@ -303,16 +303,15 @@ def render_reference_infographic(snapshot: dict, advisories: list[dict]):
 
     # One concise row per official advisory, preserving every affected area and validity window.
     table_x, table_y, table_w = 48, 355, 1104
-    level_w, hazard_w = 190, 180
+    level_w, hazard_w = 210, 0
     area_w = table_w - level_w - hazard_w
     header_h = 54
     draw.rectangle((table_x, table_y, table_x + table_w, table_y + header_h), fill=blue)
     for x, label in [(table_x + level_w // 2, "WARNING LEVEL"),
-                     (table_x + level_w + area_w // 2, "AFFECTED AREAS / VALIDITY"),
-                     (table_x + level_w + area_w + hazard_w // 2, "HAZARD")]:
+                     (table_x + level_w + area_w // 2, "AFFECTED AREAS / VALIDITY")]:
         draw.text((x, table_y + 27), label, font=font(19, True), fill="white", anchor="mm")
 
-    row_font, meta_font = font(23), font(18)
+    row_font, meta_font = font(29, True), font(20)
     row_specs = []
     for item in advisories:
         area_text = ", ".join(item.get("areas", []))
@@ -343,10 +342,6 @@ def render_reference_infographic(snapshot: dict, advisories: list[dict]):
         valid = item.get("valid_until") or "Not provided"
         draw.text((table_x + level_w + 17, cursor + row_h - 25), f"Valid until: {valid}",
                   font=meta_font, fill="#52616B")
-        hazard_x = table_x + level_w + area_w + hazard_w // 2
-        hazard = "FLOODING IN\nRIVERS, STREAMS\n& LOW-LYING AREAS"
-        draw.multiline_text((hazard_x, cursor + row_h // 2), hazard, font=font(17, True),
-                            fill=navy, anchor="mm", align="center", spacing=5)
         cursor += row_h
 
     # Metro Manila callout and concise safety strip, following the reference poster.
@@ -357,6 +352,11 @@ def render_reference_infographic(snapshot: dict, advisories: list[dict]):
               font=font(22), fill=ink)
 
     reminder_y = safety_y + 96
+    draw.rounded_rectangle((48, reminder_y, 1152, reminder_y + 64), 15, fill="#F8D7DA", outline=red, width=3)
+    draw.text((72, reminder_y + 17), "PRIMARY HAZARD:", font=font(23, True), fill=red)
+    draw.text((330, reminder_y + 17), "Flooding in rivers, streams and low-lying areas",
+              font=font(23, True), fill=ink)
+    reminder_y += 89
     draw.text((48, reminder_y), "SAFETY REMINDERS", font=font(27, True), fill=navy)
     reminders = [
         "Avoid low-lying and flood-prone areas, especially riverbanks and creeks.",
@@ -453,9 +453,6 @@ def main() -> int:
               font=SMALL, fill=COLORS["WATCH"])
     image.save(OUT_PATH, "PNG", optimize=True)
     render_reference_infographic(snapshot, advisories)
-    render_chat_summary(snapshot, advisories, counts, unique_areas)
-    for index, item in enumerate(advisories, 1):
-        render_large_inline_card(item, index, len(advisories))
     print(f"Created compact weather-advisory infographic with {len(advisories)} official advisories")
     return 0
 

@@ -278,10 +278,6 @@ def check_flood_advisories(state: dict) -> dict:
 
     source_url = snapshot.get("source_url", "https://panahon.gov.ph/")
     report_url = FLOOD_REPORT_URL + "?v=" + urllib.parse.quote(snapshot.get("checked_at_utc", ""))
-    version = "?v=" + urllib.parse.quote(snapshot.get("checked_at_utc", ""))
-    inline_images = [FLOOD_SUMMARY_URL + version] + [
-        FLOOD_ADVISORY_URL.format(index) + version for index in range(1, len(advisories) + 1)
-    ]
     notify(
         f"🌊 PAGASA Flood Alert Report — {len(advisories)} active advisories for Luzon + Cebu.\n"
         + "The attached image contains the complete affected areas, watercourses, validity times, "
@@ -290,7 +286,6 @@ def check_flood_advisories(state: dict) -> dict:
         priority="urgent" if any(item.get("severity") == "EXTREME" for item in advisories) else "high",
         tags="ocean,warning",
         image_url=report_url,
-        image_urls=inline_images,
     )
     state["flood_advisory_signature"] = signature
     return state
