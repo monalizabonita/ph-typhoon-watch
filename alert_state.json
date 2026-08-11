@@ -1,6 +1,6 @@
 {
   "typhoon_alerted_date": "",
   "rain_alerted_date": "2026-08-12",
-  "flood_advisory_signature": "2879e6f6-ac59-4f1c-af12-978986c3ec6b:MODERATE:Metro Manila|41191dae-68b9-440a-9a76-8be027d32b91:EXTREME:Ilocos Sur,La Union,Pangasinan|474a1f21-8082-48b2-ad62-bc0f149547f7:EXTREME:Bataan,Bulacan,Zambales|b6ce4e44-7535-4ff9-aa18-d0f05aa4c324:EXTREME:Marinduque,Occidental Mindoro,Oriental Mindoro,Palawan,Romblon|c3762e9f-901c-4826-9513-071a7eb94dd6:EXTREME:Marinduque,Occidental Mindoro,Oriental Mindoro,Palawan,Romblon|caea766c-505f-4f06-abde-aa2af3e7382a:EXTREME:Abra,Benguet|e75108b9-d427-41de-9bc7-442238f3ca13:MODERATE:Batangas,Cavite,Rizal",
+  "flood_advisory_signature": "2879e6f6-ac59-4f1c-af12-978986c3ec6b:MODERATE:Metro Manila|41191dae-68b9-440a-9a76-8be027d32b91:EXTREME:Ilocos Sur,La Union,Pangasinan|474a1f21-8082-48b2-ad62-bc0f149547f7:EXTREME:Bataan,Bulacan,Zambales|c3762e9f-901c-4826-9513-071a7eb94dd6:EXTREME:Marinduque,Occidental Mindoro,Oriental Mindoro,Palawan,Romblon|caea766c-505f-4f06-abde-aa2af3e7382a:EXTREME:Abra,Benguet|e75108b9-d427-41de-9bc7-442238f3ca13:MODERATE:Batangas,Cavite,Rizal",
   "flood_risk_signature": "Baguio:WATCH"
 }
