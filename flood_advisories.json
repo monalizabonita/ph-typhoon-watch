@@ -1,8 +1,96 @@
 {
-  "checked_at_utc": "2026-08-13T22:02:28Z",
+  "checked_at_utc": "2026-08-13T23:02:14Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
+    {
+      "identifier": "079cba98-2007-4f08-961a-0e2abac483a7",
+      "severity": "EXTREME",
+      "areas": [
+        "Marinduque",
+        "Occidental Mindoro",
+        "Oriental Mindoro",
+        "Palawan",
+        "Romblon"
+      ],
+      "all_areas": [
+        "Marinduque",
+        "Occidental Mindoro",
+        "Oriental Mindoro",
+        "Palawan",
+        "Romblon"
+      ],
+      "message": "Under present weather conditions, Southwest Monsoon affecting Luzon and the western section of Visayas.  \nThe 12-hour rainfall forecast is LIGHT TO MODERATE rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Occidental Mindoro** - Rivers and its tributaries particularly Abra De Ilog, Caguray, Labangan, Lumintao, Anahawin, Monpong, Amnay, Pola, Pagbahan, Mamburao, Ibod, and Bugsanga-Magbando.  \n + **Oriental Mindoro** - Rivers and its tributaries particularly Malaylay-Baco, Pulang Tubig, Mag-asawang Tubig, Butas, Pula, Agsalin, Bansud, Sumagui, Bongabong, Baroc, Bulalacao and Balete.  \n + **Marinduque** - Rivers and its tributaries particularly Tawiran-Tagum (Marinduque) and Boac.  \n + **Romblon** - All rivers and its tributaries  \n + **Palawan** - Rivers and its tributaries particularly Abongan, Lian, Barbakan, Rizal, Caramay, Langogan, Babuyan, Bacungan, Iwahig Penal, Inagauan, Aborlan, Malatgao, Apurauan, Baton-Baton, Aramaywan, Ihawig, Panitian, Pulot, Lamakan, Kinlugan, Eraan, Tiga Plan, Malabangan, Ilog, Bansang, Conduaga, Culasian, Iwahig (Brookes), Okayan, Canipaan and Busuanga, Coron.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take appropriate actions.",
+      "issued_at": "2026-08-14 06:07:09",
+      "valid_until": "2026-08-14 18:07:09",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "bed27a4e-aeaa-4c49-a282-40cd8bc581d0",
+      "severity": "SEVERE",
+      "areas": [
+        "Marinduque",
+        "Occidental Mindoro",
+        "Oriental Mindoro",
+        "Palawan",
+        "Romblon"
+      ],
+      "all_areas": [
+        "Marinduque",
+        "Occidental Mindoro",
+        "Oriental Mindoro",
+        "Palawan",
+        "Romblon"
+      ],
+      "message": "Under present weather conditions, Southwest Monsoon affecting Luzon and the western section of Visayas.  \nThe 12-hour rainfall forecast is LIGHT TO MODERATE rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Occidental Mindoro** - Rivers and its tributaries particularly Abra De Ilog, Caguray, Labangan, Lumintao, Anahawin, Monpong, Amnay, Pola, Pagbahan, Mamburao, Ibod, and Bugsanga-Magbando.  \n + **Oriental Mindoro** - Rivers and its tributaries particularly Malaylay-Baco, Pulang Tubig, Mag-asawang Tubig, Butas, Pula, Agsalin, Bansud, Sumagui, Bongabong, Baroc, Bulalacao and Balete.  \n + **Marinduque** - Rivers and its tributaries particularly Tawiran-Tagum (Marinduque) and Boac.  \n + **Romblon** - All rivers and its tributaries  \n + **Palawan** - Rivers and its tributaries particularly Abongan, Lian, Barbakan, Rizal, Caramay, Langogan, Babuyan, Bacungan, Iwahig Penal, Inagauan, Aborlan, Malatgao, Apurauan, Baton-Baton, Aramaywan, Ihawig, Panitian, Pulot, Lamakan, Kinlugan, Eraan, Tiga Plan, Malabangan, Ilog, Bansang, Conduaga, Culasian, Iwahig (Brookes), Okayan, Canipaan and Busuanga, Coron.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to be alert for possible flashfloods.",
+      "issued_at": "2026-08-14 06:04:09",
+      "valid_until": "2026-08-14 18:04:09",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "d9e20708-c4f7-41c7-9c1f-cb1db43eef80",
+      "severity": "MODERATE",
+      "areas": [
+        "Batangas",
+        "Cavite",
+        "Laguna",
+        "Quezon",
+        "Rizal"
+      ],
+      "all_areas": [
+        "Batangas",
+        "Cavite",
+        "Laguna",
+        "Quezon",
+        "Rizal"
+      ],
+      "message": "Under present weather conditions, Southwest Monsoon affecting Luzon and the western section of Visayas.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Cavite** - Rivers and its tributaries particularly Laboc (Balsahan), Ca\u00f1as, Ylang-Ylang, Imus, and Maragondon.  \n + **Rizal** - Rivers and its tributaries particularly Upper Marikina and Kaliwa.  \n + **Batangas** - Rivers and its tributaries particularly Lian, Banabang-Molino, Pansipit, Kapumpong, Rosario-Lobo and Upper Bolbok (Lawaya).  \n + **Laguna** - Rivers and its tributaries particularly Pagsanjan, Pila-Sta. Cruz, San Juan and San Cristobal.  \n + **Quezon** - Rivers and its tributaries particularly Upper Umiray, Lower Bolbok (Lawaya), Malaking-Ilog, Iyam, Macalelon, Catanauan, Silongin Lagda, Pagsanjan, Yabahaan, Bigol, Guinhalinan, Vinas, Calauag, Pandanan, Sta. Lucia, Lugan Malaybalay, Maapon, Bucal (Lalangan), Lakayat, Tignoan, Agos, Anibawan (Polilio Island) and Upper Kilbay - Catabangan.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
+      "issued_at": "2026-08-14 06:02:33",
+      "valid_until": "2026-08-14 18:02:33",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "1ad8be78-e777-4494-8ea5-ce427d42856e",
+      "severity": "EXTREME",
+      "areas": [
+        "Bataan",
+        "Bulacan",
+        "Zambales"
+      ],
+      "all_areas": [
+        "Bataan",
+        "Bulacan",
+        "Zambales"
+      ],
+      "message": "Under present weather conditions, Southwest Monsoon affecting Luzon and the western section of Visayas.  \nThe 12-hour rainfall forecast is moderate to heavy rains .  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Bataan** - Rivers and its tributaries particularly Balanga and Morong.  \n + **Zambales** - Rivers and its tributaries particularly Pamatawan, Sto. Tomas, Bucao, Bancal and Lawis.  \n + **Bulacan** - All rivers and its tributaries  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take appropriate actions.",
+      "issued_at": "2026-08-14 06:00:30",
+      "valid_until": "2026-08-14 18:00:30",
+      "published_by": "PAGASA-DOST"
+    },
     {
       "identifier": "1b53fa69-0920-497e-8deb-905d690de807",
       "severity": "EXTREME",
