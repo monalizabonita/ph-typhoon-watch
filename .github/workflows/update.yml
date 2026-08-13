@@ -43,7 +43,7 @@ jobs:
             git push
           fi
 
-      - name: Send alerts (typhoon + rain) to Google Chat + ntfy
+      - name: Send alerts (typhoon + rain + once-daily flood) to Google Chat + ntfy
         env:
           GCHAT_WEBHOOK_URL: ${{ secrets.GCHAT_WEBHOOK_URL }}
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}

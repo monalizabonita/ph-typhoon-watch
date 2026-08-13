@@ -4,8 +4,10 @@
    day while it stays active, via alert_state.json.
 2. Today's rain forecast (Open-Meteo, no API key needed) for Metro Manila/Taguig crosses a
    threshold — alerted once per day.
-3. Official PAGASA General Flood Advisories cover any part of Luzon or Cebu.
-4. Heavy-rain flood-risk screening flags Luzon or Cebu locations. This is explicitly described
+3. Official PAGASA General Flood Advisories cover any part of Luzon or Cebu — at most one flood
+   notification per Manila calendar day.
+4. Heavy-rain flood-risk screening flags Luzon or Cebu locations — also covered by the same
+   once-per-day flood gate. This is explicitly described
    as potential risk and links to Project NOAH for area-level hazard inspection.
 
 Channels (each optional — skipped with a stderr note if its env var isn't set):
@@ -66,6 +68,7 @@ def load_state() -> dict:
         return {
             "typhoon_alerted_date": "",
             "rain_alerted_date": "",
+            "flood_alerted_date": "",
             "flood_advisory_signature": "",
             "flood_risk_signature": "",
         }
@@ -213,6 +216,12 @@ def check_rain(state: dict) -> dict:
 
 
 def check_flood_risk(state: dict) -> dict:
+    # Flood alerts are intentionally limited to one notification per Manila day. Keep this gate
+    # shared with official advisories so the two flood sources cannot flood the group in one run.
+    today = manila_today()
+    if state.get("flood_alerted_date") == today:
+        return state
+
     try:
         snapshot = json.loads(FLOOD_RISK_PATH.read_text())
     except (FileNotFoundError, json.JSONDecodeError):
@@ -228,9 +237,6 @@ def check_flood_risk(state: dict) -> dict:
     if not signature:
         state["flood_risk_signature"] = ""
         return state
-    if state.get("flood_risk_signature") == signature:
-        return state
-
     def barangay_label(area: dict) -> str:
         name = area.get("barangay")
         if not name:
@@ -255,11 +261,16 @@ def check_flood_risk(state: dict) -> dict:
         tags="ocean,warning",
     )
     state["flood_risk_signature"] = signature
+    state["flood_alerted_date"] = today
     return state
 
 
 def check_flood_advisories(state: dict) -> dict:
-    """Alert on every active official PAGASA flood advisory covering Luzon or Cebu."""
+    """Alert at most once per Manila calendar day for active official advisories."""
+    today = manila_today()
+    if state.get("flood_alerted_date") == today:
+        return state
+
     try:
         snapshot = json.loads(FLOOD_ADVISORIES_PATH.read_text())
     except (FileNotFoundError, json.JSONDecodeError):
@@ -274,9 +285,6 @@ def check_flood_advisories(state: dict) -> dict:
     if not signature:
         state["flood_advisory_signature"] = ""
         return state
-    if state.get("flood_advisory_signature") == signature:
-        return state
-
     source_url = snapshot.get("source_url", "https://panahon.gov.ph/")
     report_url = FLOOD_REPORT_URL + "?v=" + urllib.parse.quote(snapshot.get("checked_at_utc", ""))
     notify(
@@ -289,6 +297,7 @@ def check_flood_advisories(state: dict) -> dict:
         image_url=report_url,
     )
     state["flood_advisory_signature"] = signature
+    state["flood_alerted_date"] = today
     return state
 
 

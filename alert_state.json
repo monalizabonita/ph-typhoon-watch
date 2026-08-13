@@ -1,6 +1,7 @@
 {
   "typhoon_alerted_date": "",
-  "rain_alerted_date": "2026-08-13",
-  "flood_advisory_signature": "88982958-d8b8-410c-8f61-3f8c97408d10:EXTREME:Ilocos Sur,La Union,Pangasinan|a28375a1-cc08-412f-9bca-77954c87b49c:EXTREME:Bataan,Bulacan,Zambales|a93e40ff-e6b3-4aec-a57b-f4ad05b179e8:EXTREME:Abra,Apayao,Benguet,Ifugao,Kalinga,Mountain Province|cdfd0479-16ab-4ea7-a9fe-d15eac48b70a:SEVERE:Metro Manila|cf2a5176-4b87-47d1-9bc3-518db2eafe9f:EXTREME:Marinduque,Occidental Mindoro,Oriental Mindoro,Palawan,Romblon|d5e484f3-407e-4c93-ab94-29976380e9c6:MODERATE:Batangas,Cavite,Laguna,Quezon,Rizal",
-  "flood_risk_signature": "Baguio:WATCH|Marikina City:WATCH|Metro Manila:WATCH|Taguig:WATCH"
+  "rain_alerted_date": "2026-08-10",
+  "flood_alerted_date": "",
+  "flood_advisory_signature": "39761bf9-ae7c-4b32-9d39-da9b79ef393c:EXTREME:Marinduque,Occidental Mindoro,Oriental Mindoro,Palawan,Romblon|4fbba4ed-35b2-4c06-b649-e224da28d86a:EXTREME:Batangas,Cavite,Laguna,Quezon,Rizal|87b4cd59-600b-4758-aeae-0fc5692f3885:EXTREME:Abra,Apayao,Benguet,Ifugao,Kalinga,Mountain Province|8a1e019d-6209-4e9c-97a9-408f480d7f18:EXTREME:Metro Manila|c8fed524-0b8f-40fe-9fd9-d685bd5dd2c4:EXTREME:Ilocos Norte,Ilocos Sur,La Union,Pangasinan|d96284ab-7b1f-46cb-a2db-488169ae8610:EXTREME:Bataan,Bulacan,Zambales|ee8e58ef-0249-462f-8d46-c6839a67f2ec:MODERATE:Camarines Norte,Camarines Sur",
+  "flood_risk_signature": "Baguio:HIGH|Laoag:WATCH|Marikina City:WATCH|Metro Manila:WATCH|Taguig:WATCH"
 }
