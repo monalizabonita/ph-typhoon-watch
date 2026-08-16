@@ -1,7 +1,7 @@
 {
   "typhoon_alerted_date": "",
-  "rain_alerted_date": "2026-08-16",
-  "flood_alerted_date": "2026-08-16",
-  "flood_advisory_signature": "",
+  "rain_alerted_date": "2026-08-17",
+  "flood_alerted_date": "2026-08-17",
+  "flood_advisory_signature": "28305b3d-4ec0-4b13-b097-d3a641b0094d:MODERATE:Ilocos Norte,Ilocos Sur,La Union,Pangasinan|6f649d69-11a6-4a9d-aee3-f326b27c11e6:MODERATE:Benguet,Ifugao,Mountain Province|d29c3783-fbd8-47c1-8967-8b0ca25f97d3:MODERATE:Bataan,Zambales",
   "flood_risk_signature": "Baguio:WATCH|Laoag:WATCH"
 }
