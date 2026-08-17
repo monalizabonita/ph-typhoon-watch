@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-08-17T14:25:59Z",
+  "checked_at_utc": "2026-08-17T14:54:11Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
@@ -211,21 +211,6 @@
       "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to be alert for possible flashfloods",
       "issued_at": "2026-08-17 10:56:10",
       "valid_until": "2026-08-17 22:56:10",
-      "published_by": "PAGASA-DOST"
-    },
-    {
-      "identifier": "1047eeed-3d8e-4d77-8e34-19ed33625933",
-      "severity": "SEVERE",
-      "areas": [
-        "Metro Manila"
-      ],
-      "all_areas": [
-        "Metro Manila"
-      ],
-      "message": "Under present weather conditions, At 3:00 AM today, a Low Pressure Area (LPA) was estimated based on all available data at 1,040 km East of Northern Luzon (18.6\u00b0N, 131.5\u00b0E). Southwest Monsoon affecting Luzon  and the western section of  Visayas.  \nThe 12-hour rainfall forecast is Moderate to occasionally heavy rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Metro Manila** - All rivers and streams in Metro Manila.  \n",
-      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to be alert for possible flashfloods",
-      "issued_at": "2026-08-17 10:52:22",
-      "valid_until": "2026-08-17 22:52:22",
       "published_by": "PAGASA-DOST"
     }
   ]
