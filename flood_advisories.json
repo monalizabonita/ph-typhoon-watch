@@ -1,8 +1,46 @@
 {
-  "checked_at_utc": "2026-08-17T09:57:02Z",
+  "checked_at_utc": "2026-08-17T10:35:16Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
+    {
+      "identifier": "55a08ce4-9367-4350-950a-1c7167b734d7",
+      "severity": "SEVERE",
+      "areas": [
+        "Batangas",
+        "Cavite",
+        "Laguna",
+        "Quezon",
+        "Rizal"
+      ],
+      "all_areas": [
+        "Batangas",
+        "Cavite",
+        "Laguna",
+        "Quezon",
+        "Rizal"
+      ],
+      "message": "Under present weather conditions, At 3:00 PM today, the Low Pressure Area (LPA) was estimated based on all available data at 1,160 km East of Northern Luzon (18.2\u00b0N, 132.7\u00b0E). Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is Moderate to occasionally heavy rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Quezon** - Rivers and its tributaries particularly Upper Umiray, Lower Bolbok (Lawaya), Malaking-Ilog, Iyam, Macalelon, Catanauan, Silongin Lagda, Pagsanjan, Yabahaan, Bigol, Guinhalinan, Vinas, Calauag, Pandanan, Sta. Lucia, Lugan Malaybalay, Maapon, Bucal (Lalangan), Lakayat, Tignoan, Agos, Anibawan (Polilio Island) and Upper Kilbay - Catabangan.  \n + **Cavite** - Rivers and its tributaries particularly Laboc (Balsahan), Ca\u00f1as, Ylang-Ylang, Imus, and Maragondon.  \n + **Batangas** - Rivers and its tributaries particularly Lian, Banabang-Molino, Pansipit, Kapumpong, Rosario-Lobo and Upper Bolbok (Lawaya).  \n + **Laguna** - Rivers and its tributaries particularly Pagsanjan, Pila-Sta. Cruz, San Juan and San Cristobal.  \n + **Rizal** - Rivers and its tributaries particularly Upper Marikina and Kaliwa.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to be alert for possible flashfloods and landslides.",
+      "issued_at": "2026-08-17 17:59:32",
+      "valid_until": "2026-08-18 05:59:32",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "19ec2da9-1f71-4df6-a50f-535b250ec44c",
+      "severity": "SEVERE",
+      "areas": [
+        "Metro Manila"
+      ],
+      "all_areas": [
+        "Metro Manila"
+      ],
+      "message": "Under present weather conditions, At 3:00 PM today, the Low Pressure Area (LPA) was estimated based on all available data at 1,160 km East of Northern Luzon (18.2\u00b0N, 132.7\u00b0E). Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is Moderate to occasionally heavy rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Metro Manila** - All rivers and streams in Metro Manila.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to be alert for possible flashfloods.",
+      "issued_at": "2026-08-17 17:59:08",
+      "valid_until": "2026-08-18 05:59:08",
+      "published_by": "PAGASA-DOST"
+    },
     {
       "identifier": "1982509d-28ec-465f-8a09-6d6e64307466",
       "severity": "SEVERE",
