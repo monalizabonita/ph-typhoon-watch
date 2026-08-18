@@ -231,7 +231,7 @@
   },
   {
     "date": "2026-08-18",
-    "active": false,
-    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
+    "active": true,
+    "message": "THE LOW PRESSURE AREA EAST OF EXTREME NORTHERN LUZON DEVELOPED INTO TROPICAL DEPRESSION NENENG."
   }
 ]

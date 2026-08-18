@@ -1,7 +1,7 @@
 {
-  "last_checked_utc": "2026-08-18T08:55:17Z",
-  "pagasa_active": false,
-  "pagasa_message": "No Active Tropical Cyclone within the Philippine Area of Responsibility",
+  "last_checked_utc": "2026-08-18T09:32:27Z",
+  "pagasa_active": true,
+  "pagasa_message": "THE LOW PRESSURE AREA EAST OF EXTREME NORTHERN LUZON DEVELOPED INTO TROPICAL DEPRESSION NENENG.",
   "source_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone/severe-weather-bulletin",
   "advisory_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe"
 }
