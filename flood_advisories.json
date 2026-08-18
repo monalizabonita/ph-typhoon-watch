@@ -1,6 +1,148 @@
 {
-  "checked_at_utc": "2026-08-18T09:32:33Z",
+  "checked_at_utc": "2026-08-18T10:03:50Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
-  "advisories": []
+  "advisories": [
+    {
+      "identifier": "68cf1360-2b93-43d8-a61e-1192ca6427e1",
+      "severity": "MODERATE",
+      "areas": [
+        "Albay",
+        "Camarines Norte",
+        "Camarines Sur",
+        "Catanduanes",
+        "Masbate"
+      ],
+      "all_areas": [
+        "Albay",
+        "Camarines Norte",
+        "Camarines Sur",
+        "Catanduanes",
+        "Masbate"
+      ],
+      "message": "Under present weather conditions, At 3:00 PM today, the center of Tropical Depression \"NENENG\" was estimated based on all available data at 1,025 km East of Extreme Northern Luzon (20.4\u00b0N, 131.8\u00b0E) with maximum sustained winds of 45 km/h near the center and gustiness of up to 55 km/h. It is moving Northwestward at 20 km/h. Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Camarines Sur** - Rivers and its tributaries particularly Lower Kilbay Catabangan, Ragay, Tinalmud, Tambang and Lagonoy.  \n + **Catanduanes** - Rivers and its tributaries particularly Cabuyan, Bato and Pajo.  \n + **Albay** - Rivers and its tributaries particularly Guinale and Upper Donsol.  \n + **Camarines Norte** - Rivers and its tributaries particularly Labo and Daet Basud.  \n + **Masbate** - Rivers and its tributaries particularly Lanang, Mapayawan, Mandaon, Asid, Malbug, Guiom, Nainday, Daraga, Nauco (Aguada) and Baleno.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
+      "issued_at": "2026-08-18 17:46:23",
+      "valid_until": "2026-08-19 05:46:23",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "5986df07-3bd7-4a06-bbe6-ed9bff779521",
+      "severity": "SEVERE",
+      "areas": [
+        "Marinduque",
+        "Occidental Mindoro",
+        "Oriental Mindoro",
+        "Palawan",
+        "Romblon"
+      ],
+      "all_areas": [
+        "Marinduque",
+        "Occidental Mindoro",
+        "Oriental Mindoro",
+        "Palawan",
+        "Romblon"
+      ],
+      "message": "Under present weather conditions, At 3:00 PM today, the center of Tropical Depression \"NENENG\" was estimated based on all available data at 1,025 km East of Extreme Northern Luzon (20.4\u00b0N, 131.8\u00b0E) with maximum sustained winds of 45 km/h near the center and gustiness of up to 55 km/h. It is moving Northwestward at 20 km/h. Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is moderate TO HEAVY rains.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Marinduque** - Rivers and its tributaries particularly Tawiran-Tagum (Marinduque) and Boac.  \n + **Oriental Mindoro** - Rivers and its tributaries particularly Malaylay-Baco, Pulang Tubig, Mag-asawang Tubig, Butas, Pula, Agsalin, Bansud, Sumagui, Bongabong, Baroc, Bulalacao and Balete.  \n + **Occidental Mindoro** - Rivers and its tributaries particularly Abra De Ilog, Caguray, Labangan, Lumintao, Anahawin, Monpong, Amnay, Pola, Pagbahan, Mamburao, Ibod, and Bugsanga-Magbando.  \n + **Romblon** - All rivers and its tributaries  \n + **Palawan** - Rivers and its tributaries particularly Abongan, Lian, Barbakan, Rizal, Caramay, Langogan, Babuyan, Bacungan, Iwahig Penal, Inagauan, Aborlan, Malatgao, Apurauan, Baton-Baton, Aramaywan, Ihawig, Panitian, Pulot, Lamakan, Kinlugan, Eraan, Tiga Plan, Malabangan, Ilog, Bansang, Conduaga, Culasian, Iwahig (Brookes), Okayan, Canipaan and Busuanga, Coron.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to be alert for possible flashfloods and landslides.",
+      "issued_at": "2026-08-18 17:43:39",
+      "valid_until": "2026-08-19 05:43:39",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "8b4a406c-db34-43e7-89bc-21dd5afbe342",
+      "severity": "SEVERE",
+      "areas": [
+        "Batangas",
+        "Cavite",
+        "Laguna",
+        "Quezon",
+        "Rizal"
+      ],
+      "all_areas": [
+        "Batangas",
+        "Cavite",
+        "Laguna",
+        "Quezon",
+        "Rizal"
+      ],
+      "message": "Under present weather conditions, At 3:00 PM today, the center of Tropical Depression \"NENENG\" was estimated based on all available data at 1,025 km East of Extreme Northern Luzon (20.4\u00b0N, 131.8\u00b0E) with maximum sustained winds of 45 km/h near the center and gustiness of up to 55 km/h. It is moving Northwestward at 20 km/h. Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is Moderate to heavy rains.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Quezon** - Rivers and its tributaries particularly Upper Umiray, Lower Bolbok (Lawaya), Malaking-Ilog, Iyam, Macalelon, Catanauan, Silongin Lagda, Pagsanjan, Yabahaan, Bigol, Guinhalinan, Vinas, Calauag, Pandanan, Sta. Lucia, Lugan Malaybalay, Maapon, Bucal (Lalangan), Lakayat, Tignoan, Agos, Anibawan (Polilio Island) and Upper Kilbay - Catabangan.  \n + **Cavite** - Rivers and its tributaries particularly Laboc (Balsahan), Ca\u00f1as, Ylang-Ylang, Imus, and Maragondon.  \n + **Batangas** - Rivers and its tributaries particularly Lian, Banabang-Molino, Pansipit, Kapumpong, Rosario-Lobo and Upper Bolbok (Lawaya).  \n + **Laguna** - Rivers and its tributaries particularly Pagsanjan, Pila-Sta. Cruz, San Juan and San Cristobal.  \n + **Rizal** - Rivers and its tributaries particularly Upper Marikina and Kaliwa.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to be alert for possible flashfloods and landslides.",
+      "issued_at": "2026-08-18 17:39:09",
+      "valid_until": "2026-08-19 05:39:09",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "f8f7b4ae-bf36-406b-9c18-2e3f776b4b06",
+      "severity": "MODERATE",
+      "areas": [
+        "Metro Manila"
+      ],
+      "all_areas": [
+        "Metro Manila"
+      ],
+      "message": "Under present weather conditions, At 3:00 PM today, the center of Tropical Depression \"NENENG\" was estimated based on all available data at 1,025 km East of Extreme Northern Luzon (20.4\u00b0N, 131.8\u00b0E) with maximum sustained winds of 45 km/h near the center and gustiness of up to 55 km/h. It is moving Northwestward at 20 km/h. Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is Light to moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Metro Manila** - All rivers and streams in Metro Manila.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
+      "issued_at": "2026-08-18 17:37:36",
+      "valid_until": "2026-08-19 05:37:36",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "99a45411-5cd1-46fd-b566-b9cd8ad35c7b",
+      "severity": "EXTREME",
+      "areas": [
+        "Bataan",
+        "Bulacan",
+        "Zambales"
+      ],
+      "all_areas": [
+        "Bataan",
+        "Bulacan",
+        "Zambales"
+      ],
+      "message": "Under present weather conditions, At 3:00 PM today, the center of Tropical Depression \"NENENG\" was estimated based on all available data at 1,025 km East of Extreme Northern Luzon (20.4\u00b0N, 131.8\u00b0E) with maximum sustained winds of 45 km/h near the center and gustiness of up to 55 km/h. It is moving Northwestward at 20 km/h. Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is moderate to heavy rains.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Zambales** - Rivers and its tributaries particularly Pamatawan, Sto. Tomas, Bucao, Bancal and Lawis.  \n + **Bataan** - Rivers and its tributaries particularly Balanga and Morong.  \n + **Bulacan** - All rivers and its tributaries  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take appropriate actions.",
+      "issued_at": "2026-08-18 17:36:09",
+      "valid_until": "2026-08-19 05:36:09",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "c20900d0-efcd-475f-92a4-94ac754b1a5a",
+      "severity": "SEVERE",
+      "areas": [
+        "Benguet",
+        "Ifugao",
+        "Mountain Province"
+      ],
+      "all_areas": [
+        "Benguet",
+        "Ifugao",
+        "Mountain Province"
+      ],
+      "message": "Under present weather conditions, At 3:00 PM today, the center of Tropical Depression \"NENENG\" was estimated based on all available data at 1,025 km East of Extreme Northern Luzon (20.4\u00b0N, 131.8\u00b0E) with maximum sustained winds of 45 km/h near the center and gustiness of up to 55 km/h. It is moving Northwestward at 20 km/h. Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is Light to moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Mountain Province** - All rivers and its tributaries  \n + **Ifugao** - All rivers and its tributaries  \n + **Benguet** - Rivers and its tributaries particularly Upper Bauang.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to be alert for possible flashfloods and landslides.",
+      "issued_at": "2026-08-18 17:34:43",
+      "valid_until": "2026-08-19 05:34:43",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "d1c41b2e-6254-4205-8e63-8a181fdb30cb",
+      "severity": "SEVERE",
+      "areas": [
+        "Ilocos Sur",
+        "La Union",
+        "Pangasinan"
+      ],
+      "all_areas": [
+        "Ilocos Sur",
+        "La Union",
+        "Pangasinan"
+      ],
+      "message": "Under present weather conditions, At 3:00 PM today, the center of Tropical Depression \"NENENG\" was estimated based on all available data at 1,025 km East of Extreme Northern Luzon (20.4\u00b0N, 131.8\u00b0E) with maximum sustained winds of 45 km/h near the center and gustiness of up to 55 km/h. It is moving Northwestward at 20 km/h. Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is Light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **La Union** - Rivers and its tributaries particularly Amburayan, Baroro, Lower Bauang and Aringay.  \n + **Ilocos Sur** - Rivers and its tributaries particularly Lower Abra, Silay-Sta. Maria, Buaya, and Amburayan.  \n + **Pangasinan** - Rivers and its tributaries particularly Balincaguing and Alaminos.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to be alert for possible flashfloods and landslides.",
+      "issued_at": "2026-08-18 17:32:41",
+      "valid_until": "2026-08-19 05:32:41",
+      "published_by": "PAGASA-DOST"
+    }
+  ]
 }
