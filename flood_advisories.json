@@ -1,47 +1,6 @@
 {
-  "checked_at_utc": "2026-08-21T08:45:50Z",
+  "checked_at_utc": "2026-08-21T09:35:05Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
-  "advisories": [
-    {
-      "identifier": "8a8d3a9c-df82-4f85-be5c-9c007e90a557",
-      "severity": "FINAL",
-      "areas": [
-        "Ilocos Norte",
-        "Ilocos Sur",
-        "La Union",
-        "Pangasinan"
-      ],
-      "all_areas": [
-        "Ilocos Norte",
-        "Ilocos Sur",
-        "La Union",
-        "Pangasinan"
-      ],
-      "message": "Under present weather conditions, Southwest Monsoon affecting Luzon.  \nThe 12-hour rainfall forecast is Light rains and thunderstorms.  \nWATERCOURSES NO LONGER TO BE AFFECTED :  \n\n + **La Union** - Rivers and its tributaries particularly Amburayan, Baroro, Lower Bauang and Aringay.  \n + **Ilocos Sur** - Rivers and its tributaries particularly Lower Abra, Silay-Sta. Maria, Buaya, and Amburayan.  \n + **Pangasinan** - Rivers and its tributaries particularly Balincaguing and Alaminos.  \n + **Ilocos Norte** - Rivers and its tributaries particularly Bulu, Banban, Bacarra-Vintar, Laoag and Quiaoit.  \n",
-      "instruction": "With this development and unless significant rain occurs, this is the final general flood advisory for this event.",
-      "issued_at": "2026-08-21 05:15:47",
-      "valid_until": "2026-08-21 17:15:47",
-      "published_by": "PAGASA-DOST"
-    },
-    {
-      "identifier": "796acb53-ebba-43a5-a66c-e0feba109056",
-      "severity": "FINAL",
-      "areas": [
-        "Benguet",
-        "Ifugao",
-        "Mountain Province"
-      ],
-      "all_areas": [
-        "Benguet",
-        "Ifugao",
-        "Mountain Province"
-      ],
-      "message": "Under present weather conditions, Southwest Monsoon affecting Luzon.  \nThe 12-hour rainfall forecast is Light rains and thunderstorms.  \nWATERCOURSES NO LONGER TO BE AFFECTED :  \n\n + **Mountain Province** - All rivers and its tributaries  \n + **Ifugao** - All rivers and its tributaries  \n + **Benguet** - Rivers and its tributaries particularly Upper Bauang.  \n",
-      "instruction": "With this development and unless significant rain occurs, this is the final general flood advisory for this event.",
-      "issued_at": "2026-08-21 05:14:44",
-      "valid_until": "2026-08-21 17:14:44",
-      "published_by": "PAGASA-DOST"
-    }
-  ]
+  "advisories": []
 }
