@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-08-21T14:19:11Z",
+  "checked_at_utc": "2026-08-21T15:03:30Z",
   "method": "Heavy-rain screening; not confirmed flooding",
   "noah_url": "https://noah.up.edu.ph/know-your-hazards-realtimefloodmap",
   "areas": [
@@ -41,7 +41,7 @@
       "latitude": 17.6132,
       "longitude": 121.727,
       "date": "2026-08-21",
-      "rain_probability": 20.0,
+      "rain_probability": 18.0,
       "rain_mm": 0.3,
       "risk": "LOW"
     },
@@ -55,7 +55,7 @@
       "latitude": 15.7589,
       "longitude": 121.5607,
       "date": "2026-08-21",
-      "rain_probability": 90.0,
+      "rain_probability": 61.0,
       "rain_mm": 2.5,
       "risk": "LOW"
     },
@@ -181,7 +181,7 @@
       "latitude": 10.3157,
       "longitude": 123.8854,
       "date": "2026-08-21",
-      "rain_probability": 96.0,
+      "rain_probability": 97.0,
       "rain_mm": 6.7,
       "risk": "LOW"
     },
@@ -251,7 +251,7 @@
       "latitude": 10.7202,
       "longitude": 122.5621,
       "date": "2026-08-21",
-      "rain_probability": 67.0,
+      "rain_probability": 68.0,
       "rain_mm": 0.7,
       "risk": "LOW"
     },
@@ -307,7 +307,7 @@
       "latitude": 7.1907,
       "longitude": 125.4553,
       "date": "2026-08-21",
-      "rain_probability": 98.0,
+      "rain_probability": 100.0,
       "rain_mm": 6.2,
       "risk": "LOW"
     },
@@ -321,7 +321,7 @@
       "latitude": 8.4542,
       "longitude": 124.6319,
       "date": "2026-08-21",
-      "rain_probability": 73.0,
+      "rain_probability": 90.0,
       "rain_mm": 3.9,
       "risk": "LOW"
     },
