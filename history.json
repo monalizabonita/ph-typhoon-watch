@@ -251,7 +251,7 @@
   },
   {
     "date": "2026-08-22",
-    "active": false,
-    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
+    "active": true,
+    "message": "TYPHOON SAUDEL CONTINUES TO INTENSIFY WHILE MOVING NORTHWESTWARD."
   }
 ]

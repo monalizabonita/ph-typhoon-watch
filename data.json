@@ -1,7 +1,7 @@
 {
-  "last_checked_utc": "2026-08-22T15:19:22Z",
-  "pagasa_active": false,
-  "pagasa_message": "No Active Tropical Cyclone within the Philippine Area of Responsibility",
+  "last_checked_utc": "2026-08-22T15:46:25Z",
+  "pagasa_active": true,
+  "pagasa_message": "TYPHOON SAUDEL CONTINUES TO INTENSIFY WHILE MOVING NORTHWESTWARD.",
   "source_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone/severe-weather-bulletin",
   "advisory_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe"
 }
