@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-08-23T14:21:44Z",
+  "checked_at_utc": "2026-08-23T14:49:25Z",
   "method": "Heavy-rain screening; not confirmed flooding",
   "noah_url": "https://noah.up.edu.ph/know-your-hazards-realtimefloodmap",
   "areas": [
@@ -13,7 +13,7 @@
       "latitude": 18.196,
       "longitude": 120.5927,
       "date": "2026-08-23",
-      "rain_probability": 94.0,
+      "rain_probability": 98.0,
       "rain_mm": 13.0,
       "risk": "LOW"
     },
@@ -41,7 +41,7 @@
       "latitude": 17.6132,
       "longitude": 121.727,
       "date": "2026-08-23",
-      "rain_probability": 66.0,
+      "rain_probability": 100.0,
       "rain_mm": 4.7,
       "risk": "LOW"
     },
@@ -139,7 +139,7 @@
       "latitude": 13.6218,
       "longitude": 123.1948,
       "date": "2026-08-23",
-      "rain_probability": 49.0,
+      "rain_probability": 51.0,
       "rain_mm": 0.8,
       "risk": "LOW"
     },
@@ -237,7 +237,7 @@
       "latitude": 10.377,
       "longitude": 123.6386,
       "date": "2026-08-23",
-      "rain_probability": 12.0,
+      "rain_probability": 37.0,
       "rain_mm": 0.0,
       "risk": "LOW"
     },
@@ -293,7 +293,7 @@
       "latitude": 9.6496,
       "longitude": 123.853,
       "date": "2026-08-23",
-      "rain_probability": 82.0,
+      "rain_probability": 78.0,
       "rain_mm": 0.5,
       "risk": "LOW"
     },
@@ -307,7 +307,7 @@
       "latitude": 7.1907,
       "longitude": 125.4553,
       "date": "2026-08-23",
-      "rain_probability": 80.0,
+      "rain_probability": 77.0,
       "rain_mm": 1.5,
       "risk": "LOW"
     },
@@ -321,7 +321,7 @@
       "latitude": 8.4542,
       "longitude": 124.6319,
       "date": "2026-08-23",
-      "rain_probability": 8.0,
+      "rain_probability": 12.0,
       "rain_mm": 0.8,
       "risk": "LOW"
     },
@@ -363,7 +363,7 @@
       "latitude": 6.1164,
       "longitude": 125.1716,
       "date": "2026-08-23",
-      "rain_probability": 100.0,
+      "rain_probability": 99.0,
       "rain_mm": 1.2,
       "risk": "LOW"
     }
