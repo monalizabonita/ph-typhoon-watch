@@ -1,6 +1,6 @@
 {
   "typhoon_alerted_date": "2026-08-24",
-  "rain_alerted_date": "2026-08-23",
+  "rain_alerted_date": "2026-08-24",
   "flood_alerted_date": "2026-08-24",
   "flood_advisory_signature": "315d7eca-ad76-41d6-bb49-6b97da3b1a00:MODERATE:Abra,Apayao,Benguet,Ifugao,Kalinga,Mountain Province|89e77d8f-9997-4f29-aca9-487c2b657715:MODERATE:Batanes,Cagayan|b4ebcdd1-6d02-43bb-9940-a12db44c1bbd:MODERATE:Bataan,Zambales|e7bcfd6d-5b9e-4114-ba37-4880aea5a5ec:MODERATE:Ilocos Norte,Ilocos Sur,La Union,Pangasinan",
   "flood_risk_signature": "Baguio:WATCH"
