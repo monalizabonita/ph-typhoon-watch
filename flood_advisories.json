@@ -1,8 +1,40 @@
 {
-  "checked_at_utc": "2026-08-24T21:27:20Z",
+  "checked_at_utc": "2026-08-24T21:54:33Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
+    {
+      "identifier": "c4cbd8ef-d284-4512-8499-4d773294bcee",
+      "severity": "SEVERE",
+      "areas": [
+        "Bataan",
+        "Zambales"
+      ],
+      "all_areas": [
+        "Bataan",
+        "Zambales"
+      ],
+      "message": "Under present weather conditions, Southwest Monsoon affecting Luzon.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Bataan** - Rivers and its tributaries particularly Balanga and Morong.  \n + **Zambales** - Rivers and its tributaries particularly Pamatawan, Sto. Tomas, Bucao, Bancal and Lawis.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to be alert for possible flashfloods.",
+      "issued_at": "2026-08-25 05:27:44",
+      "valid_until": "2026-08-25 17:27:44",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "c8e0d161-57d3-4552-9acf-3c2de259ffc2",
+      "severity": "FINAL",
+      "areas": [
+        "Batanes"
+      ],
+      "all_areas": [
+        "Batanes"
+      ],
+      "message": "Under present weather conditions, Southwest Monsoon affecting Luzon.  \nThe 12-hour rainfall forecast is Light rains.  \nWATERCOURSES NO LONGER TO BE AFFECTED :  \n\n + **Batanes** - All rivers and its tributaries  \n",
+      "instruction": "With this development and unless significant rain occurs, this is the final general flood advisory for this event.",
+      "issued_at": "2026-08-25 05:26:16",
+      "valid_until": "2026-08-25 17:26:16",
+      "published_by": "PAGASA-DOST"
+    },
     {
       "identifier": "7d6754eb-2b28-4329-978d-ca094ad73c92",
       "severity": "SEVERE",
