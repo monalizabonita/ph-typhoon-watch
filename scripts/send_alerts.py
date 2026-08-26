@@ -28,7 +28,7 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import List, Optional
 from zoneinfo import ZoneInfo
@@ -59,6 +59,7 @@ FLOOD_ADVISORY_URL = (
 LATITUDE = 14.5176
 LONGITUDE = 121.0509
 RAIN_PROBABILITY_THRESHOLD = 60  # percent
+MAX_TYPHOON_STATUS_AGE = timedelta(hours=6)
 
 
 def load_state() -> dict:
@@ -80,6 +81,22 @@ def save_state(state: dict) -> None:
 
 def manila_today() -> str:
     return datetime.now(timezone.utc).astimezone(ZoneInfo("Asia/Manila")).strftime("%Y-%m-%d")
+
+
+def is_confirmed_active_typhoon(data: dict, now_utc=None) -> bool:
+    if not data.get("pagasa_active"):
+        return False
+    if data.get("status_scope") != "inside_par" or data.get("pagasa_doc_type") != "Bulletin":
+        return False
+    try:
+        checked_at = datetime.strptime(data.get("last_checked_utc", ""), "%Y-%m-%dT%H:%M:%SZ").replace(
+            tzinfo=timezone.utc
+        )
+    except (TypeError, ValueError):
+        return False
+    now_utc = now_utc or datetime.now(timezone.utc)
+    age = now_utc - checked_at
+    return timedelta(0) <= age <= MAX_TYPHOON_STATUS_AGE
 
 
 def send_gchat(
@@ -175,13 +192,13 @@ def check_typhoon(state: dict) -> dict:
     except (FileNotFoundError, json.JSONDecodeError):
         return state
 
-    active = bool(data.get("pagasa_active"))
+    active = is_confirmed_active_typhoon(data)
     today = manila_today()
     if active:
         if state.get("typhoon_alerted_date") != today:
             notify(
-                "🌀 Typhoon alert: PAGASA reports an active tropical cyclone in the Philippine "
-                f"Area of Responsibility.\n{data.get('pagasa_message', '')}",
+                "🌀 Typhoon alert: A current PAGASA Tropical Cyclone Bulletin confirms an active "
+                f"cyclone in the Philippine Area of Responsibility.\n{data.get('pagasa_message', '')}",
                 title="Typhoon Alert",
                 priority="urgent",
                 tags="cyclone,warning",

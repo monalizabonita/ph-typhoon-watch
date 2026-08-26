@@ -8,8 +8,9 @@ cron.
 The tropical-cyclone-bulletin-iframe / tropical-cyclone-advisory-iframe pages are JS/map-rendered
 widgets that were found to NOT reliably reflect current status via simple text scraping (they
 kept showing "no active tropical cyclone" even with a live, numbered bulletin in effect). The
-reliable source is PAGASA's own PDF bulletins/advisories, discovered dynamically from the
-severe-weather-bulletin page and parsed directly — both are small and fast (well under 1s each).
+authoritative in-PAR source is PAGASA's current Bulletin PDF, discovered dynamically from the
+severe-weather-bulletin page and parsed directly. Advisories are for systems outside PAR and
+must never be classified as an active cyclone inside PAR.
 """
 import io
 import json
@@ -29,7 +30,13 @@ BULLETIN_LINK_RE = re.compile(
 )
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 
-DOC_STALE_AFTER = timedelta(hours=48)  # bulletins/advisories are typically reissued every 6-12h while active
+DOC_STALE_AFTER = timedelta(hours=18)  # active bulletins are normally reissued every 6-12h
+INACTIVE_PAR_RE = re.compile(
+    r"\b(?:HAS\s+)?EXITED\s+(?:THE\s+)?PHILIPPINE\s+AREA\s+OF\s+RESPONSIBILITY\b"
+    r"|\bOUTSIDE\s+(?:THE\s+)?PHILIPPINE\s+AREA\s+OF\s+RESPONSIBILITY\b"
+    r"|\bOUTSIDE\s+(?:THE\s+)?PAR\b",
+    re.IGNORECASE,
+)
 
 
 def clean_text(text: str) -> str:
@@ -103,6 +110,20 @@ def fetch_and_parse_pdf(pdf_url: str):
     return parsed
 
 
+def document_is_active_in_par(doc: dict) -> bool:
+    """Only a current PAGASA Bulletin can confirm a cyclone inside PAR.
+
+    PAGASA Advisories cover systems outside PAR. Final Bulletins can remain published after a
+    cyclone exits, so their exit wording must explicitly clear the in-PAR status.
+    """
+    if not doc or str(doc.get("doc_type") or "").casefold() != "bulletin":
+        return False
+    text = " ".join(
+        str(value or "") for value in (doc.get("headline"), *(doc.get("bullets") or []))
+    )
+    return not INACTIVE_PAR_RE.search(clean_text(text))
+
+
 def discover_bulletin_pdf_url():
     """The severe-weather-bulletin page links to a static 'latest bulletin' PDF for whichever
     storm is currently active (e.g. bulletin_inday.pdf) — its filename changes with the storm's
@@ -115,21 +136,13 @@ def discover_bulletin_pdf_url():
 
 
 def fetch_active_document():
-    """A Bulletin (system already inside PAR) takes priority over an Advisory (system still
-    outside PAR, being watched ahead of a possible PAR entry) since it's the more urgent/current
-    product. Returns (doc_or_None, error_or_None)."""
+    """Return only a current Bulletin that confirms a cyclone remains inside PAR."""
     try:
         bulletin_url = discover_bulletin_pdf_url()
-        if bulletin_url:
-            doc = fetch_and_parse_pdf(bulletin_url)
-            if doc:
-                return doc, None
-    except Exception:
-        pass  # fall through to the advisory
-
-    try:
-        doc = fetch_and_parse_pdf(ADVISORY_PDF_URL)
-        return doc, None
+        if not bulletin_url:
+            return None, None
+        doc = fetch_and_parse_pdf(bulletin_url)
+        return (doc, None) if document_is_active_in_par(doc) else (None, None)
     except Exception as exc:
         return None, str(exc)
 
@@ -151,10 +164,14 @@ class handler(BaseHTTPRequestHandler):
         elif doc:
             data["advisory"] = doc
             data["pagasa_active"] = True
+            data["pagasa_doc_type"] = doc.get("doc_type")
+            data["status_scope"] = "inside_par"
             data["pagasa_message"] = doc.get("headline") or f"{doc['doc_type']} in effect for {doc['storm_name']}."
         else:
             data["advisory"] = None
             data["pagasa_active"] = False
+            data["pagasa_doc_type"] = None
+            data["status_scope"] = "none"
             data["pagasa_message"] = "No Active Tropical Cyclone within the Philippine Area of Responsibility"
 
         self._json(200, data)

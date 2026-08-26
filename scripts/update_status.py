@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fetch PAGASA's tropical cyclone status and write data.json for the static site + alert pipeline.
 
-Uses the same PDF bulletin/advisory-based detection as api/index.py (see that file's docstring
+Uses the same current-Bulletin detection as api/index.py (see that file's docstring
 for the full story) rather than text-scraping the tropical-cyclone-bulletin-iframe page — that
 page is a JS/map-rendered widget that was found to NOT reliably reflect current status; it can
 keep showing "no active tropical cyclone" even with a live, numbered bulletin in effect.
@@ -29,7 +29,13 @@ BULLETIN_LINK_RE = re.compile(
     r"https://pubfiles\.pagasa\.dost\.gov\.ph/tamss/weather/bulletin_[a-z]+\.pdf", re.IGNORECASE
 )
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-DOC_STALE_AFTER = timedelta(hours=48)  # bulletins/advisories are typically reissued every 6-12h while active
+DOC_STALE_AFTER = timedelta(hours=18)  # active bulletins are normally reissued every 6-12h
+INACTIVE_PAR_RE = re.compile(
+    r"\b(?:HAS\s+)?EXITED\s+(?:THE\s+)?PHILIPPINE\s+AREA\s+OF\s+RESPONSIBILITY\b"
+    r"|\bOUTSIDE\s+(?:THE\s+)?PHILIPPINE\s+AREA\s+OF\s+RESPONSIBILITY\b"
+    r"|\bOUTSIDE\s+(?:THE\s+)?PAR\b",
+    re.IGNORECASE,
+)
 
 OUT_PATH = Path(__file__).resolve().parent.parent / "data.json"
 HISTORY_PATH = Path(__file__).resolve().parent.parent / "history.json"
@@ -86,6 +92,13 @@ def fetch_and_parse_pdf(pdf_url: str):
     return doc
 
 
+def document_is_active_in_par(doc: dict) -> bool:
+    if not doc or str(doc.get("doc_type") or "").casefold() != "bulletin":
+        return False
+    text = " ".join(str(value or "") for value in (doc.get("headline"),))
+    return not INACTIVE_PAR_RE.search(clean_text(text))
+
+
 def discover_bulletin_pdf_url():
     """The severe-weather-bulletin page links to a static 'latest bulletin' PDF for whichever
     storm is currently active (e.g. bulletin_inday.pdf) -- its filename changes with the storm's
@@ -98,21 +111,13 @@ def discover_bulletin_pdf_url():
 
 
 def fetch_active_document():
-    """A Bulletin (system already inside PAR) takes priority over an Advisory (system still
-    outside PAR, being watched ahead of a possible PAR entry) since it's the more urgent/current
-    product. Returns (doc_or_None, error_or_None)."""
+    """Return only a current Bulletin that confirms a cyclone remains inside PAR."""
     try:
         bulletin_url = discover_bulletin_pdf_url()
-        if bulletin_url:
-            doc = fetch_and_parse_pdf(bulletin_url)
-            if doc:
-                return doc, None
-    except Exception:
-        pass  # fall through to the advisory
-
-    try:
-        doc = fetch_and_parse_pdf(ADVISORY_PDF_URL)
-        return doc, None
+        if not bulletin_url:
+            return None, None
+        doc = fetch_and_parse_pdf(bulletin_url)
+        return (doc, None) if document_is_active_in_par(doc) else (None, None)
     except Exception as exc:
         return None, str(exc)
 
@@ -155,6 +160,8 @@ def main() -> int:
     data = {
         "last_checked_utc": now_utc.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "pagasa_active": is_active,
+        "pagasa_doc_type": doc.get("doc_type") if doc else None,
+        "status_scope": "inside_par" if is_active else "none",
         "pagasa_message": message,
         "source_url": BULLETIN_DISCOVERY_URL,
         "advisory_url": ADVISORY_URL,

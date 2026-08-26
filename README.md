@@ -15,7 +15,11 @@ The page auto-refreshes its data every 5 minutes (and whenever the tab regains f
 
 ## How it works
 
-There are two independent status paths, both ultimately sourced from PAGASA's bulletin/advisory PDFs (discovered and parsed directly — the old `tropical-cyclone-bulletin-iframe` text page is unreliable and no longer trusted for status detection):
+There are two independent status paths, both ultimately sourced from PAGASA's bulletin PDFs
+(discovered and parsed directly — the old `tropical-cyclone-bulletin-iframe` text page is
+unreliable and no longer trusted for status detection). PAGASA Advisories describe systems
+outside PAR and are not classified as active in-PAR cyclones. Exit bulletins are also classified
+as clear:
 
 - **The Status tab** calls `/api/index` (a Vercel Python function) live on every page load — always current, no cron lag.
 - **Activity Trend + alerts** are driven by a GitHub Action (`.github/workflows/update.yml`), scheduled every 15 minutes (GitHub throttles very frequent schedules in practice, so real-world runs land more like every 1–3 hours):
@@ -24,7 +28,8 @@ There are two independent status paths, both ultimately sourced from PAGASA's bu
   3. `scripts/update_flood_advisories.py` retrieves every active official PAGASA General Flood
      Advisory that covers Luzon or Cebu.
   4. `scripts/generate_flood_report.py` renders all advisory details into one high-resolution PNG.
-  5. `scripts/send_alerts.py` sends alerts (see **Alerts** below) if the cyclone status is active,
+  5. `scripts/send_alerts.py` sends alerts (see **Alerts** below) only if a fresh PAGASA Bulletin
+     confirms the cyclone is active inside PAR,
      today's Metro Manila rain forecast crosses a threshold, official flood advisories change,
      or Luzon/Cebu flood-risk locations change.
   6. If anything changed, the Action commits and pushes it back to `main`.

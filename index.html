@@ -413,9 +413,8 @@
 
   function loadStatus() {
     // Fetched live from PAGASA on every call (no cron lag) — falls back to the cron-cached
-    // copy on GitHub if the live serverless fetch fails for any reason. The advisory (for
-    // systems outside the PAR, before they get an in-PAR bulletin) has no cached fallback —
-    // it's simply shown as "none" if the live fetch fails, since it's non-essential info.
+    // copy on GitHub if the live serverless fetch fails for any reason. Outside-PAR advisories
+    // intentionally do not count as an active cyclone inside PAR.
     return fetch('/api/index?_=' + Date.now())
       .then(r => r.json())
       .then(data => {
