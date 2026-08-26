@@ -1,7 +1,7 @@
 {
   "typhoon_alerted_date": "",
-  "rain_alerted_date": "2026-08-26",
-  "flood_alerted_date": "2026-08-26",
-  "flood_advisory_signature": "19833b80-eeba-4441-a6a9-f6bf9813b5ac:SEVERE:Ilocos Norte,Ilocos Sur,La Union,Pangasinan|1dbab45d-6ab6-48f6-bae9-69ef6db48e65:SEVERE:Bataan,Zambales|4b2c1373-3f5f-4f5f-bfdc-3e5c171dafd8:MODERATE:Abra,Apayao,Benguet,Ifugao,Kalinga,Mountain Province",
+  "rain_alerted_date": "2026-08-27",
+  "flood_alerted_date": "2026-08-27",
+  "flood_advisory_signature": "3328cc7b-e015-438b-b198-224162a4e290:MODERATE:Abra,Apayao,Benguet,Ifugao,Kalinga,Mountain Province|85722d7d-d643-4aff-8b8c-cc6528a87ce6:SEVERE:Ilocos Norte,Ilocos Sur,La Union,Pangasinan|bf00e3fb-77cc-41c2-bf1c-abc65ace1dae:SEVERE:Bataan,Zambales|e082f825-1a11-4eb7-b863-a4e4ab6643d7:MODERATE:Occidental Mindoro,Palawan,Romblon",
   "flood_risk_signature": "Baguio:WATCH"
 }
