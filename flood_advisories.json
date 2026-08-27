@@ -1,46 +1,90 @@
 {
-  "checked_at_utc": "2026-08-27T14:27:19Z",
+  "checked_at_utc": "2026-08-27T23:53:01Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
     {
-      "identifier": "c2e2697e-8102-49b2-88fa-d0dca7f9267b",
+      "identifier": "a117f41b-41fc-43e1-8368-93a60689ffac",
       "severity": "MODERATE",
       "areas": [
+        "Batangas",
+        "Cavite",
+        "Laguna",
+        "Quezon",
+        "Rizal"
+      ],
+      "all_areas": [
+        "Batangas",
+        "Cavite",
+        "Laguna",
+        "Quezon",
+        "Rizal"
+      ],
+      "message": "Under present weather conditions, At 3:00 AM today, the Low Pressure Area (LPA) was estimated based on all available data at 720 km East of Itbayat, Batanes (21.9\u00b0N, 128.7\u00b0E). Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is light to moderate to at times heavy rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Laguna** - Rivers and its tributaries particularly Pagsanjan, Pila-Sta. Cruz, San Juan and San Cristobal.  \n + **Cavite** - Rivers and its tributaries particularly Laboc (Balsahan), Ca\u00f1as, Ylang-Ylang, Imus, and Maragondon.  \n + **Rizal** - Rivers and its tributaries particularly Upper Marikina and Kaliwa.  \n + **Batangas** - Rivers and its tributaries particularly Lian, Banabang-Molino, Pansipit, Kapumpong, Rosario-Lobo and Upper Bolbok (Lawaya).  \n + **Quezon** - Rivers and its tributaries particularly Upper Umiray, Lower Bolbok (Lawaya), Malaking-Ilog, Iyam, Macalelon, Catanauan, Silongin Lagda, Pagsanjan, Yabahaan, Bigol, Guinhalinan, Vinas, Calauag, Pandanan, Sta. Lucia, Lugan Malaybalay, Maapon, Bucal (Lalangan), Lakayat, Tignoan, Agos, Anibawan (Polilio Island) and Upper Kilbay - Catabangan.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to take necessary precautionary measures.",
+      "issued_at": "2026-08-28 06:04:05",
+      "valid_until": "2026-08-28 18:04:05",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "8c3e8911-c1e0-4894-a748-42007aa800de",
+      "severity": "SEVERE",
+      "areas": [
+        "Metro Manila"
+      ],
+      "all_areas": [
+        "Metro Manila"
+      ],
+      "message": "Under present weather conditions, At 3:00 AM today, the Low Pressure Area (LPA) was estimated based on all available data at 720 km East of Itbayat, Batanes (21.9\u00b0N, 128.7\u00b0E). Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is moderate to occasionally heavy rains.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Metro Manila** - All rivers and streams in Metro Manila.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to be alert for possible flashfloods",
+      "issued_at": "2026-08-28 05:57:34",
+      "valid_until": "2026-08-28 17:57:34",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "5bb460e2-49b5-4011-a1a6-4a736960fb89",
+      "severity": "MODERATE",
+      "areas": [
+        "Marinduque",
         "Occidental Mindoro",
+        "Oriental Mindoro",
         "Palawan",
         "Romblon"
       ],
       "all_areas": [
+        "Marinduque",
         "Occidental Mindoro",
+        "Oriental Mindoro",
         "Palawan",
         "Romblon"
       ],
-      "message": "Under present weather conditions, At 3:00 PM today, the Low Pressure Area (LPA) was estimated based on all available data at 850 km East of Extreme Northern Luzon (21.2\u00b0N, 130.0\u00b0E). Southwest Monsoon affecting Luzon and the western section of Visayas.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Palawan** - Rivers and its tributaries particularly Abongan, Lian, Barbakan, Rizal, Caramay, Langogan, Babuyan, Bacungan, Iwahig Penal, Inagauan, Aborlan, Malatgao, Apurauan, Baton-Baton, Aramaywan, Ihawig, Panitian, Pulot, Lamakan, Kinlugan, Eraan, Tiga Plan, Malabangan, Ilog, Bansang, Conduaga, Culasian, Iwahig (Brookes), Okayan, Canipaan and Busuanga, Coron.  \n + **Romblon** - All rivers and its tributaries  \n + **Occidental Mindoro** - Rivers and its tributaries particularly Abra De Ilog, Caguray, Labangan, Lumintao, Anahawin, Monpong, Amnay, Pola, Pagbahan, Mamburao, Ibod, and Bugsanga-Magbando.  \n",
+      "message": "Under present weather conditions, At 3:00 AM today, the Low Pressure Area (LPA) was estimated based on all available data at 720 km East of Itbayat, Batanes (21.9\u00b0N, 128.7\u00b0E). Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Palawan** - Rivers and its tributaries particularly Abongan, Lian, Barbakan, Rizal, Caramay, Langogan, Babuyan, Bacungan, Iwahig Penal, Inagauan, Aborlan, Malatgao, Apurauan, Baton-Baton, Aramaywan, Ihawig, Panitian, Pulot, Lamakan, Kinlugan, Eraan, Tiga Plan, Malabangan, Ilog, Bansang, Conduaga, Culasian, Iwahig (Brookes), Okayan, Canipaan and Busuanga, Coron.  \n + **Romblon** - All rivers and its tributaries  \n + **Occidental Mindoro** - Rivers and its tributaries particularly Abra De Ilog, Caguray, Labangan, Lumintao, Anahawin, Monpong, Amnay, Pola, Pagbahan, Mamburao, Ibod, and Bugsanga-Magbando.  \n + **Oriental Mindoro** - Rivers and its tributaries particularly Malaylay-Baco, Pulang Tubig, Mag-asawang Tubig, Butas, Pula, Agsalin, Bansud, Sumagui, Bongabong, Baroc, Bulalacao and Balete.  \n + **Marinduque** - Rivers and its tributaries particularly Tawiran-Tagum (Marinduque) and Boac.  \n",
       "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
-      "issued_at": "2026-08-27 17:13:23",
-      "valid_until": "2026-08-28 05:13:23",
+      "issued_at": "2026-08-28 05:48:54",
+      "valid_until": "2026-08-28 17:48:54",
       "published_by": "PAGASA-DOST"
     },
     {
-      "identifier": "3e15324c-15fd-493a-9545-d16b6c3c7c3a",
+      "identifier": "2313b174-937f-4c22-96fa-013a1c51465f",
       "severity": "SEVERE",
       "areas": [
         "Bataan",
+        "Bulacan",
         "Zambales"
       ],
       "all_areas": [
         "Bataan",
+        "Bulacan",
         "Zambales"
       ],
-      "message": "Under present weather conditions, At 3:00 PM today, the Low Pressure Area (LPA) was estimated based on all available data at 850 km East of Extreme Northern Luzon (21.2\u00b0N, 130.0\u00b0E). Southwest Monsoon affecting Luzon and the western section of Visayas.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Bataan** - Rivers and its tributaries particularly Balanga and Morong.  \n + **Zambales** - Rivers and its tributaries particularly Pamatawan, Sto. Tomas, Bucao, Bancal and Lawis.  \n",
+      "message": "Under present weather conditions, At 3:00 AM today, the Low Pressure Area (LPA) was estimated based on all available data at 720 km East of Itbayat, Batanes (21.9\u00b0N, 128.7\u00b0E). Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is moderate to heavy rains .  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Bataan** - Rivers and its tributaries particularly Balanga and Morong.  \n + **Zambales** - Rivers and its tributaries particularly Pamatawan, Sto. Tomas, Bucao, Bancal and Lawis.  \n + **Bulacan** - All rivers and its tributaries  \n",
       "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to be alert for possible flashfloods.",
-      "issued_at": "2026-08-27 17:11:54",
-      "valid_until": "2026-08-28 05:11:54",
+      "issued_at": "2026-08-28 05:45:04",
+      "valid_until": "2026-08-28 17:45:04",
       "published_by": "PAGASA-DOST"
     },
     {
-      "identifier": "216c1786-0fb3-47c9-bd03-94ec055cd896",
+      "identifier": "086bb450-952f-4562-a913-a889d00eab4e",
       "severity": "SEVERE",
       "areas": [
         "Ilocos Norte",
@@ -54,15 +98,15 @@
         "La Union",
         "Pangasinan"
       ],
-      "message": "Under present weather conditions, At 3:00 PM today, the Low Pressure Area (LPA) was estimated based on all available data at 850 km East of Extreme Northern Luzon (21.2\u00b0N, 130.0\u00b0E). Southwest Monsoon affecting Luzon and the western section of Visayas.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Pangasinan** - Rivers and its tributaries particularly Balincaguing and Alaminos.  \n + **Ilocos Sur** - Rivers and its tributaries particularly Lower Abra, Silay-Sta. Maria, Buaya, and Amburayan.  \n + **La Union** - Rivers and its tributaries particularly Amburayan, Baroro, Lower Bauang and Aringay.  \n + **Ilocos Norte** - Rivers and its tributaries particularly Bulu, Banban, Bacarra-Vintar, Laoag and Quiaoit.  \n",
+      "message": "Under present weather conditions, At 3:00 AM today, the Low Pressure Area (LPA) was estimated based on all available data at 720 km East of Itbayat, Batanes (21.9\u00b0N, 128.7\u00b0E). Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is moderate to occasionally heavy rains.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Pangasinan** - Rivers and its tributaries particularly Balincaguing and Alaminos.  \n + **Ilocos Sur** - Rivers and its tributaries particularly Lower Abra, Silay-Sta. Maria, Buaya, and Amburayan.  \n + **La Union** - Rivers and its tributaries particularly Amburayan, Baroro, Lower Bauang and Aringay.  \n + **Ilocos Norte** - Rivers and its tributaries particularly Bulu, Banban, Bacarra-Vintar, Laoag and Quiaoit.  \n",
       "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to be alert for possible flashfloods.",
-      "issued_at": "2026-08-27 17:05:35",
-      "valid_until": "2026-08-28 05:05:35",
+      "issued_at": "2026-08-28 05:39:03",
+      "valid_until": "2026-08-28 17:39:03",
       "published_by": "PAGASA-DOST"
     },
     {
-      "identifier": "60ea08a2-7795-4fd8-925d-16a0802eabf5",
-      "severity": "MODERATE",
+      "identifier": "bdf74514-4448-4c4a-af2b-7ea00099fc5f",
+      "severity": "SEVERE",
       "areas": [
         "Abra",
         "Apayao",
@@ -79,10 +123,35 @@
         "Kalinga",
         "Mountain Province"
       ],
-      "message": "Under present weather conditions, At 3:00 PM today, the Low Pressure Area (LPA) was estimated based on all available data at 850 km East of Extreme Northern Luzon (21.2\u00b0N, 130.0\u00b0E). Southwest Monsoon affecting Luzon and the western section of Visayas.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Abra** - Rivers and its tributaries particularly Upper Abra, Tineg and Ikmin.  \n + **Ifugao** - All rivers and its tributaries  \n + **Benguet** - Rivers and its tributaries particularly Upper Bauang.  \n + **Kalinga** - All rivers and its tributaries  \n + **Mountain Province** - All rivers and its tributaries  \n + **Apayao** - Rivers and its tributaries particularly Upper Abulug and Upper Pamplona.  \n",
-      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
-      "issued_at": "2026-08-27 17:03:46",
-      "valid_until": "2026-08-28 05:03:46",
+      "message": "Under present weather conditions, At 3:00 AM today, the Low Pressure Area (LPA) was estimated based on all available data at 720 km East of Itbayat, Batanes (21.9\u00b0N, 128.7\u00b0E). Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Abra** - Rivers and its tributaries particularly Upper Abra, Tineg and Ikmin.  \n + **Ifugao** - All rivers and its tributaries  \n + **Benguet** - Rivers and its tributaries particularly Upper Bauang.  \n + **Kalinga** - All rivers and its tributaries  \n + **Mountain Province** - All rivers and its tributaries  \n + **Apayao** - Rivers and its tributaries particularly Upper Abulug and Upper Pamplona.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to be alert for possible flashfloods",
+      "issued_at": "2026-08-28 05:37:40",
+      "valid_until": "2026-08-28 17:37:40",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "bd041f38-8d4d-4f94-b65b-cfe631b57d67",
+      "severity": "SEVERE",
+      "areas": [
+        "Abra",
+        "Apayao",
+        "Benguet",
+        "Ifugao",
+        "Kalinga",
+        "Mountain Province"
+      ],
+      "all_areas": [
+        "Abra",
+        "Apayao",
+        "Benguet",
+        "Ifugao",
+        "Kalinga",
+        "Mountain Province"
+      ],
+      "message": "Under present weather conditions, At 3:00 AM today, the Low Pressure Area (LPA) was estimated based on all available data at 720 km East of Itbayat, Batanes (21.9\u00b0N, 128.7\u00b0E). Southwest Monsoon affecting Luzon and Visayas.  \nThe 12-hour rainfall forecast is moderate to occasionally heavy rains.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Abra** - Rivers and its tributaries particularly Upper Abra, Tineg and Ikmin.  \n + **Ifugao** - All rivers and its tributaries  \n + **Benguet** - Rivers and its tributaries particularly Upper Bauang.  \n + **Kalinga** - All rivers and its tributaries  \n + **Mountain Province** - All rivers and its tributaries  \n + **Apayao** - Rivers and its tributaries particularly Upper Abulug and Upper Pamplona.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to be alert for possible flashfloods and landslides.",
+      "issued_at": "2026-08-28 05:28:07",
+      "valid_until": "2026-08-28 17:28:07",
       "published_by": "PAGASA-DOST"
     }
   ]
