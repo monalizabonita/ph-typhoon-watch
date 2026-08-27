@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-08-26T22:08:25Z",
+  "checked_at_utc": "2026-08-27T03:18:18Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
@@ -83,25 +83,6 @@
       "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
       "issued_at": "2026-08-27 05:13:15",
       "valid_until": "2026-08-27 17:13:15",
-      "published_by": "PAGASA-DOST"
-    },
-    {
-      "identifier": "e082f825-1a11-4eb7-b863-a4e4ab6643d7",
-      "severity": "MODERATE",
-      "areas": [
-        "Occidental Mindoro",
-        "Palawan",
-        "Romblon"
-      ],
-      "all_areas": [
-        "Occidental Mindoro",
-        "Palawan",
-        "Romblon"
-      ],
-      "message": "Under present weather conditions, Southwest Monsoon affecting Luzon and the western section of Visayas.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Palawan** - Rivers and its tributaries particularly Abongan, Lian, Barbakan, Rizal, Caramay, Langogan, Babuyan, Bacungan, Iwahig Penal, Inagauan, Aborlan, Malatgao, Apurauan, Baton-Baton, Aramaywan, Ihawig, Panitian, Pulot, Lamakan, Kinlugan, Eraan, Tiga Plan, Malabangan, Ilog, Bansang, Conduaga, Culasian, Iwahig (Brookes), Okayan, Canipaan and Busuanga, Coron.  \n + **Romblon** - All rivers and its tributaries  \n + **Occidental Mindoro** - Rivers and its tributaries particularly Abra De Ilog, Caguray, Labangan, Lumintao, Anahawin, Monpong, Amnay, Pola, Pagbahan, Mamburao, Ibod, and Bugsanga-Magbando.  \n",
-      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to take necessary precautionary measures.",
-      "issued_at": "2026-08-26 18:12:21",
-      "valid_until": "2026-08-27 06:12:21",
       "published_by": "PAGASA-DOST"
     }
   ]
