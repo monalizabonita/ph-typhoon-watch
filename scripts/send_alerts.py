@@ -25,6 +25,7 @@ values, since this repo is public.
 import json
 import os
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -60,6 +61,7 @@ LATITUDE = 14.5176
 LONGITUDE = 121.0509
 RAIN_PROBABILITY_THRESHOLD = 60  # percent
 MAX_TYPHOON_STATUS_AGE = timedelta(hours=6)
+RAIN_FETCH_ATTEMPTS = 3
 
 
 def load_state() -> dict:
@@ -169,15 +171,61 @@ def notify(
     send_ntfy(text, title, priority, tags, image_url)
 
 
+def load_cached_rain_forecast() -> Optional[dict]:
+    """Reuse the Taguig forecast produced earlier in the same workflow when it is current."""
+    try:
+        snapshot = json.loads(FLOOD_RISK_PATH.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        return None
+
+    today = manila_today()
+    for area in snapshot.get("areas", []):
+        if area.get("name") != "Taguig" or area.get("date") != today:
+            continue
+        probability = area.get("rain_probability")
+        rain_mm = area.get("rain_mm")
+        if probability is None or rain_mm is None:
+            return None
+        return {
+            "date": area["date"],
+            "probability": float(probability),
+            "mm": float(rain_mm),
+        }
+    return None
+
+
 def fetch_rain_forecast() -> dict:
+    cached = load_cached_rain_forecast()
+    if cached is not None:
+        print("Using today's Taguig forecast from flood_risk.json.")
+        return cached
+
     url = (
         "https://api.open-meteo.com/v1/forecast"
         f"?latitude={LATITUDE}&longitude={LONGITUDE}"
         "&daily=precipitation_probability_max,precipitation_sum"
         "&timezone=Asia%2FManila&forecast_days=1"
     )
-    with urllib.request.urlopen(url, timeout=15) as resp:
-        data = json.loads(resp.read())
+    request = urllib.request.Request(url, headers={"User-Agent": "PH-Typhoon-Watch/1.0"})
+    last_error = None
+    for attempt in range(1, RAIN_FETCH_ATTEMPTS + 1):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as resp:
+                data = json.loads(resp.read())
+            break
+        except (OSError, urllib.error.URLError, json.JSONDecodeError) as exc:
+            last_error = exc
+            print(
+                f"Rain forecast fetch attempt {attempt}/{RAIN_FETCH_ATTEMPTS} failed: {exc}",
+                file=sys.stderr,
+            )
+            if attempt < RAIN_FETCH_ATTEMPTS:
+                time.sleep(2 ** (attempt - 1))
+    else:
+        raise RuntimeError(
+            f"Rain forecast unavailable after {RAIN_FETCH_ATTEMPTS} attempts"
+        ) from last_error
+
     daily = data.get("daily", {})
     return {
         "date": (daily.get("time") or [""])[0],
@@ -217,8 +265,9 @@ def check_rain(state: dict) -> dict:
     try:
         forecast = fetch_rain_forecast()
     except Exception as exc:
-        print(f"Failed to fetch rain forecast: {exc}", file=sys.stderr)
-        return state
+        # Do not let a missed rain evaluation look like a healthy workflow run. A failed job will
+        # be retried by the scheduler and remains visible in GitHub Actions.
+        raise RuntimeError(f"Rain alert evaluation failed: {exc}") from exc
 
     if forecast["probability"] >= RAIN_PROBABILITY_THRESHOLD:
         notify(
