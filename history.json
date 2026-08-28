@@ -283,5 +283,10 @@
     "date": "2026-08-28",
     "active": false,
     "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
+  },
+  {
+    "date": "2026-08-29",
+    "active": false,
+    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
   }
 ]
