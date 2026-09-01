@@ -22,6 +22,7 @@ change.
 All of these are environment variables (GitHub Actions secrets in CI) — never commit their
 values, since this repo is public.
 """
+import argparse
 import json
 import os
 import sys
@@ -367,12 +368,30 @@ def check_flood_advisories(state: dict) -> dict:
     return state
 
 
-def main() -> int:
+CHECK_NAMES = ("typhoon", "rain", "flood-advisories", "flood-risk")
+
+
+def main(argv=None) -> int:
+    parser = argparse.ArgumentParser(description="Send selected weather alerts.")
+    parser.add_argument(
+        "--checks",
+        nargs="+",
+        choices=CHECK_NAMES,
+        default=list(CHECK_NAMES),
+        help="Alert checks to run (default: all).",
+    )
+    args = parser.parse_args(argv)
+
     state = load_state()
-    state = check_typhoon(state)
-    state = check_rain(state)
-    state = check_flood_advisories(state)
-    state = check_flood_risk(state)
+    selected = set(args.checks)
+    if "typhoon" in selected:
+        state = check_typhoon(state)
+    if "rain" in selected:
+        state = check_rain(state)
+    if "flood-advisories" in selected:
+        state = check_flood_advisories(state)
+    if "flood-risk" in selected:
+        state = check_flood_risk(state)
     save_state(state)
     return 0
 

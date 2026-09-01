@@ -24,13 +24,34 @@ jobs:
       - name: Fetch latest PAGASA status
         run: python3 scripts/update_status.py
 
+      # Typhoon detection is the primary safety path. Run and persist it before any independent
+      # rain/flood source so an outage in those feeds cannot suppress a confirmed bulletin.
+      - name: Send typhoon alert immediately
+        env:
+          GCHAT_WEBHOOK_URL: ${{ secrets.GCHAT_WEBHOOK_URL }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python3 scripts/send_alerts.py --checks typhoon
+
+      - name: Save typhoon alert state immediately
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- alert_state.json; then
+            git add alert_state.json
+            git commit -m "Update typhoon alert state"
+            git push
+          fi
+
       - name: Build nationwide flood-risk snapshot
         run: python3 scripts/update_flood_risk.py
 
       - name: Fetch official PAGASA flood advisories
+        id: flood_advisories
+        continue-on-error: true
         run: python3 scripts/update_flood_advisories.py
 
       - name: Generate complete flood alert report image
+        if: steps.flood_advisories.outcome == 'success'
         run: python3 scripts/generate_flood_report.py
 
       - name: Publish current report before alerting
@@ -43,11 +64,24 @@ jobs:
             git push
           fi
 
-      - name: Send alerts (typhoon + rain + once-daily flood) to Google Chat + ntfy
+      - name: Send rain alert to Google Chat + ntfy
         env:
           GCHAT_WEBHOOK_URL: ${{ secrets.GCHAT_WEBHOOK_URL }}
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-        run: python3 scripts/send_alerts.py
+        run: python3 scripts/send_alerts.py --checks rain
+
+      - name: Send official flood advisory to Google Chat + ntfy
+        if: steps.flood_advisories.outcome == 'success'
+        env:
+          GCHAT_WEBHOOK_URL: ${{ secrets.GCHAT_WEBHOOK_URL }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python3 scripts/send_alerts.py --checks flood-advisories
+
+      - name: Send heavy-rain flood-risk alert to Google Chat + ntfy
+        env:
+          GCHAT_WEBHOOK_URL: ${{ secrets.GCHAT_WEBHOOK_URL }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python3 scripts/send_alerts.py --checks flood-risk
 
       - name: Save alert state
         run: |

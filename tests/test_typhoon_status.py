@@ -90,6 +90,40 @@ class AlertConfirmationTests(unittest.TestCase):
         notify.assert_not_called()
         self.assertEqual(state["typhoon_alerted_date"], "")
 
+    def test_typhoon_only_mode_does_not_touch_rain_or_flood_checks(self):
+        current_status = dict(self.confirmed)
+        current_status["last_checked_utc"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        with tempfile.TemporaryDirectory() as temp_dir:
+            data_path = Path(temp_dir) / "data.json"
+            state_path = Path(temp_dir) / "alert_state.json"
+            data_path.write_text(json.dumps(current_status))
+            state_path.write_text(json.dumps({"typhoon_alerted_date": ""}))
+            with patch.object(alerts, "DATA_PATH", data_path), patch.object(
+                alerts, "STATE_PATH", state_path
+            ), patch.object(alerts, "notify") as notify, patch.object(
+                alerts, "check_rain"
+            ) as check_rain, patch.object(
+                alerts, "check_flood_advisories"
+            ) as check_flood_advisories, patch.object(
+                alerts, "check_flood_risk"
+            ) as check_flood_risk:
+                result = alerts.main(["--checks", "typhoon"])
+
+            saved_state = json.loads(state_path.read_text())
+
+        self.assertEqual(result, 0)
+        notify.assert_called_once()
+        check_rain.assert_not_called()
+        check_flood_advisories.assert_not_called()
+        check_flood_risk.assert_not_called()
+        self.assertEqual(saved_state["typhoon_alerted_date"], alerts.manila_today())
+
+    def test_workflow_runs_typhoon_alert_before_flood_advisory_fetch(self):
+        workflow = (ROOT / ".github" / "workflows" / "update.yml").read_text()
+        typhoon_step = workflow.index("python3 scripts/send_alerts.py --checks typhoon")
+        flood_fetch_step = workflow.index("python3 scripts/update_flood_advisories.py")
+        self.assertLess(typhoon_step, flood_fetch_step)
+
 
 if __name__ == "__main__":
     unittest.main()
