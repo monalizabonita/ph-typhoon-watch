@@ -1,9 +1,9 @@
 {
-  "last_checked_utc": "2026-08-29T18:29:15Z",
-  "pagasa_active": false,
-  "pagasa_doc_type": null,
-  "status_scope": "none",
-  "pagasa_message": "No Active Tropical Cyclone within the Philippine Area of Responsibility",
+  "last_checked_utc": "2026-09-01T03:05:30Z",
+  "pagasa_active": true,
+  "pagasa_doc_type": "Bulletin",
+  "status_scope": "inside_par",
+  "pagasa_message": "PILANDOK INTENSIFIES INTO A TROPICAL STORM.",
   "source_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone/severe-weather-bulletin",
   "advisory_url": "https://www.pagasa.dost.gov.ph/tropical-cyclone-advisory-iframe"
 }
