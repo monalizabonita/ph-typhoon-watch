@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-09-05T12:23:57Z",
+  "checked_at_utc": "2026-09-05T15:26:31Z",
   "method": "Heavy-rain screening; not confirmed flooding",
   "noah_url": "https://noah.up.edu.ph/know-your-hazards-realtimefloodmap",
   "areas": [
@@ -13,8 +13,8 @@
       "latitude": 18.196,
       "longitude": 120.5927,
       "date": "2026-09-05",
-      "rain_probability": 98.0,
-      "rain_mm": 6.2,
+      "rain_probability": 99.0,
+      "rain_mm": 7.6,
       "risk": "LOW"
     },
     {
@@ -28,7 +28,7 @@
       "longitude": 120.596,
       "date": "2026-09-05",
       "rain_probability": 100.0,
-      "rain_mm": 34.3,
+      "rain_mm": 34.9,
       "risk": "WATCH"
     },
     {
@@ -41,8 +41,8 @@
       "latitude": 17.6132,
       "longitude": 121.727,
       "date": "2026-09-05",
-      "rain_probability": 91.0,
-      "rain_mm": 2.2,
+      "rain_probability": 100.0,
+      "rain_mm": 1.0,
       "risk": "LOW"
     },
     {
@@ -56,7 +56,7 @@
       "longitude": 121.5607,
       "date": "2026-09-05",
       "rain_probability": 100.0,
-      "rain_mm": 4.1,
+      "rain_mm": 6.5,
       "risk": "LOW"
     },
     {
@@ -70,7 +70,7 @@
       "longitude": 120.5887,
       "date": "2026-09-05",
       "rain_probability": 100.0,
-      "rain_mm": 13.2,
+      "rain_mm": 13.9,
       "risk": "LOW"
     },
     {
@@ -84,7 +84,7 @@
       "longitude": 120.9842,
       "date": "2026-09-05",
       "rain_probability": 100.0,
-      "rain_mm": 34.1,
+      "rain_mm": 28.6,
       "risk": "WATCH"
     },
     {
@@ -98,7 +98,7 @@
       "longitude": 121.1133,
       "date": "2026-09-05",
       "rain_probability": 100.0,
-      "rain_mm": 27.8,
+      "rain_mm": 25.2,
       "risk": "WATCH"
     },
     {
@@ -112,7 +112,7 @@
       "longitude": 121.0509,
       "date": "2026-09-05",
       "rain_probability": 100.0,
-      "rain_mm": 27.1,
+      "rain_mm": 24.4,
       "risk": "WATCH"
     },
     {
@@ -126,7 +126,7 @@
       "longitude": 121.0583,
       "date": "2026-09-05",
       "rain_probability": 100.0,
-      "rain_mm": 17.3,
+      "rain_mm": 15.6,
       "risk": "LOW"
     },
     {
@@ -140,7 +140,7 @@
       "longitude": 123.1948,
       "date": "2026-09-05",
       "rain_probability": 100.0,
-      "rain_mm": 4.5,
+      "rain_mm": 4.6,
       "risk": "LOW"
     },
     {
@@ -154,7 +154,7 @@
       "longitude": 123.7438,
       "date": "2026-09-05",
       "rain_probability": 100.0,
-      "rain_mm": 3.9,
+      "rain_mm": 3.4,
       "risk": "LOW"
     },
     {
@@ -168,7 +168,7 @@
       "longitude": 118.7353,
       "date": "2026-09-05",
       "rain_probability": 73.0,
-      "rain_mm": 4.1,
+      "rain_mm": 2.4,
       "risk": "LOW"
     },
     {
@@ -182,7 +182,7 @@
       "longitude": 123.8854,
       "date": "2026-09-05",
       "rain_probability": 100.0,
-      "rain_mm": 2.3,
+      "rain_mm": 2.4,
       "risk": "LOW"
     },
     {
@@ -195,8 +195,8 @@
       "latitude": 10.3236,
       "longitude": 123.9222,
       "date": "2026-09-05",
-      "rain_probability": 95.0,
-      "rain_mm": 3.2,
+      "rain_probability": 87.0,
+      "rain_mm": 1.7,
       "risk": "LOW"
     },
     {
@@ -209,8 +209,8 @@
       "latitude": 10.3103,
       "longitude": 123.9494,
       "date": "2026-09-05",
-      "rain_probability": 95.0,
-      "rain_mm": 3.2,
+      "rain_probability": 87.0,
+      "rain_mm": 1.7,
       "risk": "LOW"
     },
     {
@@ -223,8 +223,8 @@
       "latitude": 10.5208,
       "longitude": 124.027,
       "date": "2026-09-05",
-      "rain_probability": 95.0,
-      "rain_mm": 1.9,
+      "rain_probability": 87.0,
+      "rain_mm": 1.3,
       "risk": "LOW"
     },
     {
@@ -237,7 +237,7 @@
       "latitude": 10.377,
       "longitude": 123.6386,
       "date": "2026-09-05",
-      "rain_probability": 17.0,
+      "rain_probability": 47.0,
       "rain_mm": 0.1,
       "risk": "LOW"
     },
@@ -252,7 +252,7 @@
       "longitude": 122.5621,
       "date": "2026-09-05",
       "rain_probability": 90.0,
-      "rain_mm": 5.3,
+      "rain_mm": 2.5,
       "risk": "LOW"
     },
     {
@@ -266,7 +266,7 @@
       "longitude": 122.9509,
       "date": "2026-09-05",
       "rain_probability": 92.0,
-      "rain_mm": 7.7,
+      "rain_mm": 5.9,
       "risk": "LOW"
     },
     {
@@ -279,8 +279,8 @@
       "latitude": 11.2447,
       "longitude": 125.0036,
       "date": "2026-09-05",
-      "rain_probability": 86.0,
-      "rain_mm": 6.3,
+      "rain_probability": 82.0,
+      "rain_mm": 2.4,
       "risk": "LOW"
     },
     {
@@ -293,8 +293,8 @@
       "latitude": 9.6496,
       "longitude": 123.853,
       "date": "2026-09-05",
-      "rain_probability": 93.0,
-      "rain_mm": 1.1,
+      "rain_probability": 90.0,
+      "rain_mm": 0.7,
       "risk": "LOW"
     },
     {
@@ -307,8 +307,8 @@
       "latitude": 7.1907,
       "longitude": 125.4553,
       "date": "2026-09-05",
-      "rain_probability": 61.0,
-      "rain_mm": 1.4,
+      "rain_probability": 43.0,
+      "rain_mm": 0.8,
       "risk": "LOW"
     },
     {
@@ -321,8 +321,8 @@
       "latitude": 8.4542,
       "longitude": 124.6319,
       "date": "2026-09-05",
-      "rain_probability": 84.0,
-      "rain_mm": 2.1,
+      "rain_probability": 96.0,
+      "rain_mm": 3.3,
       "risk": "LOW"
     },
     {
@@ -349,8 +349,8 @@
       "latitude": 8.9475,
       "longitude": 125.5406,
       "date": "2026-09-05",
-      "rain_probability": 88.0,
-      "rain_mm": 2.1,
+      "rain_probability": 69.0,
+      "rain_mm": 0.5,
       "risk": "LOW"
     },
     {
@@ -363,8 +363,8 @@
       "latitude": 6.1164,
       "longitude": 125.1716,
       "date": "2026-09-05",
-      "rain_probability": 98.0,
-      "rain_mm": 4.0,
+      "rain_probability": 96.0,
+      "rain_mm": 3.2,
       "risk": "LOW"
     }
   ]
