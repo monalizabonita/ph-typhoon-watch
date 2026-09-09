@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-09-09T18:46:34Z",
+  "checked_at_utc": "2026-09-09T21:30:17Z",
   "method": "Heavy-rain screening; not confirmed flooding",
   "noah_url": "https://noah.up.edu.ph/know-your-hazards-realtimefloodmap",
   "areas": [
@@ -14,7 +14,7 @@
       "longitude": 120.5927,
       "date": "2026-09-10",
       "rain_probability": 63.0,
-      "rain_mm": 3.5,
+      "rain_mm": 6.7,
       "risk": "LOW"
     },
     {
@@ -28,7 +28,7 @@
       "longitude": 120.596,
       "date": "2026-09-10",
       "rain_probability": 100.0,
-      "rain_mm": 43.3,
+      "rain_mm": 39.9,
       "risk": "WATCH"
     },
     {
@@ -42,7 +42,7 @@
       "longitude": 121.727,
       "date": "2026-09-10",
       "rain_probability": 91.0,
-      "rain_mm": 8.4,
+      "rain_mm": 13.6,
       "risk": "LOW"
     },
     {
@@ -56,8 +56,8 @@
       "longitude": 121.5607,
       "date": "2026-09-10",
       "rain_probability": 100.0,
-      "rain_mm": 140.9,
-      "risk": "HIGH"
+      "rain_mm": 25.4,
+      "risk": "WATCH"
     },
     {
       "name": "Angeles",
@@ -70,8 +70,8 @@
       "longitude": 120.5887,
       "date": "2026-09-10",
       "rain_probability": 100.0,
-      "rain_mm": 22.0,
-      "risk": "WATCH"
+      "rain_mm": 17.0,
+      "risk": "LOW"
     },
     {
       "name": "Metro Manila",
@@ -84,7 +84,7 @@
       "longitude": 120.9842,
       "date": "2026-09-10",
       "rain_probability": 100.0,
-      "rain_mm": 23.0,
+      "rain_mm": 33.0,
       "risk": "WATCH"
     },
     {
@@ -98,7 +98,7 @@
       "longitude": 121.1133,
       "date": "2026-09-10",
       "rain_probability": 97.0,
-      "rain_mm": 40.5,
+      "rain_mm": 35.2,
       "risk": "WATCH"
     },
     {
@@ -112,7 +112,7 @@
       "longitude": 121.0509,
       "date": "2026-09-10",
       "rain_probability": 100.0,
-      "rain_mm": 33.3,
+      "rain_mm": 32.6,
       "risk": "WATCH"
     },
     {
@@ -126,8 +126,8 @@
       "longitude": 121.0583,
       "date": "2026-09-10",
       "rain_probability": 100.0,
-      "rain_mm": 40.3,
-      "risk": "WATCH"
+      "rain_mm": 19.0,
+      "risk": "LOW"
     },
     {
       "name": "Naga",
@@ -140,7 +140,7 @@
       "longitude": 123.1948,
       "date": "2026-09-10",
       "rain_probability": 100.0,
-      "rain_mm": 38.9,
+      "rain_mm": 24.7,
       "risk": "WATCH"
     },
     {
@@ -154,22 +154,22 @@
       "longitude": 123.7438,
       "date": "2026-09-10",
       "rain_probability": 100.0,
-      "rain_mm": 36.8,
-      "risk": "WATCH"
+      "rain_mm": 11.4,
+      "risk": "LOW"
     },
     {
       "name": "Puerto Princesa",
       "city": "Puerto Princesa",
-      "barangay": null,
-      "geocoded": false,
+      "barangay": "Model",
+      "geocoded": true,
       "province": "Palawan",
       "region": "Luzon",
       "latitude": 9.7392,
       "longitude": 118.7353,
       "date": "2026-09-10",
       "rain_probability": 98.0,
-      "rain_mm": 6.3,
-      "risk": "LOW"
+      "rain_mm": 24.5,
+      "risk": "WATCH"
     },
     {
       "name": "Cebu City",
@@ -182,7 +182,7 @@
       "longitude": 123.8854,
       "date": "2026-09-10",
       "rain_probability": 82.0,
-      "rain_mm": 4.1,
+      "rain_mm": 0.1,
       "risk": "LOW"
     },
     {
@@ -196,7 +196,7 @@
       "longitude": 123.9222,
       "date": "2026-09-10",
       "rain_probability": 88.0,
-      "rain_mm": 3.3,
+      "rain_mm": 2.2,
       "risk": "LOW"
     },
     {
@@ -210,7 +210,7 @@
       "longitude": 123.9494,
       "date": "2026-09-10",
       "rain_probability": 88.0,
-      "rain_mm": 3.3,
+      "rain_mm": 2.2,
       "risk": "LOW"
     },
     {
@@ -224,7 +224,7 @@
       "longitude": 124.027,
       "date": "2026-09-10",
       "rain_probability": 88.0,
-      "rain_mm": 2.8,
+      "rain_mm": 2.9,
       "risk": "LOW"
     },
     {
@@ -238,7 +238,7 @@
       "longitude": 123.6386,
       "date": "2026-09-10",
       "rain_probability": 71.0,
-      "rain_mm": 2.4,
+      "rain_mm": 0.5,
       "risk": "LOW"
     },
     {
@@ -252,7 +252,7 @@
       "longitude": 122.5621,
       "date": "2026-09-10",
       "rain_probability": 94.0,
-      "rain_mm": 12.1,
+      "rain_mm": 5.0,
       "risk": "LOW"
     },
     {
@@ -266,7 +266,7 @@
       "longitude": 122.9509,
       "date": "2026-09-10",
       "rain_probability": 98.0,
-      "rain_mm": 11.3,
+      "rain_mm": 4.3,
       "risk": "LOW"
     },
     {
@@ -280,7 +280,7 @@
       "longitude": 125.0036,
       "date": "2026-09-10",
       "rain_probability": 75.0,
-      "rain_mm": 7.5,
+      "rain_mm": 6.3,
       "risk": "LOW"
     },
     {
@@ -294,7 +294,7 @@
       "longitude": 123.853,
       "date": "2026-09-10",
       "rain_probability": 51.0,
-      "rain_mm": 0.4,
+      "rain_mm": 0.2,
       "risk": "LOW"
     },
     {
@@ -308,7 +308,7 @@
       "longitude": 125.4553,
       "date": "2026-09-10",
       "rain_probability": 0.0,
-      "rain_mm": 0.7,
+      "rain_mm": 0.2,
       "risk": "LOW"
     },
     {
@@ -322,7 +322,7 @@
       "longitude": 124.6319,
       "date": "2026-09-10",
       "rain_probability": 76.0,
-      "rain_mm": 7.8,
+      "rain_mm": 0.9,
       "risk": "LOW"
     },
     {
@@ -336,7 +336,7 @@
       "longitude": 122.079,
       "date": "2026-09-10",
       "rain_probability": 69.0,
-      "rain_mm": 1.4,
+      "rain_mm": 0.3,
       "risk": "LOW"
     },
     {
@@ -364,7 +364,7 @@
       "longitude": 125.1716,
       "date": "2026-09-10",
       "rain_probability": 22.0,
-      "rain_mm": 0.0,
+      "rain_mm": 1.0,
       "risk": "LOW"
     }
   ]
