@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-09-16T14:58:34Z",
+  "checked_at_utc": "2026-09-16T18:48:10Z",
   "method": "Heavy-rain screening; not confirmed flooding",
   "noah_url": "https://noah.up.edu.ph/know-your-hazards-realtimefloodmap",
   "areas": [
@@ -12,9 +12,9 @@
       "region": "Luzon",
       "latitude": 18.196,
       "longitude": 120.5927,
-      "date": "2026-09-16",
-      "rain_probability": 98.0,
-      "rain_mm": 3.6,
+      "date": "2026-09-17",
+      "rain_probability": 100.0,
+      "rain_mm": 6.5,
       "risk": "LOW"
     },
     {
@@ -26,9 +26,9 @@
       "region": "Luzon",
       "latitude": 16.4023,
       "longitude": 120.596,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 9.7,
+      "rain_mm": 11.8,
       "risk": "LOW"
     },
     {
@@ -40,9 +40,9 @@
       "region": "Luzon",
       "latitude": 17.6132,
       "longitude": 121.727,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 19.0,
+      "rain_mm": 6.3,
       "risk": "LOW"
     },
     {
@@ -54,9 +54,9 @@
       "region": "Luzon",
       "latitude": 15.7589,
       "longitude": 121.5607,
-      "date": "2026-09-16",
-      "rain_probability": 100.0,
-      "rain_mm": 9.6,
+      "date": "2026-09-17",
+      "rain_probability": 88.0,
+      "rain_mm": 12.5,
       "risk": "LOW"
     },
     {
@@ -68,10 +68,10 @@
       "region": "Luzon",
       "latitude": 15.145,
       "longitude": 120.5887,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 20.5,
-      "risk": "WATCH"
+      "rain_mm": 10.4,
+      "risk": "LOW"
     },
     {
       "name": "Metro Manila",
@@ -82,9 +82,9 @@
       "region": "Luzon",
       "latitude": 14.5995,
       "longitude": 120.9842,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 20.9,
+      "rain_mm": 20.7,
       "risk": "WATCH"
     },
     {
@@ -96,10 +96,10 @@
       "region": "Luzon",
       "latitude": 14.6481,
       "longitude": 121.1133,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 16.5,
-      "risk": "LOW"
+      "rain_mm": 30.2,
+      "risk": "WATCH"
     },
     {
       "name": "Taguig",
@@ -110,9 +110,9 @@
       "region": "Luzon",
       "latitude": 14.5176,
       "longitude": 121.0509,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 41.9,
+      "rain_mm": 24.2,
       "risk": "WATCH"
     },
     {
@@ -124,10 +124,10 @@
       "region": "Luzon",
       "latitude": 13.7565,
       "longitude": 121.0583,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 19.8,
-      "risk": "LOW"
+      "rain_mm": 23.9,
+      "risk": "WATCH"
     },
     {
       "name": "Naga",
@@ -138,9 +138,9 @@
       "region": "Luzon",
       "latitude": 13.6218,
       "longitude": 123.1948,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 21.1,
+      "rain_mm": 27.4,
       "risk": "WATCH"
     },
     {
@@ -152,9 +152,9 @@
       "region": "Luzon",
       "latitude": 13.1391,
       "longitude": 123.7438,
-      "date": "2026-09-16",
-      "rain_probability": 96.0,
-      "rain_mm": 39.5,
+      "date": "2026-09-17",
+      "rain_probability": 98.0,
+      "rain_mm": 24.4,
       "risk": "WATCH"
     },
     {
@@ -166,10 +166,10 @@
       "region": "Luzon",
       "latitude": 9.7392,
       "longitude": 118.7353,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 11.3,
-      "risk": "LOW"
+      "rain_mm": 20.3,
+      "risk": "WATCH"
     },
     {
       "name": "Cebu City",
@@ -180,10 +180,10 @@
       "region": "Cebu",
       "latitude": 10.3157,
       "longitude": 123.8854,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 28.7,
-      "risk": "WATCH"
+      "rain_mm": 11.4,
+      "risk": "LOW"
     },
     {
       "name": "Mandaue",
@@ -194,10 +194,10 @@
       "region": "Cebu",
       "latitude": 10.3236,
       "longitude": 123.9222,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 28.5,
-      "risk": "WATCH"
+      "rain_mm": 6.3,
+      "risk": "LOW"
     },
     {
       "name": "Lapu-Lapu",
@@ -208,10 +208,10 @@
       "region": "Cebu",
       "latitude": 10.3103,
       "longitude": 123.9494,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 28.5,
-      "risk": "WATCH"
+      "rain_mm": 6.3,
+      "risk": "LOW"
     },
     {
       "name": "Danao",
@@ -222,10 +222,10 @@
       "region": "Cebu",
       "latitude": 10.5208,
       "longitude": 124.027,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 25.6,
-      "risk": "WATCH"
+      "rain_mm": 9.1,
+      "risk": "LOW"
     },
     {
       "name": "Toledo",
@@ -236,9 +236,9 @@
       "region": "Cebu",
       "latitude": 10.377,
       "longitude": 123.6386,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 30.1,
+      "rain_mm": 21.2,
       "risk": "WATCH"
     },
     {
@@ -250,9 +250,9 @@
       "region": "Visayas",
       "latitude": 10.7202,
       "longitude": 122.5621,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 25.0,
+      "rain_mm": 20.3,
       "risk": "WATCH"
     },
     {
@@ -264,9 +264,9 @@
       "region": "Visayas",
       "latitude": 10.6765,
       "longitude": 122.9509,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 18.0,
+      "rain_mm": 16.7,
       "risk": "LOW"
     },
     {
@@ -278,10 +278,10 @@
       "region": "Visayas",
       "latitude": 11.2447,
       "longitude": 125.0036,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 19.8,
-      "risk": "LOW"
+      "rain_mm": 31.6,
+      "risk": "WATCH"
     },
     {
       "name": "Tagbilaran",
@@ -292,10 +292,10 @@
       "region": "Visayas",
       "latitude": 9.6496,
       "longitude": 123.853,
-      "date": "2026-09-16",
-      "rain_probability": 100.0,
-      "rain_mm": 34.6,
-      "risk": "WATCH"
+      "date": "2026-09-17",
+      "rain_probability": 99.0,
+      "rain_mm": 7.8,
+      "risk": "LOW"
     },
     {
       "name": "Davao City",
@@ -306,10 +306,10 @@
       "region": "Mindanao",
       "latitude": 7.1907,
       "longitude": 125.4553,
-      "date": "2026-09-16",
-      "rain_probability": 100.0,
-      "rain_mm": 24.1,
-      "risk": "WATCH"
+      "date": "2026-09-17",
+      "rain_probability": 93.0,
+      "rain_mm": 11.1,
+      "risk": "LOW"
     },
     {
       "name": "Cagayan de Oro",
@@ -320,24 +320,24 @@
       "region": "Mindanao",
       "latitude": 8.4542,
       "longitude": 124.6319,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 8.0,
-      "risk": "LOW"
+      "rain_mm": 29.2,
+      "risk": "WATCH"
     },
     {
       "name": "Zamboanga City",
       "city": "Zamboanga City",
-      "barangay": null,
-      "geocoded": false,
+      "barangay": "Zone III",
+      "geocoded": true,
       "province": "Zamboanga del Sur",
       "region": "Mindanao",
       "latitude": 6.9214,
       "longitude": 122.079,
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "rain_probability": 100.0,
-      "rain_mm": 10.6,
-      "risk": "LOW"
+      "rain_mm": 26.0,
+      "risk": "WATCH"
     },
     {
       "name": "Butuan",
@@ -348,9 +348,9 @@
       "region": "Mindanao",
       "latitude": 8.9475,
       "longitude": 125.5406,
-      "date": "2026-09-16",
-      "rain_probability": 98.0,
-      "rain_mm": 13.4,
+      "date": "2026-09-17",
+      "rain_probability": 96.0,
+      "rain_mm": 17.0,
       "risk": "LOW"
     },
     {
@@ -362,8 +362,8 @@
       "region": "Mindanao",
       "latitude": 6.1164,
       "longitude": 125.1716,
-      "date": "2026-09-16",
-      "rain_probability": 51.0,
+      "date": "2026-09-17",
+      "rain_probability": 80.0,
       "rain_mm": 0.0,
       "risk": "LOW"
     }
