@@ -38,6 +38,12 @@ The static site (`index.html`) fetches `data.json` and `history.json` directly f
 
 ## Alerts
 
+As of 2026-09-16, scheduled flood-advisory and flood-risk notifications are temporarily
+paused on all channels. Typhoon and rain alerts remain active; flood data and reports
+continue updating. To resume flood notifications, restore the advisory step's
+`if: steps.flood_advisories.outcome == 'success'` condition and remove the flood-risk
+step's `if: ${{ false }}` condition in `.github/workflows/update.yml`.
+
 `scripts/send_alerts.py` fans each alert out to every configured channel:
 
 - **Google Chat** — set the `GCHAT_WEBHOOK_URL` repo secret to an incoming webhook URL.

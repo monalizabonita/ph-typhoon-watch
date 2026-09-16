@@ -71,13 +71,16 @@ jobs:
         run: python3 scripts/send_alerts.py --checks rain
 
       - name: Send official flood advisory to Google Chat + ntfy
-        if: steps.flood_advisories.outcome == 'success'
+        # Temporarily paused at the user's request (2026-09-16).
+        if: ${{ false }}
         env:
           GCHAT_WEBHOOK_URL: ${{ secrets.GCHAT_WEBHOOK_URL }}
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: python3 scripts/send_alerts.py --checks flood-advisories
 
       - name: Send heavy-rain flood-risk alert to Google Chat + ntfy
+        # Temporarily paused at the user's request (2026-09-16).
+        if: ${{ false }}
         env:
           GCHAT_WEBHOOK_URL: ${{ secrets.GCHAT_WEBHOOK_URL }}
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
