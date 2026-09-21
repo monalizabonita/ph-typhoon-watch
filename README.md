@@ -46,6 +46,15 @@ step's `if: ${{ false }}` condition in `.github/workflows/update.yml`.
 
 `scripts/send_alerts.py` fans each alert out to every configured channel:
 
+Rain alerts include the next estimated rain window for Taguig in **PHT**, using
+[Open-Meteo hourly forecasts](https://open-meteo.com/en/docs). Consecutive hours with
+at least 60% precipitation probability or 0.1 mm forecast precipitation form a window;
+timestamps represent the preceding hour. Only remaining windows today are considered.
+An overlapping window says “possible now,” which is a forecast, not a rain observation.
+Timing can shift and varies across Metro Manila. If hourly data is unavailable, the
+daily alert still sends with an explicit timing-unavailable message. The existing
+once-per-day schedule and alert threshold are unchanged.
+
 - **Google Chat** — set the `GCHAT_WEBHOOK_URL` repo secret to an incoming webhook URL.
 - **ntfy.sh** — set the `NTFY_TOPIC` repo secret to a topic name. Anyone who knows that exact topic name can subscribe to it (via the [ntfy app](https://ntfy.sh/app), `ntfy subscribe <topic>` on the CLI, or just visiting `https://ntfy.sh/<topic>` in a browser for web push) — that's the intended way for someone else to plug this into their own notification setup without needing repo access. Since topic names are only as private as "not publicly written down," don't commit the actual value anywhere, including here.
 

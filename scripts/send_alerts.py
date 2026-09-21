@@ -235,6 +235,65 @@ def fetch_rain_forecast() -> dict:
     }
 
 
+def rain_timing_text(hourly: dict, now: Optional[datetime] = None) -> str:
+    """Find the next wet window; Open-Meteo timestamps END the preceding hour."""
+    tz = ZoneInfo("Asia/Manila")
+    now = (now or datetime.now(tz)).astimezone(tz)
+    times = hourly.get("time", [])
+    probabilities = hourly.get("precipitation_probability", [])
+    amounts = hourly.get("precipitation", [])
+    if not times or not (len(times) == len(probabilities) == len(amounts)):
+        raise ValueError("Incomplete hourly forecast")
+    windows = []
+    valid = 0
+    for stamp, probability, amount in zip(times, probabilities, amounts):
+        end = datetime.fromisoformat(stamp).replace(tzinfo=tz)
+        start = end - timedelta(hours=1)
+        if end <= now or start.date() != now.date():
+            continue
+        if probability is None or amount is None:
+            raise ValueError("Missing hourly rain values")
+        valid += 1
+        if float(probability) >= RAIN_PROBABILITY_THRESHOLD or float(amount) >= 0.1:
+            if windows and windows[-1][1] == start:
+                windows[-1][1] = end
+            else:
+                windows.append([start, end])
+    if not valid:
+        raise ValueError("No current hourly forecast")
+    if not windows:
+        return "Rain timing: no clear rain window for the rest of today; showers remain possible."
+    start, end = windows[0]
+    clock = lambda dt: dt.strftime("%I:%M %p").lstrip("0")
+    if start <= now:
+        window = f"possible now through {clock(end)}"
+    else:
+        window = f"around {clock(start)}–{clock(end)}"
+    if end.date() != now.date():
+        window += " tomorrow"
+    return (
+        f"Estimated next rain window (Taguig): {window} PHT. "
+        "Open-Meteo hourly estimate; timing may shift and vary across Metro Manila."
+    )
+
+
+def fetch_rain_timing() -> str:
+    url = (
+        "https://api.open-meteo.com/v1/forecast"
+        f"?latitude={LATITUDE}&longitude={LONGITUDE}"
+        "&hourly=precipitation_probability,precipitation"
+        "&timezone=Asia%2FManila&forecast_days=2"
+    )
+    request = urllib.request.Request(url, headers={"User-Agent": "PH-Typhoon-Watch/1.0"})
+    try:
+        with urllib.request.urlopen(request, timeout=15) as response:
+            data = json.loads(response.read())
+        return rain_timing_text(data["hourly"])
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        print(f"Hourly rain timing unavailable: {exc}", file=sys.stderr)
+        return "Estimated rain time unavailable; today's rain alert still applies."
+
+
 def check_typhoon(state: dict) -> dict:
     try:
         data = json.loads(DATA_PATH.read_text())
@@ -273,7 +332,8 @@ def check_rain(state: dict) -> dict:
     if forecast["probability"] >= RAIN_PROBABILITY_THRESHOLD:
         notify(
             f"🌧️ Rain alert for today ({forecast['date']}, Metro Manila): "
-            f"{forecast['probability']}% chance of rain, ~{forecast['mm']}mm expected.",
+            f"{forecast['probability']}% chance of rain, ~{forecast['mm']}mm expected.\n"
+            + fetch_rain_timing(),
             title="Rain Alert",
             priority="default",
             tags="cloud_with_rain,umbrella",
