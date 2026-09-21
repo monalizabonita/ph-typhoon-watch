@@ -195,8 +195,8 @@ def load_cached_rain_forecast() -> Optional[dict]:
     return None
 
 
-def fetch_rain_forecast() -> dict:
-    cached = load_cached_rain_forecast()
+def fetch_rain_forecast(use_cache: bool = True) -> dict:
+    cached = load_cached_rain_forecast() if use_cache else None
     if cached is not None:
         print("Using today's Taguig forecast from flood_risk.json.")
         return cached

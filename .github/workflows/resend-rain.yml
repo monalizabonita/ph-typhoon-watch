@@ -1,0 +1,52 @@
+name: Resend latest rain update to Google Chat
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  resend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch fresh forecast and send only to Google Chat
+        env:
+          GCHAT_WEBHOOK_URL: ${{ secrets.GCHAT_WEBHOOK_URL }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import sys
+          import urllib.request
+          sys.path.insert(0, "scripts")
+          import send_alerts as alerts
+
+          if not alerts.GCHAT_WEBHOOK_URL:
+              raise SystemExit("Google Chat webhook is not configured")
+          forecast = alerts.fetch_rain_forecast(use_cache=False)
+          timing = alerts.fetch_rain_timing()
+          text = (
+              f"🌧️ Updated rain forecast ({forecast['date']}, Metro Manila): "
+              f"{forecast['probability']}% chance of rain, ~{forecast['mm']}mm expected.\n"
+              + timing
+          )
+          request = urllib.request.Request(
+              alerts.GCHAT_WEBHOOK_URL,
+              data=json.dumps({"text": text}).encode(),
+              headers={"Content-Type": "application/json"},
+              method="POST",
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  result = json.loads(response.read())
+              if not result.get("name"):
+                  raise ValueError("Missing message confirmation")
+          except Exception:
+              raise SystemExit("Google Chat delivery could not be confirmed; inspect before retrying") from None
+          print("Google Chat confirmed delivery:")
+          print(text)
+          PY
