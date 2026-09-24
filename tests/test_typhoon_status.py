@@ -2,6 +2,7 @@ import importlib.util
 import json
 import tempfile
 import unittest
+import urllib.error
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
@@ -118,11 +119,34 @@ class AlertConfirmationTests(unittest.TestCase):
         check_flood_risk.assert_not_called()
         self.assertEqual(saved_state["typhoon_alerted_date"], alerts.manila_today())
 
+    def test_failed_delivery_does_not_mark_typhoon_as_alerted(self):
+        current_status = dict(self.confirmed)
+        current_status["last_checked_utc"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        with tempfile.TemporaryDirectory() as temp_dir:
+            data_path = Path(temp_dir) / "data.json"
+            data_path.write_text(json.dumps(current_status))
+            state = {"typhoon_alerted_date": ""}
+            with patch.object(alerts, "DATA_PATH", data_path), patch.object(
+                alerts, "GCHAT_WEBHOOK_URL", "https://chat.example.invalid/webhook"
+            ), patch.object(alerts, "NTFY_TOPIC", ""), patch.object(
+                alerts.urllib.request, "urlopen", side_effect=urllib.error.URLError("offline")
+            ):
+                with self.assertRaisesRegex(RuntimeError, "Google Chat delivery failed"):
+                    alerts.check_typhoon(state)
+
+        self.assertEqual(state["typhoon_alerted_date"], "")
+
     def test_workflow_runs_typhoon_alert_before_flood_advisory_fetch(self):
         workflow = (ROOT / ".github" / "workflows" / "update.yml").read_text()
         typhoon_step = workflow.index("python3 scripts/send_alerts.py --checks typhoon")
         flood_fetch_step = workflow.index("python3 scripts/update_flood_advisories.py")
         self.assertLess(typhoon_step, flood_fetch_step)
+
+    def test_lightweight_typhoon_workflow_is_staggered_and_serialized(self):
+        workflow = (ROOT / ".github" / "workflows" / "typhoon-alert.yml").read_text()
+        self.assertIn('cron: "3,13,23,33,43,53 * * * *"', workflow)
+        self.assertIn("group: ph-typhoon-weather-updates", workflow)
+        self.assertIn("python3 scripts/send_alerts.py --checks typhoon", workflow)
 
 
 if __name__ == "__main__":

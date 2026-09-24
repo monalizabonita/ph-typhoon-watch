@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: ph-typhoon-weather-updates
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest

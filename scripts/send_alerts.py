@@ -132,9 +132,12 @@ def send_gchat(
     )
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
-            resp.read()
-    except urllib.error.URLError as exc:
-        print(f"Failed to send Google Chat alert: {exc}", file=sys.stderr)
+            response = json.loads(resp.read())
+        if not response.get("name"):
+            raise ValueError("missing message confirmation")
+    except (OSError, urllib.error.URLError, json.JSONDecodeError, ValueError) as exc:
+        raise RuntimeError(f"Google Chat delivery failed: {exc}") from exc
+    print("Google Chat delivery confirmed.")
 
 
 def send_ntfy(text: str, title: str, priority: str, tags: str, image_url: str = "") -> None:
@@ -159,8 +162,9 @@ def send_ntfy(text: str, title: str, priority: str, tags: str, image_url: str = 
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
             resp.read()
-    except urllib.error.URLError as exc:
-        print(f"Failed to send ntfy alert: {exc}", file=sys.stderr)
+    except (OSError, urllib.error.URLError) as exc:
+        raise RuntimeError(f"ntfy delivery failed: {exc}") from exc
+    print("ntfy delivery confirmed.")
 
 
 def notify(
@@ -168,8 +172,17 @@ def notify(
     image_urls: Optional[List[str]] = None,
 ) -> None:
     """Fans a single alert out to every configured channel."""
-    send_gchat(text, title, priority, tags, image_url, image_urls)
-    send_ntfy(text, title, priority, tags, image_url)
+    failures = []
+    try:
+        send_gchat(text, title, priority, tags, image_url, image_urls)
+    except RuntimeError as exc:
+        failures.append(str(exc))
+    try:
+        send_ntfy(text, title, priority, tags, image_url)
+    except RuntimeError as exc:
+        failures.append(str(exc))
+    if failures:
+        raise RuntimeError("; ".join(failures))
 
 
 def load_cached_rain_forecast() -> Optional[dict]:

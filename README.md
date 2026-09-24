@@ -22,7 +22,11 @@ outside PAR and are not classified as active in-PAR cyclones. Exit bulletins are
 as clear:
 
 - **The Status tab** calls `/api/index` (a Vercel Python function) live on every page load — always current, no cron lag.
-- **Activity Trend + alerts** are driven by a GitHub Action (`.github/workflows/update.yml`), scheduled every 15 minutes (GitHub throttles very frequent schedules in practice, so real-world runs land more like every 1–3 hours):
+- **Activity Trend + alerts** are driven by GitHub Actions. The full weather workflow
+  (`.github/workflows/update.yml`) is scheduled every 15 minutes. A separate lightweight
+  typhoon check (`.github/workflows/typhoon-alert.yml`) is staggered every 10 minutes so an
+  urgent bulletin does not depend on the larger weather job's queue. GitHub schedules are
+  best-effort and may still be delayed:
   1. `scripts/update_status.py` re-fetches the same PDF-based status and writes `data.json` + appends/updates today's entry in `history.json`.
   2. `scripts/update_flood_risk.py` builds a nationwide heavy-rain flood-risk snapshot.
   3. `scripts/update_flood_advisories.py` retrieves every active official PAGASA General Flood

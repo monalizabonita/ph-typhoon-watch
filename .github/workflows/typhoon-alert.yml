@@ -1,0 +1,46 @@
+name: Check typhoon alert
+
+on:
+  # Staggered from the larger weather workflow to give urgent bulletin checks a separate queue.
+  schedule:
+    - cron: "3,13,23,33,43,53 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ph-typhoon-weather-updates
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install --quiet -r requirements.txt
+
+      - name: Fetch latest PAGASA status
+        run: python3 scripts/update_status.py
+
+      - name: Send confirmed typhoon alert
+        env:
+          GCHAT_WEBHOOK_URL: ${{ secrets.GCHAT_WEBHOOK_URL }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python3 scripts/send_alerts.py --checks typhoon
+
+      - name: Save typhoon alert state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- alert_state.json; then
+            git add alert_state.json
+            git commit -m "Update typhoon alert state"
+            git push
+          fi
