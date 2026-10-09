@@ -1,10 +1,5 @@
 [
   {
-    "date": "2026-07-11",
-    "active": false,
-    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
-  },
-  {
     "date": "2026-07-12",
     "active": false,
     "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
@@ -446,6 +441,11 @@
   },
   {
     "date": "2026-10-09",
+    "active": false,
+    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
+  },
+  {
+    "date": "2026-10-10",
     "active": false,
     "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
   }
