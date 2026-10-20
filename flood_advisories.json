@@ -1,22 +1,6 @@
 {
-  "checked_at_utc": "2026-10-20T07:33:29Z",
+  "checked_at_utc": "2026-10-20T13:00:27Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
-  "advisories": [
-    {
-      "identifier": "a17fb8c1-addd-41dd-a846-4068d41943a4",
-      "severity": "FINAL",
-      "areas": [
-        "Palawan"
-      ],
-      "all_areas": [
-        "Palawan"
-      ],
-      "message": "Under present weather conditions, Easterlies affecting Extreme Northern Luzon. Trough of Super Typhoon {CHAMPI} affecting the eastern sections of Southern Luzon and Visayas.  \nThe 12-hour rainfall forecast is Isolated light rains or thunderstorms.  \nWATERCOURSES NO LONGER TO BE AFFECTED :  \n\n + **Palawan** - Rivers and its tributaries particularly Abongan, Lian, Barbakan, Rizal, Caramay, Langogan, Babuyan, Bacungan, Iwahig Penal, Inagauan, Aborlan, Malatgao, Apurauan, Baton-Baton, Aramaywan, Ihawig, Panitian, Pulot, Lamakan, Kinlugan, Eraan, Tiga Plan, Malabangan, Ilog, Bansang, Conduaga, Culasian, Iwahig (Brookes), Okayan, Canipaan and Busuanga, Coron.  \n",
-      "instruction": "With this development and unless significant rain occurs, this is the final general flood advisory for this event.",
-      "issued_at": "2026-10-20 05:24:25",
-      "valid_until": "2026-10-20 17:24:25",
-      "published_by": "PAGASA-DOST"
-    }
-  ]
+  "advisories": []
 }

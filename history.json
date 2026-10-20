@@ -446,7 +446,7 @@
   },
   {
     "date": "2026-10-20",
-    "active": false,
-    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
+    "active": true,
+    "message": "ROSAL SLIGHTLY INTENSIFIES WHILE MOVING WEST NORTHWESTWARD OVER THE PHILIPPINE SEA EAST OF CENTRAL LUZON."
   }
 ]
