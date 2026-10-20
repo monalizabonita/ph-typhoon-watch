@@ -1,10 +1,5 @@
 [
   {
-    "date": "2026-07-22",
-    "active": false,
-    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
-  },
-  {
     "date": "2026-07-23",
     "active": true,
     "message": "TROPICAL DEPRESSION KIYAPO CONTINUES TO MOVE WEST NORTHWESTWARD WHILE MAINTAINING ITS STRENGTH."
@@ -448,5 +443,10 @@
     "date": "2026-10-20",
     "active": true,
     "message": "ROSAL SLIGHTLY INTENSIFIES WHILE MOVING WEST NORTHWESTWARD OVER THE PHILIPPINE SEA EAST OF CENTRAL LUZON."
+  },
+  {
+    "date": "2026-10-21",
+    "active": true,
+    "message": "SUPER TYPHOON ROSAL INTENSIFIES FURTHER WHILE MOVING WEST NORTHWESTWARD OVER THE PHILIPPINE SEA EAST OF NORTHERN LUZON."
   }
 ]
