@@ -1,25 +1,23 @@
 {
-  "checked_at_utc": "2026-10-21T19:07:26Z",
+  "checked_at_utc": "2026-10-21T22:21:12Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
     {
-      "identifier": "cea35018-66dd-447b-9df2-19e6dc39e03f",
+      "identifier": "0d5a9d15-dbb8-404e-b577-6d5da9ab1fda",
       "severity": "MODERATE",
       "areas": [
         "Batanes",
-        "Cagayan",
-        "Isabela"
+        "Cagayan"
       ],
       "all_areas": [
         "Batanes",
-        "Cagayan",
-        "Isabela"
+        "Cagayan"
       ],
-      "message": "Under present weather conditions, At 3:00 PM today, the center of the eye of Super Typhoon \"ROSAL\" {CHAMPI} was estimated based on all available data at 750 km East of Aparri, Cagayan (18.8\u00b0N, 128.7\u00b0E) with maximum sustained winds of 205 km/h near the center and gustiness of up to 250 km/h. It is moving West Northwestward at 25km/h.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Cagayan** - Rivers and its tributaries particularly Linao, Lower Abulug, Lower Pamplona, Cabicungan, Aunugay, Baua, Palawig and Taboan.  \n + **Batanes** - All rivers and its tributaries  \n + **Isabela** - Rivers and its tributaries particularly Dikatayan, Divilacan and Palanan-Pinacanauan.  \n",
-      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to take necessary precautionary measures.",
-      "issued_at": "2026-10-21 17:20:05",
-      "valid_until": "2026-10-22 05:20:05",
+      "message": "Under present weather conditions, At 3:00 AM today, the center of the eye of Super Typhoon \"ROSAL\" {CHAMPI} was estimated based on all available data at 565 km East of Calayan, Cagayan or 505 km East of Basco, Batanes (20.0\u00b0N, 126.8\u00b0E) with maximum sustained winds of 195 km/h near the center and gustiness of up to 240 km/h. It is moving Northwestward at 20 km/h.\r\n\r\n.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Cagayan** - Rivers and its tributaries particularly Linao, Lower Abulug, Lower Pamplona, Cabicungan, Aunugay, Baua, Palawig and Taboan.  \n + **Batanes** - All rivers and its tributaries  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
+      "issued_at": "2026-10-22 05:11:20",
+      "valid_until": "2026-10-22 17:11:20",
       "published_by": "PAGASA-DOST"
     }
   ]
