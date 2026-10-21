@@ -1,10 +1,5 @@
 [
   {
-    "date": "2026-07-23",
-    "active": true,
-    "message": "TROPICAL DEPRESSION KIYAPO CONTINUES TO MOVE WEST NORTHWESTWARD WHILE MAINTAINING ITS STRENGTH."
-  },
-  {
     "date": "2026-07-24",
     "active": true,
     "message": "KIYAPO CONTINUES TO INTESIFY AS IT MOVES OVER THE WEST PHILIPPINE SEA."
@@ -446,6 +441,11 @@
   },
   {
     "date": "2026-10-21",
+    "active": true,
+    "message": "ROSAL IS NOW BEGINNING TO MOVE NORTHWESTWARD WHILE OVER THE SEA EAST OF EXTREME NORTHERN LUZON."
+  },
+  {
+    "date": "2026-10-22",
     "active": true,
     "message": "ROSAL IS NOW BEGINNING TO MOVE NORTHWESTWARD WHILE OVER THE SEA EAST OF EXTREME NORTHERN LUZON."
   }
