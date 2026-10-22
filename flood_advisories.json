@@ -1,40 +1,10 @@
 {
-  "checked_at_utc": "2026-10-22T19:45:41Z",
+  "checked_at_utc": "2026-10-22T22:58:39Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
     {
-      "identifier": "052284af-b5f8-409a-9f3d-aef22b241285",
-      "severity": "MODERATE",
-      "areas": [
-        "Apayao"
-      ],
-      "all_areas": [
-        "Apayao"
-      ],
-      "message": "Under present weather conditions, At 3:00 PM today, the center of the eye of Typhoon \"ROSAL\" {CHAMPI} was estimated based on all available data at 360 km East of Itbayat, Batanes (20.9\u00b0N, 125.3\u00b0E) with maximum sustained winds of 165 km/h near the center and gustiness of up to 205 km/h. It is moving Northwestward at 15 km/h.  \nThe 12-hour rainfall forecast is LIGHT TO MODERATE rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Apayao** - Rivers and its tributaries particularly Upper Abulug and Upper Pamplona.  \n",
-      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to take necessary precautionary measures.",
-      "issued_at": "2026-10-22 17:26:44",
-      "valid_until": "2026-10-23 05:26:44",
-      "published_by": "PAGASA-DOST"
-    },
-    {
-      "identifier": "c0e1085c-7ad8-4686-946e-76b132b175cc",
-      "severity": "MODERATE",
-      "areas": [
-        "Ilocos Norte"
-      ],
-      "all_areas": [
-        "Ilocos Norte"
-      ],
-      "message": "Under present weather conditions, At 3:00 PM today, the center of the eye of Typhoon \"ROSAL\" {CHAMPI} was estimated based on all available data at 360 km East of Itbayat, Batanes (20.9\u00b0N, 125.3\u00b0E) with maximum sustained winds of 165 km/h near the center and gustiness of up to 205 km/h. It is moving Northwestward at 15 km/h.  \nThe 12-hour rainfall forecast is LIGHT TO MODERATE rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Ilocos Norte** - Rivers and its tributaries particularly Bulu, Banban, Bacarra-Vintar, Laoag and Quiaoit.  \n",
-      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to take necessary precautionary measures.",
-      "issued_at": "2026-10-22 17:26:07",
-      "valid_until": "2026-10-23 05:26:07",
-      "published_by": "PAGASA-DOST"
-    },
-    {
-      "identifier": "f76a4287-260f-4215-9443-a19ea2494c55",
+      "identifier": "855536fb-a3b5-4721-9015-92cc1dd493dc",
       "severity": "MODERATE",
       "areas": [
         "Batanes",
@@ -44,10 +14,40 @@
         "Batanes",
         "Cagayan"
       ],
-      "message": "Under present weather conditions, At 3:00 PM today, the center of the eye of Typhoon \"ROSAL\" {CHAMPI} was estimated based on all available data at 360 km East of Itbayat, Batanes (20.9\u00b0N, 125.3\u00b0E) with maximum sustained winds of 165 km/h near the center and gustiness of up to 205 km/h. It is moving Northwestward at 15 km/h.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Cagayan** - Rivers and its tributaries particularly Linao, Lower Abulug, Lower Pamplona, Cabicungan, Aunugay, Baua, Palawig and Taboan.  \n + **Batanes** - All rivers and its tributaries  \n",
+      "message": "Under present weather conditions, At 3:00 AM today, the center of the eye of Typhoon \"ROSAL\" {CHAMPI} was estimated based on all available data at 280 km East Northeast of Itbayat, Batanes (22.0\u00b0N, 124.2\u00b0E) with maximum sustained winds of 155 km/h near the center and gustiness of up to 190 km/h. It is moving Northwestward at 15 km/h.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Cagayan** - Rivers and its tributaries particularly Linao, Lower Abulug, Lower Pamplona, Cabicungan, Aunugay, Baua, Palawig and Taboan.  \n + **Batanes** - All rivers and its tributaries  \n",
       "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
-      "issued_at": "2026-10-22 17:26:00",
-      "valid_until": "2026-10-23 05:26:00",
+      "issued_at": "2026-10-23 05:39:38",
+      "valid_until": "2026-10-23 17:39:38",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "4cd25719-0f85-43f8-8aa7-8eb83f23e565",
+      "severity": "FINAL",
+      "areas": [
+        "Ilocos Norte"
+      ],
+      "all_areas": [
+        "Ilocos Norte"
+      ],
+      "message": "Under present weather conditions, At 3:00 AM today, the center of the eye of Typhoon \"ROSAL\" {CHAMPI} was estimated based on all available data at 280 km East Northeast of Itbayat, Batanes (22.0\u00b0N, 124.2\u00b0E) with maximum sustained winds of 155 km/h near the center and gustiness of up to 190 km/h. It is moving Northwestward at 15 km/h.  \nThe 12-hour rainfall forecast is Isolated light rains or thunderstorms.  \nWATERCOURSES NO LONGER TO BE AFFECTED :  \n\n + **Ilocos Norte** - Rivers and its tributaries particularly Bulu, Banban, Bacarra-Vintar, Laoag and Quiaoit.  \n",
+      "instruction": "With this development and unless significant rain occurs, this is the final general flood advisory for this event.",
+      "issued_at": "2026-10-23 05:16:03",
+      "valid_until": "2026-10-23 17:16:03",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "00bbef1f-9d73-438b-9e2a-26172d8688b8",
+      "severity": "FINAL",
+      "areas": [
+        "Apayao"
+      ],
+      "all_areas": [
+        "Apayao"
+      ],
+      "message": "Under present weather conditions, At 3:00 AM today, the center of the eye of Typhoon \"ROSAL\" {CHAMPI} was estimated based on all available data at 280 km East Northeast of Itbayat, Batanes (22.0\u00b0N, 124.2\u00b0E) with maximum sustained winds of 155 km/h near the center and gustiness of up to 190 km/h. It is moving Northwestward at 15 km/h.  \nThe 12-hour rainfall forecast is Isolated light rains or thunderstorms.  \nWATERCOURSES NO LONGER TO BE AFFECTED :  \n\n + **Apayao** - Rivers and its tributaries particularly Upper Abulug and Upper Pamplona.  \n",
+      "instruction": "With this development and unless significant rain occurs, this is the final general flood advisory for this event.",
+      "issued_at": "2026-10-23 05:14:26",
+      "valid_until": "2026-10-23 17:14:26",
       "published_by": "PAGASA-DOST"
     }
   ]
