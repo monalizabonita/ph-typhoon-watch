@@ -1,10 +1,5 @@
 [
   {
-    "date": "2026-07-24",
-    "active": true,
-    "message": "KIYAPO CONTINUES TO INTESIFY AS IT MOVES OVER THE WEST PHILIPPINE SEA."
-  },
-  {
     "date": "2026-07-25",
     "active": true,
     "message": "\u201cKIYAPO\u201d MAINTAINS ITS STRENGTH WHILE MOVING TOWARDS SOUTHERN CHINA."
@@ -446,6 +441,11 @@
   },
   {
     "date": "2026-10-22",
+    "active": true,
+    "message": "ROSAL CONTINUES TO WEAKEN AS IT DECELERATES NORTHWESTWARD OVER THE SEA EAST OF BATANES."
+  },
+  {
+    "date": "2026-10-23",
     "active": true,
     "message": "ROSAL CONTINUES TO WEAKEN AS IT DECELERATES NORTHWESTWARD OVER THE SEA EAST OF BATANES."
   }
