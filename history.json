@@ -1,10 +1,5 @@
 [
   {
-    "date": "2026-07-25",
-    "active": true,
-    "message": "\u201cKIYAPO\u201d MAINTAINS ITS STRENGTH WHILE MOVING TOWARDS SOUTHERN CHINA."
-  },
-  {
     "date": "2026-07-26",
     "active": false,
     "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
@@ -448,5 +443,10 @@
     "date": "2026-10-23",
     "active": true,
     "message": "ROSAL SLIGHTLY INTENSIFIES AS IT CONTINUES TO MOVE NORTH NORTHWESTWARD OVER THE SEA EAST OF TAIWAN."
+  },
+  {
+    "date": "2026-10-24",
+    "active": true,
+    "message": "ROSAL MAINTAINS ITS STRENGTH WHILE OVER THE SEA EAST OF TAIWAN."
   }
 ]
