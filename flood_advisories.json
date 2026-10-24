@@ -1,10 +1,25 @@
 {
-  "checked_at_utc": "2026-10-24T20:17:45Z",
+  "checked_at_utc": "2026-10-24T22:38:43Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
     {
-      "identifier": "f47a2138-bc73-472b-9979-ec115fa62632",
+      "identifier": "f1ef7728-3f16-4522-843f-db5d951a5baa",
+      "severity": "FINAL",
+      "areas": [
+        "Batanes"
+      ],
+      "all_areas": [
+        "Batanes"
+      ],
+      "message": "Under present weather conditions, Intertropical Convergence Zone (ITCZ) affecting Palawan, Visayas and Mindanao.  \nThe 12-hour rainfall forecast is light rains and thunderstorms.  \nWATERCOURSES NO LONGER TO BE AFFECTED :  \n\n + **Batanes** - All rivers and its tributaries  \n",
+      "instruction": "With this development and unless significant rain occurs, this is the final general flood advisory for this event.",
+      "issued_at": "2026-10-25 05:22:00",
+      "valid_until": "2026-10-25 17:22:00",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "d55b0615-6aeb-4c35-b2ba-1b017405a779",
       "severity": "MODERATE",
       "areas": [
         "Cebu"
@@ -15,23 +30,8 @@
       ],
       "message": "Under present weather conditions, Intertropical Convergence Zone (ITCZ) affecting Palawan, Visayas and Mindanao.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Cebu** - Rivers and its tributaries particularly Kotkot, Mananga, Guinabasan, Balamban and Sabangdaku.  \n + **Bohol** - Rivers and its tributaries particularly Inabanga, Ipil, Matulid, Loboc and Abatan.  \n",
       "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
-      "issued_at": "2026-10-24 17:15:51",
-      "valid_until": "2026-10-25 05:15:51",
-      "published_by": "PAGASA-DOST"
-    },
-    {
-      "identifier": "bd6359e0-9d35-4f44-a6bf-4749653df92d",
-      "severity": "MODERATE",
-      "areas": [
-        "Batanes"
-      ],
-      "all_areas": [
-        "Batanes"
-      ],
-      "message": "Under present weather conditions, Intertropical Convergence Zone (ITCZ) affecting Palawan, Visayas and Mindanao.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Batanes** - All rivers and its tributaries  \n",
-      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
-      "issued_at": "2026-10-24 17:13:21",
-      "valid_until": "2026-10-25 05:13:21",
+      "issued_at": "2026-10-25 05:20:03",
+      "valid_until": "2026-10-25 17:20:03",
       "published_by": "PAGASA-DOST"
     }
   ]
