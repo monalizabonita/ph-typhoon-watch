@@ -1,25 +1,10 @@
 {
-  "checked_at_utc": "2026-10-24T06:28:35Z",
+  "checked_at_utc": "2026-10-24T11:28:57Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
     {
-      "identifier": "550ec3d6-d549-463e-a7d2-133da7dad7c6",
-      "severity": "SEVERE",
-      "areas": [
-        "Batanes"
-      ],
-      "all_areas": [
-        "Batanes"
-      ],
-      "message": "Under present weather conditions, At 3:00 AM today, the center of the eye of Typhoon \"ROSAL\" {CHAMPI} was estimated based on all available data at 415 km North of Itbayat, Batanes (24.5\u00b0N, 122.5\u00b0E) with maximum sustained winds of 150 km/h near the center and gustiness of up to 185 km/h. It is moving Southwestward at 10 km/h. Intertropical Convergence Zone (ITCZ) affecting Palawan, Visayas and Mindanao.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Batanes** - All rivers and its tributaries  \n",
-      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to be alert for possible flashfloods and landslides.",
-      "issued_at": "2026-10-24 05:19:37",
-      "valid_until": "2026-10-24 17:19:37",
-      "published_by": "PAGASA-DOST"
-    },
-    {
-      "identifier": "b081e7d0-fee4-4a7d-881b-99bded80edfb",
+      "identifier": "f47a2138-bc73-472b-9979-ec115fa62632",
       "severity": "MODERATE",
       "areas": [
         "Cebu"
@@ -28,10 +13,25 @@
         "Bohol",
         "Cebu"
       ],
-      "message": "Under present weather conditions, At 3:00 AM today, the center of the eye of Typhoon \"ROSAL\" {CHAMPI} was estimated based on all available data at 415 km North of Itbayat, Batanes (24.5\u00b0N, 122.5\u00b0E) with maximum sustained winds of 150 km/h near the center and gustiness of up to 185 km/h. It is moving Southwestward at 10 km/h. Intertropical Convergence Zone (ITCZ) affecting Palawan, Visayas and Mindanao.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Cebu** - Rivers and its tributaries particularly Kotkot, Mananga, Guinabasan, Balamban and Sabangdaku.  \n + **Bohol** - Rivers and its tributaries particularly Inabanga, Ipil, Matulid, Loboc and Abatan.  \n",
+      "message": "Under present weather conditions, Intertropical Convergence Zone (ITCZ) affecting Palawan, Visayas and Mindanao.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Cebu** - Rivers and its tributaries particularly Kotkot, Mananga, Guinabasan, Balamban and Sabangdaku.  \n + **Bohol** - Rivers and its tributaries particularly Inabanga, Ipil, Matulid, Loboc and Abatan.  \n",
       "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
-      "issued_at": "2026-10-24 05:16:09",
-      "valid_until": "2026-10-24 17:16:09",
+      "issued_at": "2026-10-24 17:15:51",
+      "valid_until": "2026-10-25 05:15:51",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "bd6359e0-9d35-4f44-a6bf-4749653df92d",
+      "severity": "MODERATE",
+      "areas": [
+        "Batanes"
+      ],
+      "all_areas": [
+        "Batanes"
+      ],
+      "message": "Under present weather conditions, Intertropical Convergence Zone (ITCZ) affecting Palawan, Visayas and Mindanao.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Batanes** - All rivers and its tributaries  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
+      "issued_at": "2026-10-24 17:13:21",
+      "valid_until": "2026-10-25 05:13:21",
       "published_by": "PAGASA-DOST"
     }
   ]
