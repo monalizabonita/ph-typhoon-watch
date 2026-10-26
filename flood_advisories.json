@@ -1,23 +1,6 @@
 {
-  "checked_at_utc": "2026-10-26T05:25:43Z",
+  "checked_at_utc": "2026-10-26T11:23:43Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
-  "advisories": [
-    {
-      "identifier": "da3e8383-a066-49ed-99ef-8dd3fe93fb55",
-      "severity": "FINAL",
-      "areas": [
-        "Cebu"
-      ],
-      "all_areas": [
-        "Bohol",
-        "Cebu"
-      ],
-      "message": "Under present weather conditions, Intertropical Convergence Zone (ITCZ) is affecting the western section of Mindanao.  \nThe 12-hour rainfall forecast is Isolated rainshowers or thunderstorms.  \nWATERCOURSES NO LONGER TO BE AFFECTED :  \n\n + **Cebu** - Rivers and its tributaries particularly Kotkot, Mananga, Guinabasan, Balamban and Sabangdaku.  \n + **Bohol** - Rivers and its tributaries particularly Inabanga, Ipil, Matulid, Loboc and Abatan.  \n",
-      "instruction": "With this development and unless significant rain occurs, this is the final general flood advisory for this event.",
-      "issued_at": "2026-10-26 05:22:53",
-      "valid_until": "2026-10-26 17:22:53",
-      "published_by": "PAGASA-DOST"
-    }
-  ]
+  "advisories": []
 }
