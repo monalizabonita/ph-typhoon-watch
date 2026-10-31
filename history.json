@@ -1,10 +1,5 @@
 [
   {
-    "date": "2026-08-02",
-    "active": true,
-    "message": "LUIS MAINTAINS ITS STRENGTH AS IT MOVES WEST NORTHWESTWARD OVER THE SEA EAST OF AURORA."
-  },
-  {
     "date": "2026-08-03",
     "active": true,
     "message": "LUIS IS NOW IN THE VICINITY OF MACONACON, ISABELA."
@@ -446,6 +441,11 @@
   },
   {
     "date": "2026-10-31",
+    "active": false,
+    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
+  },
+  {
+    "date": "2026-11-01",
     "active": false,
     "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
   }
