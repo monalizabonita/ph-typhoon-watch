@@ -1,10 +1,5 @@
 [
   {
-    "date": "2026-08-04",
-    "active": false,
-    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
-  },
-  {
     "date": "2026-08-05",
     "active": true,
     "message": "MAYMAY ACCELERATES AS IT MOVES CLOSER TO ILOCOS SUR \u2013 ILOCOS NORTE AREA."
@@ -446,6 +441,11 @@
   },
   {
     "date": "2026-11-02",
+    "active": false,
+    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
+  },
+  {
+    "date": "2026-11-03",
     "active": false,
     "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
   }
