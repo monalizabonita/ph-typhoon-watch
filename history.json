@@ -1,10 +1,5 @@
 [
   {
-    "date": "2026-08-05",
-    "active": true,
-    "message": "MAYMAY ACCELERATES AS IT MOVES CLOSER TO ILOCOS SUR \u2013 ILOCOS NORTE AREA."
-  },
-  {
     "date": "2026-08-06",
     "active": true,
     "message": "\u201cMAYMAY\u201d MAINTAINS ITS STRENGTH AS IT CONTINUES TO MOVE EAST SOUTHEASTWARD OVER THE SEA EAST OF CENTRAL LUZON Location of Center (10:00 PM) The center of Tropical Depression MAYMAY was estimated based on all available data at 290 km East of Casiguran, Aurora (16.6\u00b0N, 124.8\u00b0E)."
@@ -446,6 +441,11 @@
   },
   {
     "date": "2026-11-03",
+    "active": false,
+    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
+  },
+  {
+    "date": "2026-11-04",
     "active": false,
     "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
   }
