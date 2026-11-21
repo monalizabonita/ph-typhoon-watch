@@ -1,10 +1,5 @@
 [
   {
-    "date": "2026-08-23",
-    "active": true,
-    "message": "TYPHOON SAUDEL MAINTAINS ITS STRENGTH AS IT MOVES WEST NORTHWESTWARD OVER THE PHILIPPINE SEA EAST OF EXTREME NORTHERN LUZON."
-  },
-  {
     "date": "2026-08-24",
     "active": true,
     "message": "TYPHOON SAUDEL HAS EXITED THE PHILIPPINE AREA OF RESPONSIBILITY."
@@ -446,6 +441,11 @@
   },
   {
     "date": "2026-11-21",
+    "active": false,
+    "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
+  },
+  {
+    "date": "2026-11-22",
     "active": false,
     "message": "No Active Tropical Cyclone within the Philippine Area of Responsibility"
   }
