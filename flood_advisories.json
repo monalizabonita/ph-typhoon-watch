@@ -1,6 +1,39 @@
 {
-  "checked_at_utc": "2026-11-22T08:31:16Z",
+  "checked_at_utc": "2026-11-22T16:38:50Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
-  "advisories": []
+  "advisories": [
+    {
+      "identifier": "289e9702-a869-4e71-80db-48d145276d15",
+      "severity": "MODERATE",
+      "areas": [
+        "Aurora"
+      ],
+      "all_areas": [
+        "Aurora"
+      ],
+      "message": "Under present weather conditions, Shear Line affecting the eastern sections of Northern and Central Luzon. Northeast Monsoon affecting the rest of Northern Luzon. Intertropical Convergence Zone (ITCZ) affecting Mindanao.\r\n\r\n.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Aurora** - Rivers and its tributaries particularly Casiguran, Aguang and Lower Umiray.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to take necessary precautionary measures.",
+      "issued_at": "2026-11-22 17:46:34",
+      "valid_until": "2026-11-23 05:46:34",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "c523beae-ff19-4cb9-8267-b7661fa0b810",
+      "severity": "MODERATE",
+      "areas": [
+        "Cagayan",
+        "Isabela"
+      ],
+      "all_areas": [
+        "Cagayan",
+        "Isabela"
+      ],
+      "message": "Under present weather conditions, Shear Line affecting the eastern sections of Northern and Central Luzon. Northeast Monsoon affecting the rest of Northern Luzon. Intertropical Convergence Zone (ITCZ) affecting Mindanao.\r\n\r\n.  \nThe 12-hour rainfall forecast is moderate to occasionally heavy rains.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Cagayan** - Rivers and its tributaries particularly Linao, Lower Abulug, Lower Pamplona, Cabicungan, Aunugay, Baua, Palawig and Taboan.  \n + **Isabela** - Rivers and its tributaries particularly Dikatayan, Divilacan and Palanan-Pinacanauan.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to take necessary precautionary measures.",
+      "issued_at": "2026-11-22 17:39:02",
+      "valid_until": "2026-11-23 05:39:02",
+      "published_by": "PAGASA-DOST"
+    }
+  ]
 }
