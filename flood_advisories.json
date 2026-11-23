@@ -1,10 +1,10 @@
 {
-  "checked_at_utc": "2026-11-23T11:20:34Z",
+  "checked_at_utc": "2026-11-23T22:50:08Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
     {
-      "identifier": "d0668f16-0a37-4674-ad0e-d537c225c2e5",
+      "identifier": "146b9b82-d226-41bd-a9c2-7660847a2b9a",
       "severity": "SEVERE",
       "areas": [
         "Aurora"
@@ -12,15 +12,15 @@
       "all_areas": [
         "Aurora"
       ],
-      "message": "Under present weather conditions, Shear Line affecting the eastern sections of Northern and Central Luzon. Northeast Monsoon affecting the rest of Northern Luzon. Intertropical Convergence Zone (ITCZ) affecting Mindanao and the eastern section of Visayas.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Aurora** - Rivers and its tributaries particularly Casiguran, Aguang and Lower Umiray.  \n",
-      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned advised to be alert for possible flashfloods",
-      "issued_at": "2026-11-23 17:33:25",
-      "valid_until": "2026-11-24 05:33:25",
+      "message": "Under present weather conditions, .Shear Line affecting the eastern section of Northern Luzon. Northeast Monsoon affecting Extreme Northern Luzon. Intertropical Convergence Zone (ITCZ) affecting the western section of Mindanao.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Aurora** - Rivers and its tributaries particularly Casiguran, Aguang and Lower Umiray.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to be alert for possible flashfloods.",
+      "issued_at": "2026-11-24 05:49:10",
+      "valid_until": "2026-11-24 17:49:10",
       "published_by": "PAGASA-DOST"
     },
     {
-      "identifier": "91aadfd7-a23b-49b4-8860-bc972d80dca2",
-      "severity": "SEVERE",
+      "identifier": "1561fd03-1260-44f6-8b19-afcbcbef3773",
+      "severity": "MODERATE",
       "areas": [
         "Cagayan",
         "Isabela"
@@ -29,10 +29,10 @@
         "Cagayan",
         "Isabela"
       ],
-      "message": "Under present weather conditions, Shear Line affecting the eastern sections of Northern and Central Luzon. Northeast Monsoon affecting the rest of Northern Luzon. Intertropical Convergence Zone (ITCZ) affecting Mindanao and the eastern section of Visayas.  \nThe 12-hour rainfall forecast is moderate to occasionally heavy rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Cagayan** - Rivers and its tributaries particularly Linao, Lower Abulug, Lower Pamplona, Cabicungan, Aunugay, Baua, Palawig and Taboan.  \n + **Isabela** - Rivers and its tributaries particularly Dikatayan, Divilacan and Palanan-Pinacanauan.  \n",
-      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to be alert for possible flashfloods.",
-      "issued_at": "2026-11-23 17:32:44",
-      "valid_until": "2026-11-24 05:32:44",
+      "message": "Under present weather conditions, Shear Line affecting the eastern section of Northern Luzon. Northeast Monsoon affecting Extreme Northern Luzon. Intertropical Convergence Zone (ITCZ) affecting the western section of Mindanao.  \nThe 12-hour rainfall forecast is light to occasionally moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Cagayan** - Rivers and its tributaries particularly Linao, Lower Abulug, Lower Pamplona, Cabicungan, Aunugay, Baua, Palawig and Taboan.  \n + **Isabela** - Rivers and its tributaries particularly Dikatayan, Divilacan and Palanan-Pinacanauan.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
+      "issued_at": "2026-11-24 05:32:53",
+      "valid_until": "2026-11-24 17:32:53",
       "published_by": "PAGASA-DOST"
     }
   ]
