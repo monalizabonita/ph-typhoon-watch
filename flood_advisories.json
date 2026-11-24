@@ -1,25 +1,10 @@
 {
-  "checked_at_utc": "2026-11-24T06:46:25Z",
+  "checked_at_utc": "2026-11-24T18:39:38Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
   "advisories": [
     {
-      "identifier": "146b9b82-d226-41bd-a9c2-7660847a2b9a",
-      "severity": "SEVERE",
-      "areas": [
-        "Aurora"
-      ],
-      "all_areas": [
-        "Aurora"
-      ],
-      "message": "Under present weather conditions, .Shear Line affecting the eastern section of Northern Luzon. Northeast Monsoon affecting Extreme Northern Luzon. Intertropical Convergence Zone (ITCZ) affecting the western section of Mindanao.  \nThe 12-hour rainfall forecast is light to moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Aurora** - Rivers and its tributaries particularly Casiguran, Aguang and Lower Umiray.  \n",
-      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to be alert for possible flashfloods.",
-      "issued_at": "2026-11-24 05:49:10",
-      "valid_until": "2026-11-24 17:49:10",
-      "published_by": "PAGASA-DOST"
-    },
-    {
-      "identifier": "1561fd03-1260-44f6-8b19-afcbcbef3773",
+      "identifier": "ec736dc7-bfe0-47ef-b990-0d5611e0be94",
       "severity": "MODERATE",
       "areas": [
         "Cagayan",
@@ -29,10 +14,25 @@
         "Cagayan",
         "Isabela"
       ],
-      "message": "Under present weather conditions, Shear Line affecting the eastern section of Northern Luzon. Northeast Monsoon affecting Extreme Northern Luzon. Intertropical Convergence Zone (ITCZ) affecting the western section of Mindanao.  \nThe 12-hour rainfall forecast is light to occasionally moderate rains and thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Cagayan** - Rivers and its tributaries particularly Linao, Lower Abulug, Lower Pamplona, Cabicungan, Aunugay, Baua, Palawig and Taboan.  \n + **Isabela** - Rivers and its tributaries particularly Dikatayan, Divilacan and Palanan-Pinacanauan.  \n",
+      "message": "Under present weather conditions, Shear Line affecting the eastern section of Northern Luzon. Northeast Monsoon affecting Extreme Northern Luzon. Intertropical Convergence Zone (ITCZ) affecting the western section of Mindanao.  \nThe 12-hour rainfall forecast is light to moderate rains or thunderstorms.  \nWATERCOURSES LIKELY TO BE AFFECTED :  \n\n + **Cagayan** - Rivers and its tributaries particularly Linao, Lower Abulug, Lower Pamplona, Cabicungan, Aunugay, Baua, Palawig and Taboan.  \n + **Isabela** - Rivers and its tributaries particularly Dikatayan, Divilacan and Palanan-Pinacanauan.  \n",
       "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
-      "issued_at": "2026-11-24 05:32:53",
-      "valid_until": "2026-11-24 17:32:53",
+      "issued_at": "2026-11-24 17:05:23",
+      "valid_until": "2026-11-25 05:05:23",
+      "published_by": "PAGASA-DOST"
+    },
+    {
+      "identifier": "71b6dfe6-3f7d-4996-9219-349a0940d842",
+      "severity": "MODERATE",
+      "areas": [
+        "Aurora"
+      ],
+      "all_areas": [
+        "Aurora"
+      ],
+      "message": "Under present weather conditions, Shear Line affecting the eastern section of Northern Luzon. Northeast Monsoon affecting Extreme Northern Luzon. Intertropical Convergence Zone (ITCZ) affecting the western section of Mindanao.  \nThe 12-hour rainfall forecast is light to occasionally moderate rains or thunderstorms.  \nWATERCOURSES STILL LIKELY TO BE AFFECTED :  \n\n + **Aurora** - Rivers and its tributaries particularly Casiguran, Aguang and Lower Umiray.  \n",
+      "instruction": "People living near the mountain slopes and in the low lying areas of the above mentioned river systems and the **Local Disaster Risk Reduction and Management Councils** concerned still advised to take necessary precautionary measures.",
+      "issued_at": "2026-11-24 17:02:07",
+      "valid_until": "2026-11-25 05:02:07",
       "published_by": "PAGASA-DOST"
     }
   ]
