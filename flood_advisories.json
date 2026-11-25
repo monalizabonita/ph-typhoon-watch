@@ -1,39 +1,6 @@
 {
-  "checked_at_utc": "2026-11-25T02:47:57Z",
+  "checked_at_utc": "2026-11-25T12:10:15Z",
   "source_url": "https://panahon.gov.ph/?trg=iframe&req=public-alerts.gfa",
   "coverage": "All active PAGASA General Flood Advisories intersecting Luzon or Cebu",
-  "advisories": [
-    {
-      "identifier": "0ed1f7a8-271d-4813-8b46-36b5d1ba0459",
-      "severity": "FINAL",
-      "areas": [
-        "Cagayan",
-        "Isabela"
-      ],
-      "all_areas": [
-        "Cagayan",
-        "Isabela"
-      ],
-      "message": "Under present weather conditions, Shear Line affecting the eastern section of Northern Luzon. Northeast Monsoon affecting Extreme Northern Luzon. Intertropical Convergence Zone (ITCZ) affecting Palawan.  \nThe 12-hour rainfall forecast is Isolated light rains or thunderstorms.  \nWATERCOURSES NO LONGER TO BE AFFECTED :  \n\n + **Cagayan** - Rivers and its tributaries particularly Linao, Lower Abulug, Lower Pamplona, Cabicungan, Aunugay, Baua, Palawig and Taboan.  \n + **Isabela** - Rivers and its tributaries particularly Dikatayan, Divilacan and Palanan-Pinacanauan.  \n",
-      "instruction": "With this development and unless significant rain occurs, this is the final general flood advisory for this event.",
-      "issued_at": "2026-11-25 05:17:28",
-      "valid_until": "2026-11-25 17:17:28",
-      "published_by": "PAGASA-DOST"
-    },
-    {
-      "identifier": "7fb36fb8-8b98-45c0-accf-9ab82015f76a",
-      "severity": "FINAL",
-      "areas": [
-        "Aurora"
-      ],
-      "all_areas": [
-        "Aurora"
-      ],
-      "message": "Under present weather conditions, Shear Line affecting the eastern section of Northern Luzon. Northeast Monsoon affecting Extreme Northern Luzon. Intertropical Convergence Zone (ITCZ) affecting Palawan.  \nThe 12-hour rainfall forecast is Isolated rainshowers or thunderstorms.  \nWATERCOURSES NO LONGER TO BE AFFECTED :  \n\n + **Aurora** - Rivers and its tributaries particularly Casiguran, Aguang and Lower Umiray.  \n",
-      "instruction": "With this development and unless significant rain occurs, this is the final general flood advisory for this event.",
-      "issued_at": "2026-11-25 05:11:29",
-      "valid_until": "2026-11-25 17:11:29",
-      "published_by": "PAGASA-DOST"
-    }
-  ]
+  "advisories": []
 }
